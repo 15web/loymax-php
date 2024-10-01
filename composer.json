@@ -2,7 +2,6 @@
     "name": "15web/loymax-sdk",
     "description": "PHP SDK for Loymax HTTP API (https://loymax.ru/)",
     "type": "library",
-    "version": "1.0.0",
     "keywords": ["loymax", "sdk", "php"],
     "homepage": "https://github.com/15web/loymax-sdk",
     "authors": [
