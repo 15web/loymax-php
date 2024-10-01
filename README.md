@@ -269,7 +269,7 @@ composer coverage
 ## Поддержка и обратная связь
 
 Если вы нашли ошибку, пожалуйста, отправьте вопрос напрямую в
-Github. [Loymax SDK Issues](https://github.com/15web/loymax-sdk/issues)
+Github. [Loymax SDK Issues](https://github.com/15web/loymax-php/issues)
 
 Как всегда, если Вам нужна дополнительная помощь, свяжитесь с нами https://www.15web.ru/contacts
 
