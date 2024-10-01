@@ -16,8 +16,6 @@ use Throwable;
  * Завершает процесс регистрации клиента
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/registration/#H41743043243544044843043544243F44043E44643544144144043543343844144244043044643843843A43B43843543D442430
- *
- * @internal
  */
 final readonly class TryFinishRegistration
 {

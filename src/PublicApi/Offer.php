@@ -21,8 +21,6 @@ use Studio15\Loymax\PublicApi\Offer\Response\Offer as OfferData;
  * Offer. Методы для работы с таргетированным контентом
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Offer/
- *
- * @internal
  */
 final readonly class Offer
 {

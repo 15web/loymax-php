@@ -14,8 +14,6 @@ use Studio15\Loymax\Authorization\Response\AccessTokenData;
  * Перевыпуск токена доступа по токену обновления
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/Authorization_Service/Authorization_examples/Access_and_refresh_tokens/
- *
- * @internal
  */
 final readonly class RefreshAccessToken
 {

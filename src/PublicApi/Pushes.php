@@ -13,8 +13,6 @@ use Studio15\Loymax\PublicApi\Pushes\Request\RegisterRequest;
  * Pushes. Методы для работы с push-уведомлениями
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Pushes/
- *
- * @internal
  */
 final readonly class Pushes
 {

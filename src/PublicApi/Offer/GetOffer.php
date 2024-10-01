@@ -17,8 +17,6 @@ use Throwable;
  * Возвращает информацию о таргетированном контенте
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Offer/#H41243E43743244043044943043544243843D44443E44043C43044643844E43E44243044043343544243844043E43243043D43D43E43C43A43E43D44243543D442435
- *
- * @internal
  */
 final readonly class GetOffer
 {

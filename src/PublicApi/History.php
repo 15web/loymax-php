@@ -19,8 +19,6 @@ use Studio15\Loymax\PublicApi\History\Response\OperationHistory;
  * History. Методы для работы с историческими данными
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/History/
- *
- * @internal
  */
 final readonly class History
 {

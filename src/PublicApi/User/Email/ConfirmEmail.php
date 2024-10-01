@@ -13,8 +13,6 @@ use Studio15\Loymax\PublicApi\User\Email\Request\ConfirmEmailRequest;
  * Завершает процесс изменения email
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Email/#H41743043243544044843043544243F44043E44643544144143843743C43543D43543D43844Femail
- *
- * @internal
  */
 final readonly class ConfirmEmail
 {

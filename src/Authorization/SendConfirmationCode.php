@@ -13,8 +13,6 @@ use Studio15\Loymax\Authorization\Request\SendConfirmationCodeRequest;
  * Повторная отправка кода подтверждения
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/Authorization_Service/Token_authorization/#H41F43E43244243E44043D44B43943743043F44043E44143A43E43443043F43E43444243243544043643443543D43844F
- *
- * @internal
  */
 final readonly class SendConfirmationCode
 {

@@ -18,8 +18,6 @@ use Throwable;
  * Возвращает информацию о торговых точках (фильтр по внешним идентификаторам торговых точек)
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Merchants/#H41243E43743244043044943043544243843D44443E44043C43044643844E43E44243E44043343E43244B44544243E44743A4304452844443843B44C44244043F43E43243D43544843D43843C43843443543D44243844443843A43044243E44043043C44243E44043343E43244B44544243E44743543A29
- *
- * @internal
  */
 final readonly class GetByUids
 {

@@ -12,8 +12,6 @@ use Studio15\Loymax\ApiClient\Data\Method;
  * Оформляет отказ от всех типов подписок
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/Subscriptions/#H41E44443E44043C43B44F43544243E44243A43043743E44243244143544544243843F43E43243F43E43443F43844143E43A
- *
- * @internal
  */
 final readonly class RejectSubscriptions
 {

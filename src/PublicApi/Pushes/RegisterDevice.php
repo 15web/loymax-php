@@ -13,8 +13,6 @@ use Studio15\Loymax\PublicApi\Pushes\Request\RegisterRequest;
  * Отправляет push-токен для регистрации мобильного устройства
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Pushes/#H41E44243F44043043243B44F435442push-44243E43A43543D43443B44F440435433438441442440430446438438A043C43E43143843B44C43D43E43343E44344144244043E439441442432430
- *
- * @internal
  */
 final readonly class RegisterDevice
 {

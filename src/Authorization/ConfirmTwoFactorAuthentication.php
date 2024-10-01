@@ -15,8 +15,6 @@ use Studio15\Loymax\Authorization\Response\AccessTokenData;
  * Получение токена доступа по коду подтверждения
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/Authorization_Service/Token_authorization/
- *
- * @internal
  */
 final readonly class ConfirmTwoFactorAuthentication
 {

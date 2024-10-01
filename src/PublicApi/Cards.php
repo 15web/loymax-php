@@ -13,8 +13,6 @@ use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
  * Cards. Методы для работы с картами
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Cards/
- *
- * @internal
  */
 final readonly class Cards
 {

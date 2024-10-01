@@ -17,8 +17,6 @@ use Throwable;
  * Запускает процесс изменения email. Указание нового email
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Email/#H41743043F44344143A43043544243F44043E44643544144143843743C43543D43543D43844FA0email.42343A43043743043D43843543D43E43243E43343Eemail
- *
- * @internal
  */
 final readonly class ChangeEmail
 {

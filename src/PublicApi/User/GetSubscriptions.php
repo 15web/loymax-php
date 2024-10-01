@@ -18,8 +18,6 @@ use Throwable;
  * Возвращает список подписок клиента
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/Subscriptions/#H41243E43743244043044943043544244143F43844143E43A43F43E43443F43844143E43A43A43B43843543D442430
- *
- * @internal
  */
 final readonly class GetSubscriptions
 {

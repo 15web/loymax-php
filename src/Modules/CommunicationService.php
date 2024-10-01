@@ -13,8 +13,6 @@ use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
  * CommunicationService. Персональные предложения с использованием механик Machine Learning
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Installation_and_configuration/Extra_modules/CommunicationService_ML/
- *
- * @internal
  */
 final readonly class CommunicationService
 {

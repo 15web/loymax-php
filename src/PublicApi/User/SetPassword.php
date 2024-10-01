@@ -17,8 +17,6 @@ use Throwable;
  * Устанавливает пароль клиенту
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Password/#H42344144243043D43043243B43843243043544243F43044043E43B44C43A43B43843543D442443
- *
- * @internal
  */
 final readonly class SetPassword
 {

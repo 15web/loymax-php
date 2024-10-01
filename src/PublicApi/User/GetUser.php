@@ -18,8 +18,6 @@ use Webmozart\Assert\Assert;
  * Возвращает информацию о клиенте
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/#01
- *
- * @internal
  */
 final readonly class GetUser
 {

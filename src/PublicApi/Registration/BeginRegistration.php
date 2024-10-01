@@ -20,8 +20,6 @@ use Throwable;
  * Запускает регистрацию клиента
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/registration/#H41743043F44344143A43043544244043543343844144244043044643844EA043A43B43843543D442430
- *
- * @internal
  */
 final readonly class BeginRegistration
 {

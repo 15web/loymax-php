@@ -54,8 +54,6 @@ use Studio15\Loymax\PublicApi\User\ValueObject\Phone;
  * User. Методы для работы с клиентами
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/
- *
- * @internal
  */
 final readonly class User
 {

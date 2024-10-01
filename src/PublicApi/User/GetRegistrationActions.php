@@ -16,8 +16,6 @@ use Throwable;
  * Получение списка необходимых шагов регистрации
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/#03
- *
- * @internal
  */
 final readonly class GetRegistrationActions
 {

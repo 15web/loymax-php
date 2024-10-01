@@ -17,8 +17,6 @@ use Throwable;
  * Возвращает список оповещений
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Notification/#H41243E43743244043044943043544244143F43844143E43AA043E43F43E43243544943543D438439
- *
- * @internal
  */
 final readonly class GetNotification
 {

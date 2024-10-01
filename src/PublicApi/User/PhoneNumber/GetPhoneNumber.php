@@ -16,8 +16,6 @@ use Throwable;
  * Возвращает информацию о номере телефона клиента
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/PhoneNumber/?srid=tnpSfw8N#H41243E43743244043044943043544243843D44443E44043C43044643844E43E43D43E43C43544043544243543B43544443E43D43043A43B43843543D442430
- *
- * @internal
  */
 final readonly class GetPhoneNumber
 {

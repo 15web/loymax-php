@@ -13,8 +13,6 @@ use Studio15\Loymax\PublicApi\User\Response\UpdatedSubscription;
  * Обновляет информацию о подписках клиента
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/Subscriptions/#H41E43143D43E43243B44F435442A043843D44443E44043C43044643844E43E43F43E43443F43844143A43044543A43B43843543D442430
- *
- * @internal
  */
 final readonly class UpdateSubscriptions
 {

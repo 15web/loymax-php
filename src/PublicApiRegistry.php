@@ -18,8 +18,6 @@ use Studio15\Loymax\PublicApi\User;
  * Методы публичного API
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/
- *
- * @internal
  */
 final readonly class PublicApiRegistry
 {

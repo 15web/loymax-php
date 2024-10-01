@@ -14,8 +14,6 @@ use Throwable;
 
 /**
  * Cards. Методы для работы с картами
- *
- * @internal
  */
 final readonly class GetCards
 {

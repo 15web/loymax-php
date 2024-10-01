@@ -12,7 +12,7 @@ use Studio15\Loymax\PublicApi\Notification\Response\ReadNotificationCount;
 /**
  * Отмечает все оповещения прочитанными
  *
- * @internal
+ * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Notification/#H41E44243C43544743043544243244143543E43F43E43243544943543D43844F43F44043E44743844243043D43D44B43C438
  */
 final readonly class ReadNotification
 {

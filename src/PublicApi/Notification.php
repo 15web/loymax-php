@@ -20,8 +20,6 @@ use Studio15\Loymax\PublicApi\Notification\Response\UnreadNotificationCount;
  * Notification. Методы для работы с уведомлениями
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Notification/
- *
- * @internal
  */
 final readonly class Notification
 {

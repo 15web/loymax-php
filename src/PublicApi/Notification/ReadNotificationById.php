@@ -17,8 +17,6 @@ use Throwable;
  * Отмечает оповещение как прочитанное
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Notification/#H41E44243C43544743043544243E43F43E43243544943543D43843543A43043A43F44043E44743844243043D43D43E435
- *
- * @internal
  */
 final readonly class ReadNotificationById
 {

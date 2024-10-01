@@ -17,8 +17,6 @@ use Studio15\Loymax\PublicApi\Merchants\Response\Merchant;
  * Merchants. Методы для работы с торговыми точками
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Merchants/
- *
- * @internal
  */
 final readonly class Merchants
 {

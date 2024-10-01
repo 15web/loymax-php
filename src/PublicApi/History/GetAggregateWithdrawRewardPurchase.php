@@ -17,8 +17,6 @@ use Throwable;
  * Возвращает сумму покупок, сумму начисленных и списанных бонусов в рамках покупок
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/History/#H41243E43743244043044943043544244144343C43C44343F43E43A44343F43E43A2C44144343C43C44343D43044743844143B43543D43D44B44543844143F43844143043D43D44B44543143E43D44344143E43243244043043C43A43044543F43E43A44343F43E43A
- *
- * @internal
  */
 final readonly class GetAggregateWithdrawRewardPurchase
 {

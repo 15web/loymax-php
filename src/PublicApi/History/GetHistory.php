@@ -18,8 +18,6 @@ use Throwable;
  * Возвращает историю операций клиента
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/History/#H41243E43743244043044943043544243844144243E44043844E43E43F43544043044643843943A43B43843543D442430
- *
- * @internal
  */
 final readonly class GetHistory
 {

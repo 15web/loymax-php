@@ -17,8 +17,6 @@ use Throwable;
  * Завершает процесс привязки номера телефона
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/PhoneNumber/#H41743043243544044843043544243F44043E44643544144143F44043843244F43743A43843D43E43C435440430A044243543B43544443E43D430
- *
- * @internal
  */
 final readonly class ConfirmPhoneNumber
 {

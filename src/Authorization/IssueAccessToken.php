@@ -18,8 +18,6 @@ use Studio15\Loymax\Authorization\Response\TwoFactorAuthenticationCodeRequired;
  * либо получение кода подтверждения при включенной двухфакторной авторизации
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/Authorization_Service/Token_authorization/
- *
- * @internal
  */
 final readonly class IssueAccessToken
 {
