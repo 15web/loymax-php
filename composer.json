@@ -49,7 +49,7 @@
         "rector": "vendor/bin/rector process --config=rector.config.php --dry-run --ansi",
         "phpstan": "vendor/bin/phpstan analyse -c phpstan-config.neon --ansi",
         "psalm": "vendor/bin/psalm --config=psalm.xml",
-        "phpunit": "vendor/bin/phpunit --configuration=phpunit.xml tests",
+        "phpunit": "vendor/bin/phpunit --configuration=phpunit.xml",
         "test": ["@phpcsfixer", "@rector", "@phpstan", "@psalm", "@phpunit"],
         "coverage": "php -d pcov.enabled=1 -d pcov.directory=src  vendor/bin/phpunit  --configuration=phpunit.xml  --coverage-text  --coverage-filter=src"
     }
