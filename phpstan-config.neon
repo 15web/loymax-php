@@ -1,0 +1,14 @@
+parameters:
+    level: 9
+    fileExtensions:
+        - php
+    paths:
+        - src
+        - tests
+    tmpDir: cache/phpstan
+    parallel:
+        maximumNumberOfProcesses: 4
+    checkUninitializedProperties: true
+includes:
+    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+    - vendor/phpstan/phpstan-strict-rules/rules.neon

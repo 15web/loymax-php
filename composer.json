@@ -1,0 +1,57 @@
+{
+    "name": "15web/loymax-sdk",
+    "description": "PHP SDK for Loymax HTTP API (https://loymax.ru/)",
+    "type": "library",
+    "version": "1.0.0",
+    "keywords": ["loymax", "sdk", "php"],
+    "homepage": "https://github.com/15web/loymax-sdk",
+    "authors": [
+        {
+            "name": "15web",
+            "email": "info@15web.ru",
+            "homepage": "https://www.15web.ru"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "guzzlehttp/guzzle": "^7.0",
+        "phpdocumentor/reflection-docblock": "^5.4",
+        "psr/http-client": "^1.0",
+        "psr/log": "^3.0",
+        "symfony/property-access": "^6.4|^7.0",
+        "symfony/property-info": "^6.4|^7.0",
+        "symfony/serializer": "^6.4|^7.0",
+        "symfony/uid": "^6.4|^7.0",
+        "webmozart/assert": "^1.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.61",
+        "phpstan/phpstan": "^1.11",
+        "phpstan/phpstan-strict-rules": "^1.6",
+        "phpunit/phpunit": "^10.5",
+        "rector/rector": "^1.2",
+        "vimeo/psalm": "^5.25"
+    },
+    "autoload": {
+        "psr-4": {
+            "Studio15\\Loymax\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Studio15\\Loymax\\Test\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "scripts": {
+        "phpcsfixer": "vendor/bin/php-cs-fixer --config=php-cs-fixer.php fix --dry-run --diff --ansi -v",
+        "rector": "vendor/bin/rector process --config=rector.config.php --dry-run --ansi",
+        "phpstan": "vendor/bin/phpstan analyse -c phpstan-config.neon --ansi",
+        "psalm": "vendor/bin/psalm --config=psalm.xml",
+        "phpunit": "vendor/bin/phpunit --configuration=phpunit.xml tests",
+        "test": ["@phpcsfixer", "@rector", "@phpstan", "@psalm", "@phpunit"],
+        "coverage": "php -d pcov.enabled=1 -d pcov.directory=src  vendor/bin/phpunit  --configuration=phpunit.xml  --coverage-text  --coverage-filter=src"
+    }
+}

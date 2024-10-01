@@ -1,0 +1,38 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Studio15\Loymax\PublicApi\User\Email;
+
+use Studio15\Loymax\ApiClient\ApiClient;
+use Studio15\Loymax\ApiClient\CreateRequest;
+use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\PublicApi\User\Email\Request\ConfirmEmailRequest;
+
+/**
+ * Завершает процесс изменения email
+ *
+ * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Email/#H41743043243544044843043544243F44043E44643544144143843743C43543D43543D43844Femail
+ *
+ * @internal
+ */
+final readonly class ConfirmEmail
+{
+    public function __construct(
+        private ApiClient $apiClient,
+    ) {}
+
+    public function __invoke(ConfirmEmailRequest $request): void
+    {
+        $apiRequest = (new CreateRequest())(
+            method: Method::POST,
+            uri: '/publicapi/v1.2/User/Email/Confirm',
+            body: [
+                'confirmCode' => $request->confirmCode,
+                'password' => $request->password,
+            ],
+        );
+
+        $this->apiClient->sendRequest($apiRequest);
+    }
+}
