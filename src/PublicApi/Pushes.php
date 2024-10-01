@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi;
 
 use Studio15\Loymax\ApiClient\ApiClient;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Pushes\RegisterDevice;
 use Studio15\Loymax\PublicApi\Pushes\Request\PlatformType;
 use Studio15\Loymax\PublicApi\Pushes\Request\RegisterRequest;
@@ -30,6 +31,8 @@ final readonly class Pushes
      * @param non-empty-string $userAgent Идентификационная строка клиентского приложения
      * @param non-empty-string $deviceId Уникальный идентификатор устройства
      * @param non-empty-string $platformVersion Версия операционной системы устройства
+     *
+     * @throws ApiClientException
      */
     public function registerDevice(
         string $token,

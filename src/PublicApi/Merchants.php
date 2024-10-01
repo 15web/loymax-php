@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi;
 
 use Studio15\Loymax\ApiClient\ApiClient;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Data\Pagination;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\Merchants\GetByIds;
 use Studio15\Loymax\PublicApi\Merchants\GetByUids;
 use Studio15\Loymax\PublicApi\Merchants\Request\GetByIdsRequest;
@@ -35,7 +35,7 @@ final readonly class Merchants
      *
      * @return list<Merchant>
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getByUids(array $merchantsUids = [], int $from = 0, int $count = 10): array
     {
@@ -69,7 +69,7 @@ final readonly class Merchants
      *
      * @return list<Merchant>
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getByIds(array $merchantsIds = [], int $from = 0, int $count = 10): array
     {

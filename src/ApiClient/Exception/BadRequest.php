@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Studio15\Loymax\ApiClient\Exception;
 
-use JsonException;
 use Psr\Http\Message\ResponseInterface;
 use Studio15\Loymax\ApiClient\Data\HttpStatusCode;
 use Throwable;
@@ -23,9 +22,6 @@ final class BadRequest extends ApiClientException
 
     public string $traceId;
 
-    /**
-     * @throws JsonException
-     */
     public function __construct(public ResponseInterface $apiResponse, ?Throwable $previous = null)
     {
         /** @var array{error: non-empty-string, error_description?: non-empty-string|null} $data */

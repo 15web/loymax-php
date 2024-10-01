@@ -7,6 +7,7 @@ namespace Studio15\Loymax\PublicApi\User\Email;
 use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\User\Email\Request\ConfirmEmailRequest;
 
 /**
@@ -20,6 +21,9 @@ final readonly class ConfirmEmail
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws ApiClientException
+     */
     public function __invoke(ConfirmEmailRequest $request): void
     {
         $apiRequest = (new CreateRequest())(

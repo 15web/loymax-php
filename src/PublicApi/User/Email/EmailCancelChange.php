@@ -7,6 +7,7 @@ namespace Studio15\Loymax\PublicApi\User\Email;
 use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 
 /**
  * Отменяет процесс изменения email
@@ -19,6 +20,9 @@ final readonly class EmailCancelChange
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws ApiClientException
+     */
     public function __invoke(): void
     {
         $request = (new CreateRequest())(

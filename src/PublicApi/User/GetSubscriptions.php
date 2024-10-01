@@ -8,6 +8,7 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\User\Request\GetSubscriptionRequest;
 use Studio15\Loymax\PublicApi\User\Response\Subscription;
@@ -28,7 +29,7 @@ final readonly class GetSubscriptions
     /**
      * @return list<Subscription>
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function __invoke(GetSubscriptionRequest $request): array
     {

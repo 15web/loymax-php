@@ -7,6 +7,7 @@ namespace Studio15\Loymax\PublicApi\User;
 use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 
 /**
  * Оформляет принятие оферты
@@ -19,6 +20,9 @@ final readonly class AcceptTenderOffer
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws ApiClientException
+     */
     public function __invoke(): void
     {
         $request = (new CreateRequest())(

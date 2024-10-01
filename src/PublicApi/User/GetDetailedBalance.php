@@ -8,6 +8,7 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\User\Response\DetailedBalance;
 use Throwable;
@@ -25,6 +26,8 @@ final readonly class GetDetailedBalance
 
     /**
      * @return list<DetailedBalance>
+     *
+     * @throws ApiClientException
      */
     public function __invoke(): array
     {

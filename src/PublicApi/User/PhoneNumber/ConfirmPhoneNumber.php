@@ -8,6 +8,7 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\Authorization\Response\AccessTokenData;
 use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\User\PhoneNumber\Request\ConfirmPhoneRequest;
@@ -24,6 +25,9 @@ final readonly class ConfirmPhoneNumber
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws ApiClientException
+     */
     public function __invoke(ConfirmPhoneRequest $request): AccessTokenData
     {
         $apiRequest = (new CreateRequest())(

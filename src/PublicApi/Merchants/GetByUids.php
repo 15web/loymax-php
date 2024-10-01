@@ -8,6 +8,7 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Data\Pagination;
 use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\Merchants\Request\GetByUidsRequest;
@@ -27,6 +28,8 @@ final readonly class GetByUids
 
     /**
      * @return list<Merchant>
+     *
+     * @throws ApiClientException
      */
     public function __invoke(GetByUidsRequest $request, Pagination $pagination): array
     {

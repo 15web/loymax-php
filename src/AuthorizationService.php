@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax;
 
 use Studio15\Loymax\ApiClient\ApiClient;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\Authorization\ConfirmTwoFactorAuthentication;
 use Studio15\Loymax\Authorization\IssueAccessToken;
 use Studio15\Loymax\Authorization\RefreshAccessToken;
@@ -38,6 +39,8 @@ final readonly class AuthorizationService
      * @param non-empty-string|null $clientIp IP адрес клиента
      *
      * @return ($password is null ? TwoFactorAuthenticationCodeRequired : AccessTokenData)
+     *
+     * @throws ApiClientException
      */
     public function issueAccessToken(
         string $username,
@@ -66,6 +69,8 @@ final readonly class AuthorizationService
      *
      * @param non-empty-string $twoFactorAuthToken Разовый токен, полученный при запросе токена доступа
      * @param non-empty-string|null $clientIp IP адрес клиента
+     *
+     * @throws ApiClientException
      */
     public function sendConfirmationCode(string $twoFactorAuthToken, ?string $clientIp = null): void
     {
@@ -90,6 +95,8 @@ final readonly class AuthorizationService
      *
      * @param non-empty-string $twoFactorAuthToken Разовый токен, полученный при запросе токена доступа
      * @param numeric-string $code Код подтверждения
+     *
+     * @throws ApiClientException
      */
     public function confirmTwoFactorAuthentication(string $twoFactorAuthToken, string $code): AccessTokenData
     {
@@ -114,6 +121,8 @@ final readonly class AuthorizationService
      *
      * @param non-empty-string $accessToken Токен доступа, который необходимо обновить
      * @param non-empty-string $refreshToken Токен обновления, полученный при авторизации
+     *
+     * @throws ApiClientException
      */
     public function refreshAccessToken(string $accessToken, string $refreshToken): AccessTokenData
     {

@@ -8,6 +8,7 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\Offer\Request\GetOfferByIdRequest;
 use Studio15\Loymax\PublicApi\Offer\Response\Offer;
@@ -24,6 +25,9 @@ final readonly class GetOfferById
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws ApiClientException
+     */
     public function __invoke(GetOfferByIdRequest $request): Offer
     {
         $apiRequest = (new CreateRequest())(

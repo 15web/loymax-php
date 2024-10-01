@@ -8,6 +8,7 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\Merchants\Response\Merchant;
 use Studio15\Loymax\PublicApi\Offer\Request\GetMerchantsByOfferIdRequest;
@@ -26,6 +27,8 @@ final readonly class GetMerchantsByOfferId
 
     /**
      * @return list<Merchant>
+     *
+     * @throws ApiClientException
      */
     public function __invoke(GetMerchantsByOfferIdRequest $request): array
     {

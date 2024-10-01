@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi;
 
 use Studio15\Loymax\ApiClient\ApiClient;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Cards\GetCards;
 use Studio15\Loymax\PublicApi\Cards\Response\Card;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 
 /**
  * Cards. Методы для работы с картами
@@ -27,7 +27,7 @@ final readonly class Cards
      *
      * @return list<Card>
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getCards(): array
     {

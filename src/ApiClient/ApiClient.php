@@ -10,6 +10,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Studio15\Loymax\ApiClient\Data\HttpStatusCode;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\ApiClient\Exception\BadRequest;
 use Studio15\Loymax\ApiClient\Exception\DeserializeResponseError;
 use Studio15\Loymax\ApiClient\Exception\Forbidden;
@@ -47,13 +48,7 @@ final readonly class ApiClient
      *
      * @return T
      *
-     * @throws BadRequest
-     * @throws Forbidden
-     * @throws MethodNotAllowed
-     * @throws Unauthorized
-     * @throws UnknownErrorException
-     * @throws InvalidResponse
-     * @throws DeserializeResponseError
+     * @throws ApiClientException
      */
     public function sendRequest(RequestInterface $request, string $dataClass = Response::class): object
     {
@@ -117,7 +112,7 @@ final readonly class ApiClient
         return $deserializedResponse;
     }
 
-    private function resolveException(ResponseInterface $response): Throwable
+    private function resolveException(ResponseInterface $response): ApiClientException
     {
         $statusCode = HttpStatusCode::tryFrom($response->getStatusCode());
 

@@ -8,6 +8,7 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\ContentType;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\Authorization\Request\TwoFactorAuthenticationRequest;
 use Studio15\Loymax\Authorization\Response\AccessTokenData;
 
@@ -22,6 +23,9 @@ final readonly class ConfirmTwoFactorAuthentication
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws ApiClientException
+     */
     public function __invoke(TwoFactorAuthenticationRequest $request): AccessTokenData
     {
         $apiClientRequest = (new CreateRequest())(

@@ -7,6 +7,7 @@ namespace Studio15\Loymax\PublicApi\Pushes;
 use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Pushes\Request\RegisterRequest;
 
 /**
@@ -20,6 +21,9 @@ final readonly class RegisterDevice
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws ApiClientException
+     */
     public function __invoke(RegisterRequest $request): void
     {
         $apiRequest = (new CreateRequest())(

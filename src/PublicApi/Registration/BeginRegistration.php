@@ -8,6 +8,7 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
 use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\Registration\Exception\RegistrationAlreadyCompleted;
@@ -31,6 +32,12 @@ final readonly class BeginRegistration
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws RegistrationAlreadyCompleted
+     * @throws RegistrationBlocked
+     * @throws ApiClientException
+     * @throws InvalidResponse
+     */
     public function __invoke(BeginRegistrationRequest $request): BeginRegistrationResponse
     {
         $headers = [];
@@ -68,6 +75,11 @@ final readonly class BeginRegistration
         return $beginRegistration;
     }
 
+    /**
+     * @throws RegistrationAlreadyCompleted
+     * @throws RegistrationBlocked
+     * @throws InvalidResponse
+     */
     private function validateBeginRegistrationState(InvalidResponse $exception): void
     {
         /**

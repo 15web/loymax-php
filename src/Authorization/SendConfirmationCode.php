@@ -7,6 +7,7 @@ namespace Studio15\Loymax\Authorization;
 use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\Authorization\Request\SendConfirmationCodeRequest;
 
 /**
@@ -20,6 +21,9 @@ final readonly class SendConfirmationCode
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws ApiClientException
+     */
     public function __invoke(SendConfirmationCodeRequest $request): void
     {
         $headers = [

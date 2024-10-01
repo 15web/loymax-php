@@ -8,6 +8,7 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Cards\Response\Card;
 use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Throwable;
@@ -27,6 +28,8 @@ final readonly class GetCards
      * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Cards/#H41243E43743244043044943043544244143F43844143E43A43A43044044244243543A44344943543343E43A43B43843543D44243043843244143543E43F43544043044643843843F43E43D43843C
      *
      * @return list<Card>
+     *
+     * @throws ApiClientException
      */
     public function __invoke(): array
     {
