@@ -30,8 +30,6 @@ return RectorConfig::configure()
         phpunit: true,
     )
     ->withSkip([
-        InlineConstructorDefaultToPropertyRector::class,
         FlipTypeControlToUseExclusiveTypeRector::class,
-        SimplifyBoolIdenticalTrueRector::class,
         PreferPHPUnitThisCallRector::class,
     ]);
