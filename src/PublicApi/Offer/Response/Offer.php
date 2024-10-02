@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\Offer\Response;
 
 /**
+ * @api
  * Акция
  */
 final readonly class Offer

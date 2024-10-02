@@ -7,6 +7,7 @@ namespace Studio15\Loymax\ApiClient\Exception;
 use Throwable;
 
 /**
+ * @api
  * Ошибка приложения
  */
 final class UnknownErrorException extends ApiClientException

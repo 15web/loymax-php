@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Studio15\Loymax\ApiClient\Response;
 
 /**
+ * @api
  * Ответ от методов публичного API
- *
- * @internal
  */
 final readonly class Response
 {

@@ -7,6 +7,7 @@ namespace Studio15\Loymax\ApiClient\Exception;
 use Studio15\Loymax\ApiClient\Data\HttpStatusCode;
 
 /**
+ * @api
  * Метод апи не найден
  */
 final class NotFound extends ApiClientException

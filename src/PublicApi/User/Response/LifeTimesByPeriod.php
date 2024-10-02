@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\User\Response;
 
 /**
+ * @api
  * Информация о бонусах, которые активируются/сгорят в указанный период
  */
 final readonly class LifeTimesByPeriod

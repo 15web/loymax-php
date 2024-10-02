@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\User\Response;
 
 /**
+ * @api
  * Список обязательных шагов регистрации
  */
 final readonly class RegistrationActionList

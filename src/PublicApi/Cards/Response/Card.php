@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\Cards\Response;
 
 /**
+ * @api
  * Карта
  */
 final readonly class Card

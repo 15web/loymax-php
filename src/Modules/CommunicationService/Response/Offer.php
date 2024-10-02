@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\Modules\CommunicationService\Response;
 
 /**
+ * @api
  * Предложение
  */
 final readonly class Offer

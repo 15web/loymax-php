@@ -7,6 +7,7 @@ namespace Studio15\Loymax\Modules\CommunicationService\Response;
 use DateTimeImmutable;
 
 /**
+ * @api
  * Подробная информация о персональных предложениях
  */
 final readonly class CommunicationList

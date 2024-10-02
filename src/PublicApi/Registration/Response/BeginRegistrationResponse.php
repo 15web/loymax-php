@@ -7,6 +7,7 @@ namespace Studio15\Loymax\PublicApi\Registration\Response;
 use Studio15\Loymax\Authorization\Response\AccessTokenData;
 
 /**
+ * @api
  * Результат начала регистрации
  */
 final readonly class BeginRegistrationResponse

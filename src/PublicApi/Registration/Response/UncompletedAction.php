@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\Registration\Response;
 
 /**
+ * @api
  * Невыполненное действие клиента при регистрации
  */
 final readonly class UncompletedAction

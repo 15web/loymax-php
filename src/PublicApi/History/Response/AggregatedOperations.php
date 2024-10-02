@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\History\Response;
 
 /**
+ * @api
  * Ответ с агрегированными суммами
  */
 final readonly class AggregatedOperations

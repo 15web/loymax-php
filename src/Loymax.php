@@ -13,6 +13,7 @@ use Studio15\Loymax\Modules\CommunicationService;
 use Webmozart\Assert\Assert;
 
 /**
+ * @api
  * API Loymax
  */
 final readonly class Loymax

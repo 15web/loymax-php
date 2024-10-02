@@ -7,6 +7,7 @@ namespace Studio15\Loymax\PublicApi\Notification\Response;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 
 /**
+ * @api
  * Оповещение
  */
 final readonly class Notification

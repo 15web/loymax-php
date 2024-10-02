@@ -33,6 +33,10 @@ jobs:
         run: composer audit
       - name: Install dependencies
         run: composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
+      - name: Composer require checker
+        run: vendor/bin/composer-require-checker
+      - name: Normalize composer
+        run: composer normalize --dry-run
 
   code-style:
     name: Check code style on PHP ${{ matrix.php }}-${{ matrix.os }}
