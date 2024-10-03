@@ -9,10 +9,8 @@ use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\User\PhoneNumber\Response\PhoneNumberChanged;
 use Studio15\Loymax\PublicApi\User\ValueObject\Phone;
-use Throwable;
 
 /**
  * Начинает процесс привязки номера телефона
@@ -40,15 +38,11 @@ final readonly class ChangePhoneNumber
 
         $response = $this->apiClient->sendRequest($request);
 
-        try {
-            /** @var PhoneNumberChanged $phoneChangedResponse */
-            $phoneChangedResponse = (new CreateSerializer())()->denormalize(
-                data: $response->data,
-                type: PhoneNumberChanged::class,
-            );
-        } catch (Throwable $t) {
-            throw new DenormalizeResponseError(previous: $t);
-        }
+        /** @var PhoneNumberChanged $phoneChangedResponse */
+        $phoneChangedResponse = (new CreateSerializer())()->denormalize(
+            data: $response->data,
+            type: PhoneNumberChanged::class,
+        );
 
         return $phoneChangedResponse;
     }

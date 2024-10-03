@@ -9,11 +9,9 @@ use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\User\Request\GetSubscriptionRequest;
 use Studio15\Loymax\PublicApi\User\Response\Subscription;
 use Studio15\Loymax\PublicApi\User\Response\SubscriptionExternalId;
-use Throwable;
 
 /**
  * Возвращает список подписок клиента
@@ -46,15 +44,11 @@ final readonly class GetSubscriptions
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var list<Subscription> $subscriptionList */
-            $subscriptionList = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: Subscription::class.'[]',
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var list<Subscription> $subscriptionList */
+        $subscriptionList = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: Subscription::class.'[]',
+        );
 
         return $subscriptionList;
     }

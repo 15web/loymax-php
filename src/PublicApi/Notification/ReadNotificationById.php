@@ -9,10 +9,8 @@ use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\Notification\Request\ReadNotificationByIdRequest;
 use Studio15\Loymax\PublicApi\Notification\Response\Notification;
-use Throwable;
 
 /**
  * Отмечает оповещение как прочитанное
@@ -37,15 +35,11 @@ final readonly class ReadNotificationById
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var Notification $notification */
-            $notification = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: Notification::class,
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var Notification $notification */
+        $notification = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: Notification::class,
+        );
 
         return $notification;
     }

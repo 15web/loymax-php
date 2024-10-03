@@ -9,9 +9,7 @@ use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\User\Response\StatusSystem;
-use Throwable;
 
 /**
  * Возвращает клиенту подробную информацию о его статусах в статусных системах
@@ -38,15 +36,11 @@ final readonly class GetStatus
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var list<StatusSystem> $statusSystemList */
-            $statusSystemList = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: StatusSystem::class.'[]',
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var list<StatusSystem> $statusSystemList */
+        $statusSystemList = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: StatusSystem::class.'[]',
+        );
 
         return $statusSystemList;
     }

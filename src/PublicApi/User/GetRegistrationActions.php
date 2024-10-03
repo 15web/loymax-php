@@ -9,9 +9,7 @@ use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\User\Response\RegistrationActionList;
-use Throwable;
 
 /**
  * Получение списка необходимых шагов регистрации
@@ -36,15 +34,11 @@ final readonly class GetRegistrationActions
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var RegistrationActionList $registrationActionList */
-            $registrationActionList = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: RegistrationActionList::class,
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var RegistrationActionList $registrationActionList */
+        $registrationActionList = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: RegistrationActionList::class,
+        );
 
         return $registrationActionList;
     }

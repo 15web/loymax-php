@@ -10,10 +10,8 @@ use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Data\Pagination;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\History\Request\GetHistoryRequest;
 use Studio15\Loymax\PublicApi\History\Response\OperationHistory;
-use Throwable;
 
 /**
  * Возвращает историю операций клиента
@@ -46,15 +44,11 @@ final readonly class GetHistory
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var OperationHistory $operationHistory */
-            $operationHistory = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: OperationHistory::class,
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var OperationHistory $operationHistory */
+        $operationHistory = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: OperationHistory::class,
+        );
 
         return $operationHistory;
     }

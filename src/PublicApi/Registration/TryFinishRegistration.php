@@ -9,9 +9,7 @@ use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\Registration\Response\TryFinishRegistrationResponse;
-use Throwable;
 
 /**
  * Завершает процесс регистрации клиента
@@ -36,15 +34,11 @@ final readonly class TryFinishRegistration
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var TryFinishRegistrationResponse $tryFinishRegistration */
-            $tryFinishRegistration = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: TryFinishRegistrationResponse::class,
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var TryFinishRegistrationResponse $tryFinishRegistration */
+        $tryFinishRegistration = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: TryFinishRegistrationResponse::class,
+        );
 
         return $tryFinishRegistration;
     }

@@ -9,9 +9,7 @@ use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\User\Response\Logins;
-use Throwable;
 
 /**
  * Получение списка логинов пользователя
@@ -36,15 +34,11 @@ final readonly class GetLogins
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var Logins $logins */
-            $logins = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: Logins::class,
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var Logins $logins */
+        $logins = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: Logins::class,
+        );
 
         return $logins;
     }

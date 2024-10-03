@@ -9,10 +9,8 @@ use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\Merchants\Response\Merchant;
 use Studio15\Loymax\PublicApi\Offer\Request\GetMerchantsByOfferIdRequest;
-use Throwable;
 
 /**
  * Возвращает список магазинов (торговых точек), для которых действует таргетированный контент
@@ -39,15 +37,11 @@ final readonly class GetMerchantsByOfferId
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var list<Merchant> $merchantList */
-            $merchantList = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: Merchant::class.'[]',
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var list<Merchant> $merchantList */
+        $merchantList = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: Merchant::class.'[]',
+        );
 
         return $merchantList;
     }

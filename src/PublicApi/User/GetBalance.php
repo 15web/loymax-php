@@ -9,9 +9,7 @@ use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\User\Response\Balance;
-use Throwable;
 
 /**
  * Возвращает информацию о балансе клиента
@@ -38,15 +36,11 @@ final readonly class GetBalance
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var list<Balance> $balanceList */
-            $balanceList = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: Balance::class.'[]',
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var list<Balance> $balanceList */
+        $balanceList = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: Balance::class.'[]',
+        );
 
         return $balanceList;
     }

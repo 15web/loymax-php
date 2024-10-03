@@ -10,8 +10,6 @@ use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\Modules\CommunicationService\Response\CommunicationList;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
-use Throwable;
 
 /**
  * Получение информации о персональном предложении
@@ -36,15 +34,11 @@ final readonly class GetCommunications
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var CommunicationList $communicationList */
-            $communicationList = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: CommunicationList::class,
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var CommunicationList $communicationList */
+        $communicationList = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: CommunicationList::class,
+        );
 
         return $communicationList;
     }

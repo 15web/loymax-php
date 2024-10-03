@@ -9,10 +9,8 @@ use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\Offer\Request\GetOfferByIdRequest;
 use Studio15\Loymax\PublicApi\Offer\Response\Offer;
-use Throwable;
 
 /**
  * Возвращает информацию о таргетированном контенте по внутреннему идентификатору
@@ -37,15 +35,11 @@ final readonly class GetOfferById
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var Offer $offer */
-            $offer = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: Offer::class,
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var Offer $offer */
+        $offer = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: Offer::class,
+        );
 
         return $offer;
     }

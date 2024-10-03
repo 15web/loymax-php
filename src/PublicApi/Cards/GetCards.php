@@ -10,8 +10,6 @@ use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Cards\Response\Card;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
-use Throwable;
 
 /**
  * Cards. Методы для работы с картами
@@ -40,15 +38,11 @@ final readonly class GetCards
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var list<Card> $cardList */
-            $cardList = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: Card::class.'[]',
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var list<Card> $cardList */
+        $cardList = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: Card::class.'[]',
+        );
 
         return $cardList;
     }

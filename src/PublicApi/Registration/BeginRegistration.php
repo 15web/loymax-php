@@ -10,12 +10,10 @@ use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\Registration\Exception\RegistrationAlreadyCompleted;
 use Studio15\Loymax\PublicApi\Registration\Exception\RegistrationBlocked;
 use Studio15\Loymax\PublicApi\Registration\Request\BeginRegistrationRequest;
 use Studio15\Loymax\PublicApi\Registration\Response\BeginRegistrationResponse;
-use Throwable;
 
 /**
  * Запускает регистрацию клиента
@@ -62,15 +60,11 @@ final readonly class BeginRegistration
             $this->validateBeginRegistrationState($exception);
         }
 
-        try {
-            /** @var BeginRegistrationResponse $beginRegistration */
-            $beginRegistration = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: BeginRegistrationResponse::class,
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var BeginRegistrationResponse $beginRegistration */
+        $beginRegistration = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: BeginRegistrationResponse::class,
+        );
 
         return $beginRegistration;
     }

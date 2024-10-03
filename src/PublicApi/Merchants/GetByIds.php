@@ -10,10 +10,8 @@ use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Data\Pagination;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\Merchants\Request\GetByIdsRequest;
 use Studio15\Loymax\PublicApi\Merchants\Response\Merchant;
-use Throwable;
 
 /**
  * Возвращает информацию о торговых точках (фильтр по внутренним идентификаторам торговых точек)
@@ -47,15 +45,11 @@ final readonly class GetByIds
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var list<Merchant> $merchantList */
-            $merchantList = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: Merchant::class.'[]',
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var list<Merchant> $merchantList */
+        $merchantList = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: Merchant::class.'[]',
+        );
 
         return $merchantList;
     }
