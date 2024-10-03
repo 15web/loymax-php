@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
+use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
 use Studio15\Loymax\PublicApi\Registration\BeginRegistration;
+use Studio15\Loymax\PublicApi\Registration\Exception\RegistrationAlreadyCompleted;
+use Studio15\Loymax\PublicApi\Registration\Exception\RegistrationBlocked;
 use Studio15\Loymax\PublicApi\Registration\Request\BeginRegistrationRequest;
 use Studio15\Loymax\PublicApi\Registration\Response\BeginRegistrationResponse;
 use Studio15\Loymax\PublicApi\Registration\Response\TryFinishRegistrationResponse;
@@ -32,7 +35,10 @@ final readonly class Registration
      * @param non-empty-string|null $password Пароль для активации карты (при наличии)
      * @param non-empty-string|null $clientIp IP адрес клиента
      *
-     * @throws DenormalizeResponseError
+     * @throws RegistrationAlreadyCompleted
+     * @throws RegistrationBlocked
+     * @throws ApiClientException
+     * @throws InvalidResponse
      */
     public function beginRegistration(
         string $login,
@@ -57,7 +63,7 @@ final readonly class Registration
      *
      * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/registration/#H41743043243544044843043544243F44043E44643544144144043543343844144244043044643843843A43B43843543D442430
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function tryFinishRegistration(): TryFinishRegistrationResponse
     {

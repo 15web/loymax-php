@@ -8,10 +8,9 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\Authorization\Response\AccessTokenData;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\User\PhoneNumber\Request\ConfirmPhoneRequest;
-use Throwable;
 
 /**
  * Завершает процесс привязки номера телефона
@@ -24,6 +23,9 @@ final readonly class ConfirmPhoneNumber
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws ApiClientException
+     */
     public function __invoke(ConfirmPhoneRequest $request): AccessTokenData
     {
         $apiRequest = (new CreateRequest())(
@@ -37,15 +39,11 @@ final readonly class ConfirmPhoneNumber
 
         $response = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var AccessTokenData $accessTokenData */
-            $accessTokenData = (new CreateSerializer())()->denormalize(
-                data: $response->data,
-                type: AccessTokenData::class,
-            );
-        } catch (Throwable $t) {
-            throw new DenormalizeResponseError(previous: $t);
-        }
+        /** @var AccessTokenData $accessTokenData */
+        $accessTokenData = (new CreateSerializer())()->denormalize(
+            data: $response->data,
+            type: AccessTokenData::class,
+        );
 
         return $accessTokenData;
     }

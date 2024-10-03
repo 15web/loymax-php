@@ -8,10 +8,9 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\User\Request\GetUserPayload;
 use Studio15\Loymax\PublicApi\User\Response\User;
-use Throwable;
 use Webmozart\Assert\Assert;
 
 /**
@@ -28,7 +27,7 @@ final readonly class GetUser
     /**
      * @param list<GetUserPayload|non-empty-string> $payload
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function __invoke(array $payload = []): User
     {
@@ -44,15 +43,11 @@ final readonly class GetUser
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var User $user */
-            $user = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: User::class,
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var User $user */
+        $user = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: User::class,
+        );
 
         return $user;
     }

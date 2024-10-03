@@ -8,10 +8,9 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\Authorization\Response\AccessTokenData;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\User\Request\SetPasswordRequest;
-use Throwable;
 
 /**
  * Устанавливает пароль клиенту
@@ -24,6 +23,9 @@ final readonly class SetPassword
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws ApiClientException
+     */
     public function __invoke(SetPasswordRequest $request): AccessTokenData
     {
         $apiRequest = (new CreateRequest())(
@@ -38,15 +40,11 @@ final readonly class SetPassword
             request: $apiRequest
         );
 
-        try {
-            /** @var AccessTokenData $accessTokenData */
-            $accessTokenData = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data,
-                type: AccessTokenData::class,
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var AccessTokenData $accessTokenData */
+        $accessTokenData = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data,
+            type: AccessTokenData::class,
+        );
 
         return $accessTokenData;
     }

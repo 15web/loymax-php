@@ -8,13 +8,12 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\Registration\Exception\RegistrationAlreadyCompleted;
 use Studio15\Loymax\PublicApi\Registration\Exception\RegistrationBlocked;
 use Studio15\Loymax\PublicApi\Registration\Request\BeginRegistrationRequest;
 use Studio15\Loymax\PublicApi\Registration\Response\BeginRegistrationResponse;
-use Throwable;
 
 /**
  * Запускает регистрацию клиента
@@ -31,6 +30,12 @@ final readonly class BeginRegistration
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws RegistrationAlreadyCompleted
+     * @throws RegistrationBlocked
+     * @throws ApiClientException
+     * @throws InvalidResponse
+     */
     public function __invoke(BeginRegistrationRequest $request): BeginRegistrationResponse
     {
         $headers = [];
@@ -55,19 +60,20 @@ final readonly class BeginRegistration
             $this->validateBeginRegistrationState($exception);
         }
 
-        try {
-            /** @var BeginRegistrationResponse $beginRegistration */
-            $beginRegistration = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: BeginRegistrationResponse::class,
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var BeginRegistrationResponse $beginRegistration */
+        $beginRegistration = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: BeginRegistrationResponse::class,
+        );
 
         return $beginRegistration;
     }
 
+    /**
+     * @throws RegistrationAlreadyCompleted
+     * @throws RegistrationBlocked
+     * @throws InvalidResponse
+     */
     private function validateBeginRegistrationState(InvalidResponse $exception): void
     {
         /**

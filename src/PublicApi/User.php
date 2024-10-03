@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi;
 
 use Studio15\Loymax\ApiClient\ApiClient;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\Authorization\Response\AccessTokenData;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\User\AcceptTenderOffer;
 use Studio15\Loymax\PublicApi\User\ConfirmSubscriptions;
 use Studio15\Loymax\PublicApi\User\Email\ChangeEmail;
@@ -68,7 +68,7 @@ final readonly class User
      *
      * @param list<GetUserPayload|non-empty-string> $payload
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getUser(array $payload = []): UserResponse
     {
@@ -84,7 +84,7 @@ final readonly class User
      *
      * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/#02
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getLogins(): Logins
     {
@@ -102,7 +102,7 @@ final readonly class User
      *
      * @return list<Balance>
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getBalance(): array
     {
@@ -120,7 +120,7 @@ final readonly class User
      *
      * @return list<DetailedBalance>
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getDetailedBalance(): array
     {
@@ -135,6 +135,8 @@ final readonly class User
      * Оформляет принятие оферты
      *
      * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/#11
+     *
+     * @throws ApiClientException
      */
     public function acceptTenderOffer(): void
     {
@@ -152,7 +154,7 @@ final readonly class User
      *
      * @return list<StatusSystem>
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getStatus(): array
     {
@@ -170,7 +172,7 @@ final readonly class User
      *
      * @param non-empty-string $email Новый email
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function changeEmail(string $email): EmailChanged
     {
@@ -188,6 +190,8 @@ final readonly class User
      *
      * @param non-empty-string $confirmCode Код подтверждения
      * @param non-empty-string $password Пароль пользователя
+     *
+     * @throws ApiClientException
      */
     public function confirmEmail(
         string $confirmCode,
@@ -209,6 +213,8 @@ final readonly class User
      * Отменяет процесс изменения email
      *
      * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Email/#H41E44243C43543D44F43544243F44043E44643544144143843743C43543D43543D43844Femail
+     *
+     * @throws ApiClientException
      */
     public function emailCancelChange(): void
     {
@@ -224,7 +230,7 @@ final readonly class User
      *
      * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/PhoneNumber/?srid=tnpSfw8N#H41243E43743244043044943043544243843D44443E44043C43044643844E43E43D43E43C43544043544243543B43544443E43D43043A43B43843543D442430
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getPhoneNumber(): PhoneNumberState
     {
@@ -242,7 +248,7 @@ final readonly class User
      *
      * @param non-empty-string $phoneNumber Новый номер телефона
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function changePhoneNumber(string $phoneNumber): PhoneNumberChanged
     {
@@ -259,6 +265,8 @@ final readonly class User
      * Повторно отправляет код подтверждения на новый номер телефона
      *
      * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/PhoneNumber/?srid=tnpSfw8N#H41F43E43244243E44043D43E43E44243F44043043243B44F43544243A43E434A043F43E43444243243544043643443543D43844F43D43043D43E43244B43943D43E43C43544044243543B43544443E43D430
+     *
+     * @throws ApiClientException
      */
     public function phoneNumberSendConfirmCode(): void
     {
@@ -277,7 +285,7 @@ final readonly class User
      * @param non-empty-string $confirmCode Код подтверждения
      * @param non-empty-string $password Пароль пользователя
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function confirmPhoneNumber(
         string $confirmCode,
@@ -297,6 +305,8 @@ final readonly class User
      * Отменяет процесс привязки номера телефона
      *
      * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/PhoneNumber/#H41E44243C43543D44F43544243F44043E44643544144143F44043843244F43743A43843D43E43C43544043044243543B43544443E43D430
+     *
+     * @throws ApiClientException
      */
     public function phoneNumberCancelChange(): void
     {
@@ -312,7 +322,7 @@ final readonly class User
      *
      * @param non-empty-string $newPassword Новый пароль
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function setPassword(string $newPassword): AccessTokenData
     {
@@ -329,6 +339,8 @@ final readonly class User
      * Оформляет подписку на все типы рассылок при регистрации нового клиента
      *
      * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/Subscriptions/#H41E44443E44043C43B44F43544243F43E43443F43844143A44343D43043244143544243843F44B44043044144144B43B43E43A43F44043844043543343844144244043044643843843D43E43243E43343E43A43B43843543D442430
+     *
+     * @throws ApiClientException
      */
     public function confirmSubscriptions(): void
     {
@@ -348,7 +360,7 @@ final readonly class User
      *
      * @return list<Subscription>
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getSubscriptions(array $subscriptionExternalIds): array
     {
@@ -369,6 +381,8 @@ final readonly class User
      * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/Subscriptions/#H41E43143D43E43243B44F435442A043843D44443E44043C43044643844E43E43F43E43443F43844143A43044543A43B43843543D442430
      *
      * @param non-empty-list<UpdatedSubscription> $updatingSubscriptions
+     *
+     * @throws ApiClientException
      */
     public function updateSubscriptions(array $updatingSubscriptions): void
     {
@@ -383,6 +397,8 @@ final readonly class User
      * Оформляет отказ от всех типов подписок
      *
      * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/Subscriptions/#H41E44443E44043C43B44F43544243E44243A43043743E44243244143544544243843F43E43243F43E43443F43844143E43A
+     *
+     * @throws ApiClientException
      */
     public function rejectSubscriptions(): void
     {
@@ -398,7 +414,7 @@ final readonly class User
      *
      * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/#03
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getRegistrationActions(): RegistrationActionList
     {
@@ -416,7 +432,7 @@ final readonly class User
      *
      * @param list<Answer> $answers
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function sendAnswers(array $answers): AnswerErrors
     {

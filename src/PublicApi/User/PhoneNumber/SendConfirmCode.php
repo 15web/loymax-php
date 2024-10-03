@@ -7,6 +7,7 @@ namespace Studio15\Loymax\PublicApi\User\PhoneNumber;
 use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 
 /**
  * Повторно отправляет код подтверждения на новый номер телефона
@@ -19,6 +20,9 @@ final readonly class SendConfirmCode
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws ApiClientException
+     */
     public function __invoke(): void
     {
         $apiRequest = (new CreateRequest())(

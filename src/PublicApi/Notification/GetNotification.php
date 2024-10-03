@@ -8,10 +8,9 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Data\Pagination;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\Notification\Response\Notification;
-use Throwable;
 
 /**
  * Возвращает список оповещений
@@ -26,6 +25,8 @@ final readonly class GetNotification
 
     /**
      * @return list<Notification>
+     *
+     * @throws ApiClientException
      */
     public function __invoke(Pagination $pagination): array
     {
@@ -42,15 +43,11 @@ final readonly class GetNotification
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var list<Notification> $notificationList */
-            $notificationList = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: Notification::class.'[]',
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var list<Notification> $notificationList */
+        $notificationList = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: Notification::class.'[]',
+        );
 
         return $notificationList;
     }

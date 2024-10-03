@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi;
 
 use Studio15\Loymax\ApiClient\ApiClient;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Data\Pagination;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\Merchants\Response\Merchant;
 use Studio15\Loymax\PublicApi\Offer\GetMerchantsByOfferId;
 use Studio15\Loymax\PublicApi\Offer\GetOffer;
@@ -40,7 +40,7 @@ final readonly class Offer
      *
      * @return list<OfferData>
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getOffer(
         OfferType $type = OfferType::All,
@@ -75,7 +75,7 @@ final readonly class Offer
      *
      * @param positive-int $offerId Внутренний идентификатор таргетированного контента
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getOfferById(int $offerId): OfferData
     {
@@ -101,7 +101,7 @@ final readonly class Offer
      *
      * @return list<Merchant>
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getMerchantsByOfferId(int $offerId): array
     {

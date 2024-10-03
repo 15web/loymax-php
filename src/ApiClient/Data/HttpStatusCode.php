@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\ApiClient\Data;
 
 /**
- * Статус ответа на запроса к API
+ * Статус ответа на запрос к API
  */
 enum HttpStatusCode: int
 {

@@ -8,10 +8,9 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\User\Request\Answer;
 use Studio15\Loymax\PublicApi\User\Response\AnswerErrors;
-use Throwable;
 use Webmozart\Assert\Assert;
 
 /**
@@ -28,7 +27,7 @@ final readonly class SendAnswers
     /**
      * @param list<Answer> $answers
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function __invoke(array $answers): AnswerErrors
     {
@@ -47,15 +46,11 @@ final readonly class SendAnswers
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var AnswerErrors $answersResult */
-            $answersResult = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: AnswerErrors::class,
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var AnswerErrors $answersResult */
+        $answersResult = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: AnswerErrors::class,
+        );
 
         return $answersResult;
     }

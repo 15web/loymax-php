@@ -8,9 +8,8 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\User\PhoneNumber\Response\PhoneNumberState;
-use Throwable;
 
 /**
  * Возвращает информацию о номере телефона клиента
@@ -23,6 +22,9 @@ final readonly class GetPhoneNumber
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws ApiClientException
+     */
     public function __invoke(): PhoneNumberState
     {
         $request = (new CreateRequest())(
@@ -32,15 +34,11 @@ final readonly class GetPhoneNumber
 
         $response = $this->apiClient->sendRequest($request);
 
-        try {
-            /** @var PhoneNumberState $phoneNumberState */
-            $phoneNumberState = (new CreateSerializer())()->denormalize(
-                data: $response->data,
-                type: PhoneNumberState::class,
-            );
-        } catch (Throwable $t) {
-            throw new DenormalizeResponseError(previous: $t);
-        }
+        /** @var PhoneNumberState $phoneNumberState */
+        $phoneNumberState = (new CreateSerializer())()->denormalize(
+            data: $response->data,
+            type: PhoneNumberState::class,
+        );
 
         return $phoneNumberState;
     }

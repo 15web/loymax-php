@@ -7,6 +7,7 @@ namespace Studio15\Loymax\PublicApi\User;
 use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 
 /**
  * Оформляет подписку на все типы рассылок при регистрации нового клиента
@@ -19,6 +20,9 @@ final readonly class ConfirmSubscriptions
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws ApiClientException
+     */
     public function __invoke(): void
     {
         $apiRequest = (new CreateRequest())(

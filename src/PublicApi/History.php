@@ -6,8 +6,8 @@ namespace Studio15\Loymax\PublicApi;
 
 use DateTimeImmutable;
 use Studio15\Loymax\ApiClient\ApiClient;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Data\Pagination;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\History\GetAggregateWithdrawRewardPurchase;
 use Studio15\Loymax\PublicApi\History\GetHistory;
 use Studio15\Loymax\PublicApi\History\Request\GetAggregateWithdrawRewardPurchaseRequest;
@@ -36,7 +36,7 @@ final readonly class History
      * @param non-negative-int $from Порядковый номер начального элемента выборки
      * @param positive-int $count Количество возвращаемых элементов выборки
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getHistory(
         ?DateTimeImmutable $fromDate = null,
@@ -72,7 +72,7 @@ final readonly class History
      * @param DateTimeImmutable|null $fromDate Начальная дата периода выборки
      * @param DateTimeImmutable|null $toDate Конечная дата периода выборки
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getAggregateWithdrawRewardPurchase(
         ?DateTimeImmutable $fromDate = null,

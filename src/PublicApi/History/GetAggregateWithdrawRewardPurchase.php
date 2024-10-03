@@ -8,10 +8,9 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\History\Request\GetAggregateWithdrawRewardPurchaseRequest;
 use Studio15\Loymax\PublicApi\History\Response\AggregatedOperations;
-use Throwable;
 
 /**
  * Возвращает сумму покупок, сумму начисленных и списанных бонусов в рамках покупок
@@ -24,6 +23,9 @@ final readonly class GetAggregateWithdrawRewardPurchase
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws ApiClientException
+     */
     public function __invoke(GetAggregateWithdrawRewardPurchaseRequest $request): AggregatedOperations
     {
         $parameters = [
@@ -39,15 +41,11 @@ final readonly class GetAggregateWithdrawRewardPurchase
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var AggregatedOperations $aggregatedOperations */
-            $aggregatedOperations = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: AggregatedOperations::class,
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var AggregatedOperations $aggregatedOperations */
+        $aggregatedOperations = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: AggregatedOperations::class,
+        );
 
         return $aggregatedOperations;
     }

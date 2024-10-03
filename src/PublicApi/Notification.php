@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi;
 
 use Studio15\Loymax\ApiClient\ApiClient;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Data\Pagination;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
 use Studio15\Loymax\PublicApi\Notification\GetNotification;
 use Studio15\Loymax\PublicApi\Notification\GetNotificationCount;
 use Studio15\Loymax\PublicApi\Notification\ReadNotification;
@@ -37,7 +37,7 @@ final readonly class Notification
      *
      * @return list<NotificationData>
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getNotifications(int $from = 0, int $count = 10): array
     {
@@ -60,7 +60,7 @@ final readonly class Notification
      *
      * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Notification/#H41243E43743244043044943043544243A43E43B43844743544144243243E43E43F43E43243544943543D438439
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function getNotificationCount(): UnreadNotificationCount
     {
@@ -78,7 +78,7 @@ final readonly class Notification
      *
      * @param positive-int $notificationId
      *
-     * @throws DenormalizeResponseError
+     * @throws ApiClientException
      */
     public function readNotificationById(int $notificationId): NotificationData
     {
@@ -100,6 +100,8 @@ final readonly class Notification
      * Возвращает количество оповещений, отмеченных как прочитанные
      *
      * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Notification/#H41E44243C43544743043544243244143543E43F43E43243544943543D43844F43F44043E44743844243043D43D44B43C438
+     *
+     * @throws ApiClientException
      */
     public function readNotifications(): ReadNotificationCount
     {

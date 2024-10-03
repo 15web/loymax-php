@@ -8,6 +8,7 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\ContentType;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\ApiClient\Exception\BadRequest;
 use Studio15\Loymax\Authorization\Request\IssueAccessTokenRequest;
 use Studio15\Loymax\Authorization\Response\AccessTokenData;
@@ -27,6 +28,9 @@ final readonly class IssueAccessToken
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws ApiClientException
+     */
     public function __invoke(IssueAccessTokenRequest $request): AccessTokenData|TwoFactorAuthenticationCodeRequired
     {
         $headers = [

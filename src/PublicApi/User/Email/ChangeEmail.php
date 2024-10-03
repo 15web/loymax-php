@@ -8,10 +8,9 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\User\Email\Response\EmailChanged;
 use Studio15\Loymax\PublicApi\User\ValueObject\Email;
-use Throwable;
 
 /**
  * Запускает процесс изменения email. Указание нового email
@@ -24,6 +23,9 @@ final readonly class ChangeEmail
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws ApiClientException
+     */
     public function __invoke(Email $email): EmailChanged
     {
         $request = (new CreateRequest())(
@@ -36,15 +38,11 @@ final readonly class ChangeEmail
 
         $response = $this->apiClient->sendRequest($request);
 
-        try {
-            /** @var EmailChanged $emailChangedResponse */
-            $emailChangedResponse = (new CreateSerializer())()->denormalize(
-                data: $response->data,
-                type: EmailChanged::class,
-            );
-        } catch (Throwable $t) {
-            throw new DenormalizeResponseError(previous: $t);
-        }
+        /** @var EmailChanged $emailChangedResponse */
+        $emailChangedResponse = (new CreateSerializer())()->denormalize(
+            data: $response->data,
+            type: EmailChanged::class,
+        );
 
         return $emailChangedResponse;
     }

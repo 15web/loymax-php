@@ -8,9 +8,8 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
-use Studio15\Loymax\PublicApi\Exception\DenormalizeResponseError;
+use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Notification\Response\UnreadNotificationCount;
-use Throwable;
 
 /**
  * Возвращает количество непрочитанных оповещений
@@ -23,6 +22,9 @@ final readonly class GetNotificationCount
         private ApiClient $apiClient,
     ) {}
 
+    /**
+     * @throws ApiClientException
+     */
     public function __invoke(): UnreadNotificationCount
     {
         $apiRequest = (new CreateRequest())(
@@ -32,15 +34,11 @@ final readonly class GetNotificationCount
 
         $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
-        try {
-            /** @var UnreadNotificationCount $notificationCount */
-            $notificationCount = (new CreateSerializer())()->denormalize(
-                data: $apiResponse->data ?? [],
-                type: UnreadNotificationCount::class,
-            );
-        } catch (Throwable $e) {
-            throw new DenormalizeResponseError(previous: $e);
-        }
+        /** @var UnreadNotificationCount $notificationCount */
+        $notificationCount = (new CreateSerializer())()->denormalize(
+            data: $apiResponse->data ?? [],
+            type: UnreadNotificationCount::class,
+        );
 
         return $notificationCount;
     }
