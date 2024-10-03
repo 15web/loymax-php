@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\User\Response;
 
 /**
+ * @api
  * Детализированный баланс
  */
 final readonly class DetailedBalance

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\Merchants\Response;
 
 /**
+ * @api
  * График работы в указанный день
  */
 final readonly class Schedule

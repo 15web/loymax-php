@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Studio15\Loymax\ApiClient\Response;
 
 /**
+ * @api
  * Статус обработки запроса к API
- *
- * @internal
  */
 final readonly class Result
 {

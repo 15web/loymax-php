@@ -7,6 +7,7 @@ namespace Studio15\Loymax\PublicApi\User\Response;
 use DateTimeImmutable;
 
 /**
+ * @api
  * Информация о текущем авторизованном клиенте
  */
 final readonly class User

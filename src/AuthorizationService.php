@@ -16,7 +16,8 @@ use Studio15\Loymax\Authorization\Response\TwoFactorAuthenticationCodeRequired;
 use Studio15\Loymax\Authorization\SendConfirmationCode;
 
 /**
- * Авторизационный сервис
+ * @api
+ * Сервис авторизации
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/Authorization_Service/
  */

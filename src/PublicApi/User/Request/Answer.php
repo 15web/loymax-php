@@ -7,6 +7,7 @@ namespace Studio15\Loymax\PublicApi\User\Request;
 use Webmozart\Assert\Assert;
 
 /**
+ * @api
  * Ответ на вопрос анкеты
  */
 final readonly class Answer

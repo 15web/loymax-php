@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\User\Response;
 
 /**
+ * @api
  * Информация по отдельному статусу статусной системы
  */
 final readonly class StatusItem

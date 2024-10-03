@@ -15,6 +15,7 @@ use Studio15\Loymax\PublicApi\Registration;
 use Studio15\Loymax\PublicApi\User;
 
 /**
+ * @api
  * Методы публичного API
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/

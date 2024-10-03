@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\History\Response;
 
 /**
+ * @api
  * Данные об операции
  */
 final readonly class OperationData

@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 
 /**
+ * @api
  * Аттрибут клиента
  */
 final class Attribute

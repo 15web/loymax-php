@@ -7,6 +7,7 @@ namespace Studio15\Loymax\PublicApi\History\Response;
 use Symfony\Component\Uid\Uuid;
 
 /**
+ * @api
  * Операция
  */
 final readonly class Operation

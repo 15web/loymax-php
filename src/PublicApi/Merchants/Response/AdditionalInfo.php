@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\Merchants\Response;
 
 /**
+ * @api
  * Дополнительная информация о торговой точке
  */
 final readonly class AdditionalInfo

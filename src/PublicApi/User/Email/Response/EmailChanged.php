@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\User\Email\Response;
 
 /**
+ * @api
  * Результат запроса на смену email
  */
 final readonly class EmailChanged

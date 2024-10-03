@@ -7,6 +7,7 @@ namespace Studio15\Loymax\PublicApi\Offer\Response;
 use Symfony\Component\Uid\Uuid;
 
 /**
+ * @api
  * Бренд
  */
 final readonly class Brand

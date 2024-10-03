@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\User\PhoneNumber\Response;
 
 /**
+ * @api
  * Номер телефона
  */
 final readonly class PhoneNumber

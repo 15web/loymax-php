@@ -7,6 +7,7 @@ namespace Studio15\Loymax\PublicApi\Registration\Response;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 
 /**
+ * @api
  * Ответ при попытке завершить регистрацию
  *
  * @see AuthorizationResponse

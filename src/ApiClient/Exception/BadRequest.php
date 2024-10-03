@@ -10,6 +10,7 @@ use Studio15\Loymax\ApiClient\Data\HttpStatusCode;
 use Throwable;
 
 /**
+ * @api
  * Некорректный запрос
  */
 final class BadRequest extends ApiClientException

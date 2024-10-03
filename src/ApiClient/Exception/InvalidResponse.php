@@ -9,6 +9,7 @@ use Studio15\Loymax\ApiClient\Data\HttpStatusCode;
 use Studio15\Loymax\ApiClient\Response\Response;
 
 /**
+ * @api
  * Ответ содержит ошибки
  */
 final class InvalidResponse extends ApiClientException

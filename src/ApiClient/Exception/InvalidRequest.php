@@ -8,6 +8,7 @@ use Studio15\Loymax\ApiClient\Data\HttpStatusCode;
 use Studio15\Loymax\ApiClient\Response\ValidationError;
 
 /**
+ * @api
  * Запрос содержит ошибки валидации
  */
 final class InvalidRequest extends ApiClientException

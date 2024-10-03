@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\User\Response;
 
 /**
+ * @api
  * Канал для оповещений
  */
 final readonly class SubscriptionChannel

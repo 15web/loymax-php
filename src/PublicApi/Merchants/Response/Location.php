@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\Merchants\Response;
 
 /**
+ * @api
  * Местоположение торговой точки
  */
 final readonly class Location

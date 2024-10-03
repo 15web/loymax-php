@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\Modules\CommunicationService\Response;
 
 /**
+ * @api
  * Персональное предложение
  */
 final readonly class Communication
