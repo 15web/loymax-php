@@ -1,6 +1,8 @@
 # Loymax PHP SDK
 
 [![Build and check code status](https://github.com/15web/loymax-php/actions/workflows/check.yml/badge.svg)](https://github.com/15web/loymax-php/actions)
+[![Psalm coverage](https://shepherd.dev/github/15web/loymax-php/coverage.svg?)](https://shepherd.dev/github/15web/loymax-php)
+[![Psalm level](https://shepherd.dev/github/15web/loymax-php/level.svg?)](https://psalm.dev/)
 
 
 SDK для работы с программой лояльности [Loymax](https://loymax.ru/).

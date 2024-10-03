@@ -104,7 +104,7 @@ jobs:
       - name: phpstan
         run: vendor/bin/phpstan analyse -c phpstan-config.neon --ansi
       - name: psalm
-        run: vendor/bin/psalm --config=psalm.xml
+        run: vendor/bin/psalm --config=psalm.xml --output-format=github --shepherd --stats --no-cache
 
   tests:
     name: Check tests on PHP ${{ matrix.php }}-${{ matrix.os }}
