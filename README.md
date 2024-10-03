@@ -238,7 +238,11 @@ class MyController extends Controller
 
 ## Дополнительная информация
 
-* [Документация Loymax](https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/)
+* [Документация Loymax (Методы публичного API)](https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/)
+
+Поддерживаемая версия Public API:
+
+* v1.2
 
 ## Разработка
 
