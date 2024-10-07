@@ -128,4 +128,10 @@ jobs:
       - name: Install dependencies
         run: composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
       - name: phpunit
-        run: vendor/bin/phpunit --configuration=phpunit.xml --coverage-text
+        run: vendor/bin/phpunit --configuration=phpunit.xml --coverage-clover=clover.xml
+      - name: Generate test coverage badge
+        uses: timkrase/phpunit-coverage-badge@v1.2.1
+        with:
+          coverage_badge_path: 'coverage.svg'
+          push_badge: true
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
