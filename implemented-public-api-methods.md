@@ -5,6 +5,7 @@
 [Card. Методы для работы с картами](https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Cards/)
 
 * Возвращает список карт текущего клиента и все операции по ним
+* Генерирует QR-код для карты по ее внутреннему идентификатору
 
 [CustomerEmail. Методы для работы с email клиента](https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Email/)
 
