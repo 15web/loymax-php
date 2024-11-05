@@ -28,7 +28,7 @@ final readonly class TryFinishRegistration
     public function __invoke(): TryFinishRegistrationResponse
     {
         $apiRequest = (new CreateRequest())(
-            method: Method::GET,
+            method: Method::POST,
             uri: '/publicapi/v1.2/Registration/TryFinishRegistration',
         );
 

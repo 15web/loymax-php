@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Studio15\Loymax\ApiClient;
 
 use GuzzleHttp\Psr7\Request;
-use InvalidArgumentException;
 use Psr\Http\Message\RequestInterface;
 use Studio15\Loymax\ApiClient\Data\ContentType;
 use Studio15\Loymax\ApiClient\Data\Method;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
 /**
  * Подготовка запроса
@@ -31,8 +31,12 @@ final readonly class CreateRequest
         array $body = [],
     ): RequestInterface {
         $headers = array_change_key_case($headers);
+
+        $contentType = $this->getContentType($headers);
+        $headers['Content-Type'] = $contentType->value;
+
         $encodedBody = $this->encodeBody(
-            contentType: $this->getContentType($headers),
+            contentType: $contentType,
             body: $body,
         );
 
@@ -51,7 +55,7 @@ final readonly class CreateRequest
     /**
      * @param array<array<non-empty-string>|non-empty-string> $headers
      */
-    private function getContentType(array $headers): ?ContentType
+    private function getContentType(array $headers): ContentType
     {
         if (!\array_key_exists('content-type', $headers)) {
             return ContentType::JSON;
@@ -60,22 +64,26 @@ final readonly class CreateRequest
         /** @var non-empty-string $contentType */
         $contentType = $headers['content-type'];
 
-        return ContentType::tryFrom($contentType);
+        return ContentType::from($contentType);
     }
 
     /**
      * @param array<array-key, mixed> $body
      */
-    private function encodeBody(?ContentType $contentType, array $body): string
+    private function encodeBody(ContentType $contentType, array $body): string
     {
         if ($body === []) {
             return '{}';
         }
 
+        $serializer = new CreateSerializer();
+
         return match ($contentType) {
-            ContentType::JSON => json_encode($body, JSON_THROW_ON_ERROR),
+            ContentType::JSON => ($serializer)()->encode(
+                data: $body,
+                format: JsonEncoder::FORMAT,
+            ),
             ContentType::URLENCODED => http_build_query($body),
-            default => throw new InvalidArgumentException('Undefined content type'),
         };
     }
 }

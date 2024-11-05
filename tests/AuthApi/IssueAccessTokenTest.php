@@ -7,6 +7,8 @@ namespace Studio15\Loymax\Test\AuthApi;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\TestDox;
 use Studio15\Loymax\ApiClient\Exception\BadRequest;
+use Studio15\Loymax\Authorization\Response\AccessTokenData;
+use Studio15\Loymax\Authorization\Response\TwoFactorAuthenticationCodeRequired;
 use Studio15\Loymax\Test\TestCase;
 
 /**
@@ -31,6 +33,7 @@ final class IssueAccessTokenTest extends TestCase
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
 
+        /** @var AccessTokenData $result */
         $result = $loymax->authApi()->issueAccessToken(
             username: '79990001111',
             password: 'validPassword',
@@ -83,6 +86,7 @@ final class IssueAccessTokenTest extends TestCase
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
 
+        /** @var TwoFactorAuthenticationCodeRequired $result */
         $result = $loymax->authApi()->issueAccessToken(
             username: '79990001111',
         );

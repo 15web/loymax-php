@@ -57,7 +57,32 @@ $loymax = Loymax::create('https://your-project.loymax.tech');
 $merchants = $loymax->publicApi()->merchants()->getByIds();
 ```
 
-### Двухфакторная авторизация
+### Стандартная аутентификация, требующая введения логина и пароля
+
+* Документация https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/Authorization_Service/Token_authorization
+* Схема авторизации в Личном кабинете https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/Authorization_Service/Token_authorization/Authorization_in_Personal_Account_Scheme/
+
+При включенной конфигурации `IsPasswordRequired`
+
+```php
+use Studio15\Loymax\Loymax;
+
+require __DIR__ . '/vendor/autoload.php';
+
+$loymax = Loymax::create('https://your-project.loymax.tech');
+
+$token = $loymax->authApi()->issueAccessToken(
+    username: '79990001234', // Логин (e-mail, номер телефона или номер карты)
+    password: 'password', // Пароль
+    clientIp: '1.2.3.4', // IP адрес пользователя
+);
+```
+
+* Передавайте реальный IP адрес пользователя в методах аутентификации и регистрации во избежание блокировок по количеству запросов с одного IP адреса
+
+### Двухфакторная аутентификация
+
+При включенной конфигурации `TwoFactorAuthenticationEnabled`
 
 ```php
 use Studio15\Loymax\Loymax;
@@ -67,12 +92,13 @@ require __DIR__ . '/vendor/autoload.php';
 $loymax = Loymax::create('https://your-project.loymax.tech');
 
 $twoFactorToken = $loymax->authApi()->issueAccessToken(
-    username: '79990001234', // телефон
+    username: '79990001234', // Логин (e-mail, номер телефона или номер карты)
+    clientIp: '1.2.3.4', // IP адрес пользователя
 );
 
 $token = $loymax->authApi()->confirmTwoFactorAuthentication(
     twoFactorAuthToken: $twoFactorToken->twoFactorAuthToken,
-    code: '123456', // Код, полученный в SMS
+    code: '123456', // Одноразовый пароль, полученный в SMS
 );
 ```
 
