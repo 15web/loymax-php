@@ -8,6 +8,7 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\Authorization\Response\AccessTokenData;
 use Studio15\Loymax\PublicApi\User\AcceptTenderOffer;
+use Studio15\Loymax\PublicApi\User\ChangePassword;
 use Studio15\Loymax\PublicApi\User\ConfirmSubscriptions;
 use Studio15\Loymax\PublicApi\User\Email\ChangeEmail;
 use Studio15\Loymax\PublicApi\User\Email\ConfirmEmail;
@@ -31,6 +32,7 @@ use Studio15\Loymax\PublicApi\User\PhoneNumber\Response\PhoneNumberState;
 use Studio15\Loymax\PublicApi\User\PhoneNumber\SendConfirmCode;
 use Studio15\Loymax\PublicApi\User\RejectSubscriptions;
 use Studio15\Loymax\PublicApi\User\Request\Answer;
+use Studio15\Loymax\PublicApi\User\Request\ChangePasswordRequest;
 use Studio15\Loymax\PublicApi\User\Request\GetSubscriptionRequest;
 use Studio15\Loymax\PublicApi\User\Request\GetUserPayload;
 use Studio15\Loymax\PublicApi\User\Request\SetPasswordRequest;
@@ -333,6 +335,30 @@ final readonly class User
         );
 
         return ($setPassword)($setPasswordRequest);
+    }
+
+    /**
+     * Обновляет пароль клиента
+     *
+     * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Password/#H41E43143D43E43243B44F43544243F43044043E43B44C43A43B43843543D442430
+     *
+     * @param non-empty-string $oldPassword Старый пароль
+     * @param non-empty-string $newPassword Новый пароль
+     *
+     * @throws ApiClientException
+     */
+    public function changePassword(string $oldPassword, string $newPassword): AccessTokenData
+    {
+        $request = new ChangePasswordRequest(
+            oldPassword: $oldPassword,
+            newPassword: $newPassword,
+        );
+
+        $changePassword = new ChangePassword(
+            apiClient: $this->apiClient
+        );
+
+        return ($changePassword)($request);
     }
 
     /**
