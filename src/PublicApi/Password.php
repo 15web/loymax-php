@@ -6,10 +6,12 @@ namespace Studio15\Loymax\PublicApi;
 
 use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
+use Studio15\Loymax\Authorization\Response\AccessTokenData;
+use Studio15\Loymax\PublicApi\Password\ConfirmResetPassword;
+use Studio15\Loymax\PublicApi\Password\Request\ConfirmResetPasswordRequest;
 use Studio15\Loymax\PublicApi\Password\Request\StartResetPasswordRequest;
 use Studio15\Loymax\PublicApi\Password\Response\ResetPasswordStarted;
 use Studio15\Loymax\PublicApi\Password\StartResetPassword;
-use Studio15\Loymax\PublicApi\User\ValueObject\Email;
 
 /**
  * Password. Методы для работы с паролем
@@ -42,5 +44,34 @@ final readonly class Password
         );
 
         return ($startResetPassword)($request);
+    }
+
+    /**
+     * Отправляет введенный код подтверждения для восстановления пароля
+     *
+     * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Password/#H41E44243F44043043243B44F43544243243243543443543D43D44B43943A43E43443F43E43444243243544043643443543D43844F43443B44F43243E44144144243043D43E43243B43543D43844F43F43044043E43B44F
+     *
+     * @param non-empty-string $notifierIdentity Значение нотификатора (номер телефона/email)
+     * @param non-empty-string $confirmCode Код подтверждения
+     * @param non-empty-string $newPassword Новый пароль
+     *
+     * @throws ApiClientException
+     */
+    public function confirmResetPassword(
+        string $notifierIdentity,
+        string $confirmCode,
+        string $newPassword,
+    ): AccessTokenData {
+        $request = new ConfirmResetPasswordRequest(
+            notifierIdentity: $notifierIdentity,
+            confirmCode: $confirmCode,
+            newPassword: $newPassword,
+        );
+
+        $confirmResetPassword = new ConfirmResetPassword(
+            apiClient: $this->apiClient
+        );
+
+        return ($confirmResetPassword)($request);
     }
 }
