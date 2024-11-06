@@ -29,6 +29,11 @@ final readonly class RefreshAccessToken
      */
     public function __invoke(AccessTokenData $expiredTokenData): AccessTokenData
     {
+        $headers = [
+            'Content-Type' => ContentType::URLENCODED->value,
+            'Authorization' => "Bearer {$expiredTokenData->accessToken}",
+        ];
+
         $body = [
             'grant_type' => self::GRANT_TYPE,
             'refresh_token' => $expiredTokenData->refreshToken,
@@ -37,10 +42,7 @@ final readonly class RefreshAccessToken
         $apiClientRequest = (new CreateRequest())(
             method: Method::POST,
             uri: '/authorizationService/token',
-            headers: [
-                'Content-Type' => ContentType::URLENCODED->value,
-                'Authorization' => "Bearer {$expiredTokenData->accessToken}",
-            ],
+            headers: $headers,
             body: $body,
         );
 

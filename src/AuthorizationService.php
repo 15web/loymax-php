@@ -32,13 +32,15 @@ final readonly class AuthorizationService
      * Получение токена доступа по логину и паролю,
      * либо получение кода подтверждения при включенной двухфакторной авторизации
      *
-     * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/Authorization_Service/Token_authorization/#H41F43E43B44344743543D43843543A43E43443043F43E43444243243544043643443543D43844F
+     * При включенной двухфакторной авторизации метод возвращает TwoFactorAuthenticationCodeRequired
+     * При авторизации по логину и паролю метод возвращает AccessTokenData
      *
-     * @param non-empty-string $username Логин
+     * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/Authorization_Service/Token_authorization/
+     * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/Authorization_Service/Token_authorization/Authorization_in_Personal_Account_Scheme/
+     *
+     * @param non-empty-string $username Логин (e-mail, номер телефона или номер карты)
      * @param non-empty-string|null $password Пароль
      * @param non-empty-string|null $clientIp IP адрес клиента
-     *
-     * @return ($password is null ? TwoFactorAuthenticationCodeRequired : AccessTokenData)
      *
      * @throws ApiClientException
      */

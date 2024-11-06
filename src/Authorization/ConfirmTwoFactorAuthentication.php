@@ -28,17 +28,21 @@ final readonly class ConfirmTwoFactorAuthentication
      */
     public function __invoke(TwoFactorAuthenticationRequest $request): AccessTokenData
     {
+        $headers = [
+            TwoFactorAuthenticationConfig::TWO_FACTOR_AUTH_TOKEN => $request->twoFactorAuthToken,
+            'Content-Type' => ContentType::URLENCODED->value,
+        ];
+
+        $body = [
+            'grant_type' => TwoFactorAuthenticationConfig::GRANT_TYPE,
+            'password' => $request->code,
+        ];
+
         $apiClientRequest = (new CreateRequest())(
             method: Method::POST,
             uri: '/authorizationService/token',
-            headers: [
-                TwoFactorAuthenticationConfig::TWO_FACTOR_AUTH_TOKEN => $request->twoFactorAuthToken,
-                'Content-Type' => ContentType::URLENCODED->value,
-            ],
-            body: [
-                'grant_type' => TwoFactorAuthenticationConfig::GRANT_TYPE,
-                'password' => $request->code,
-            ],
+            headers: $headers,
+            body: $body,
         );
 
         return $this->apiClient->sendRequest(
