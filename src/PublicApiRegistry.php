@@ -10,6 +10,7 @@ use Studio15\Loymax\PublicApi\History;
 use Studio15\Loymax\PublicApi\Merchants;
 use Studio15\Loymax\PublicApi\Notification;
 use Studio15\Loymax\PublicApi\Offer;
+use Studio15\Loymax\PublicApi\Password;
 use Studio15\Loymax\PublicApi\Pushes;
 use Studio15\Loymax\PublicApi\Registration;
 use Studio15\Loymax\PublicApi\User;
@@ -118,6 +119,18 @@ final readonly class PublicApiRegistry
     public function user(): User
     {
         return new User(
+            apiClient: $this->apiClient,
+        );
+    }
+
+    /**
+     * Password. Методы для работы с паролем
+     *
+     * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Password/
+     */
+    public function password(): Password
+    {
+        return new Password(
             apiClient: $this->apiClient,
         );
     }
