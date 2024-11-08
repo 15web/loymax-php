@@ -6,6 +6,7 @@ namespace Studio15\Loymax;
 
 use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\PublicApi\Cards;
+use Studio15\Loymax\PublicApi\Coupons;
 use Studio15\Loymax\PublicApi\History;
 use Studio15\Loymax\PublicApi\Merchants;
 use Studio15\Loymax\PublicApi\Notification;
@@ -35,6 +36,18 @@ final readonly class PublicApiRegistry
     public function cards(): Cards
     {
         return new Cards(
+            apiClient: $this->apiClient,
+        );
+    }
+
+    /**
+     * Coupons. Методы для работы с купонами
+     *
+     * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Coupons/
+     */
+    public function coupons(): Coupons
+    {
+        return new Coupons(
             apiClient: $this->apiClient,
         );
     }
