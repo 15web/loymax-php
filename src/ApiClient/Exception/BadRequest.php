@@ -6,7 +6,6 @@ namespace Studio15\Loymax\ApiClient\Exception;
 
 use Psr\Http\Message\ResponseInterface;
 use Studio15\Loymax\ApiClient\Data\HttpStatusCode;
-use Throwable;
 
 /**
  * @api
@@ -22,19 +21,21 @@ final class BadRequest extends ApiClientException
 
     public string $traceId;
 
-    public function __construct(public ResponseInterface $apiResponse, ?Throwable $previous = null)
+    public function __construct(public ResponseInterface $apiResponse)
     {
-        /** @var array{error: non-empty-string, error_description?: non-empty-string|null} $data */
+        /** @var array{error?: non-empty-string, error_description?: non-empty-string|null} $data */
         $data = json_decode(
             json: (string) $apiResponse->getBody(),
             associative: true,
-            flags: JSON_THROW_ON_ERROR,
         );
 
-        $this->error = $data['error'];
+        $this->error = $data['error'] ?? 'Request failed';
         $this->errorDescription = $data['error_description'] ?? null;
         $this->traceId = $this->apiResponse->getHeaderLine(self::TRACE_ID_HEADER);
 
-        parent::__construct($this->errorDescription ?? $this->error, HttpStatusCode::HTTP_BAD_REQUEST->value, $previous);
+        parent::__construct(
+            $this->errorDescription ?? $this->error,
+            HttpStatusCode::HTTP_BAD_REQUEST->value,
+        );
     }
 }

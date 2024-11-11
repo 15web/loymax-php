@@ -118,7 +118,7 @@ final readonly class ApiClient
 
         return match ($statusCode) {
             HttpStatusCode::HTTP_BAD_REQUEST => new BadRequest($response),
-            HttpStatusCode::HTTP_UNAUTHORIZED => new Unauthorized(),
+            HttpStatusCode::HTTP_UNAUTHORIZED => new Unauthorized($response),
             HttpStatusCode::HTTP_FORBIDDEN => new Forbidden(),
             HttpStatusCode::HTTP_NOT_FOUND => new NotFound(),
             HttpStatusCode::METHOD_NOT_ALLOWED => new MethodNotAllowed(),
