@@ -34,4 +34,14 @@ enum CouponState: string
      * В очереди на гашение
      */
     case QueuedToUse = 'QueuedToUse';
+
+    /**
+     * В очереди на выдачу
+     */
+    case QueuedToIssue = 'QueuedToIssue';
+
+    /**
+     * Истек
+     */
+    case Expired = 'Expired';
 }
