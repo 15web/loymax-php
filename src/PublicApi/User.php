@@ -13,7 +13,9 @@ use Studio15\Loymax\PublicApi\User\ConfirmSubscriptions;
 use Studio15\Loymax\PublicApi\User\Email\ChangeEmail;
 use Studio15\Loymax\PublicApi\User\Email\ConfirmEmail;
 use Studio15\Loymax\PublicApi\User\Email\EmailCancelChange;
+use Studio15\Loymax\PublicApi\User\Email\GetEmail;
 use Studio15\Loymax\PublicApi\User\Email\Request\ConfirmEmailRequest;
+use Studio15\Loymax\PublicApi\User\Email\Response\Email as EmailStatus;
 use Studio15\Loymax\PublicApi\User\Email\Response\EmailChanged;
 use Studio15\Loymax\PublicApi\User\GetBalance;
 use Studio15\Loymax\PublicApi\User\GetDetailedBalance;
@@ -165,6 +167,22 @@ final readonly class User
         );
 
         return ($getStatus)();
+    }
+
+    /**
+     * Возвращает текущий статус email клиента
+     *
+     * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Email/?srid=NJuz5jjt#H41243E43743244043044943043544244243543A443449438439441442430442443441email43A43B43843543D442430
+     *
+     * @throws ApiClientException
+     */
+    public function getEmail(): EmailStatus
+    {
+        $getEmail = new GetEmail(
+            apiClient: $this->apiClient
+        );
+
+        return ($getEmail)();
     }
 
     /**

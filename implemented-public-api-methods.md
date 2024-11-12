@@ -10,6 +10,7 @@
 [CustomerEmail. Методы для работы с email клиента](https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Email/)
 
 Методы, доступные через клиентскую авторизацию
+* Возвращает текущий статус email клиента
 * Запускает процесс изменения email. Указание нового email
 * Завершает процесс изменения email
 * Отменяет процесс изменения email
