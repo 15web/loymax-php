@@ -7,7 +7,6 @@ namespace Studio15\Loymax\Test\PublicApi\Cards;
 use DateTimeImmutable;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\TestDox;
-use Studio15\Loymax\ApiClient\Data\HttpStatusCode;
 use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
 use Studio15\Loymax\ApiClient\Exception\Unauthorized;
 use Studio15\Loymax\PublicApi\Cards\Response\CardState;
@@ -225,7 +224,12 @@ final class GetCardsTest extends TestCase
         $this->expectException(Unauthorized::class);
 
         $mockResponse = new Response(
-            status: HttpStatusCode::HTTP_UNAUTHORIZED->value,
+            status: 401,
+            body: <<<'JSON'
+                {
+                  "message": "Запрещён анонимный доступ к методу."
+                }
+                JSON
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);

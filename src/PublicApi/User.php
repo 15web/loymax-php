@@ -17,6 +17,7 @@ use Studio15\Loymax\PublicApi\User\Email\GetEmail;
 use Studio15\Loymax\PublicApi\User\Email\Request\ConfirmEmailRequest;
 use Studio15\Loymax\PublicApi\User\Email\Response\Email as EmailStatus;
 use Studio15\Loymax\PublicApi\User\Email\Response\EmailChanged;
+use Studio15\Loymax\PublicApi\User\Email\SendConfirmCode as EmailSendConfirmCode;
 use Studio15\Loymax\PublicApi\User\GetBalance;
 use Studio15\Loymax\PublicApi\User\GetDetailedBalance;
 use Studio15\Loymax\PublicApi\User\GetLogins;
@@ -31,7 +32,7 @@ use Studio15\Loymax\PublicApi\User\PhoneNumber\PhoneNumberCancelChange;
 use Studio15\Loymax\PublicApi\User\PhoneNumber\Request\ConfirmPhoneRequest;
 use Studio15\Loymax\PublicApi\User\PhoneNumber\Response\PhoneNumberChanged;
 use Studio15\Loymax\PublicApi\User\PhoneNumber\Response\PhoneNumberState;
-use Studio15\Loymax\PublicApi\User\PhoneNumber\SendConfirmCode;
+use Studio15\Loymax\PublicApi\User\PhoneNumber\SendConfirmCode as PhoneNumberSendConfirmCode;
 use Studio15\Loymax\PublicApi\User\RejectSubscriptions;
 use Studio15\Loymax\PublicApi\User\Request\Answer;
 use Studio15\Loymax\PublicApi\User\Request\ChangePasswordRequest;
@@ -204,6 +205,22 @@ final readonly class User
     }
 
     /**
+     * Оформляет повторную отправку кода подтверждения при изменении email
+     *
+     * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Email/#H41E44443E44043C43B44F43544243F43E43244243E44043D44344E43E44243F44043043243A44343A43E43443043F43E43444243243544043643443543D43844F43F44043843843743C43543D43543D438438email
+     *
+     * @throws ApiClientException
+     */
+    public function emailSendConfirmCode(): void
+    {
+        $sendConfirmCode = new EmailSendConfirmCode(
+            apiClient: $this->apiClient
+        );
+
+        ($sendConfirmCode)();
+    }
+
+    /**
      * Завершает процесс изменения email
      *
      * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Email/#H41743043243544044843043544243F44043E44643544144143843743C43543D43543D43844Femail
@@ -290,11 +307,11 @@ final readonly class User
      */
     public function phoneNumberSendConfirmCode(): void
     {
-        $changePhoneNumber = new SendConfirmCode(
+        $sendConfirmCode = new PhoneNumberSendConfirmCode(
             apiClient: $this->apiClient,
         );
 
-        ($changePhoneNumber)();
+        ($sendConfirmCode)();
     }
 
     /**
