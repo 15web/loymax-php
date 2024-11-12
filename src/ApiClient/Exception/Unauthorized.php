@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Studio15\Loymax\ApiClient\Exception;
 
+use Psr\Http\Message\ResponseInterface;
 use Studio15\Loymax\ApiClient\Data\HttpStatusCode;
 
 /**
@@ -12,8 +13,17 @@ use Studio15\Loymax\ApiClient\Data\HttpStatusCode;
  */
 final class Unauthorized extends ApiClientException
 {
-    public function __construct()
+    public function __construct(ResponseInterface $apiResponse)
     {
-        parent::__construct('Unauthorized.', HttpStatusCode::HTTP_UNAUTHORIZED->value);
+        /** @var array{message?: non-empty-string} $data */
+        $data = json_decode(
+            json: (string) $apiResponse->getBody(),
+            associative: true,
+        );
+
+        parent::__construct(
+            message: $data['message'] ?? 'Unauthorized.',
+            code: HttpStatusCode::HTTP_UNAUTHORIZED->value,
+        );
     }
 }

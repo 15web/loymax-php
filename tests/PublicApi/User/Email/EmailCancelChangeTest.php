@@ -48,6 +48,11 @@ final class EmailCancelChangeTest extends TestCase
 
         $mockResponse = new Response(
             status: 401,
+            body: <<<'JSON'
+                {
+                  "message": "Запрещён анонимный доступ к методу."
+                }
+                JSON
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
