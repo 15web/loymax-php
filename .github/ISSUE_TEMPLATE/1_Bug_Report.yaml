@@ -1,0 +1,37 @@
+name: Bug Report
+description: Сообщить о нерабочем функционале
+body:
+  - type: input
+    attributes:
+      label: Версия SDK
+      description: Укажите версию SDK, которую вы используете.
+      placeholder: 1.0.3
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Версия PHP
+      description: Укажите версию PHP, которую вы используете.
+      placeholder: 8.3.13
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Описание
+      description: Подробно опишите проблему, с которой вы столкнулись.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Шаги по воспроизведению
+      description: |
+        ⚠️ Это самая важная часть сообщения. ⚠️
+        Без возможности легко воспроизвести вашу проблему маловероятно, что мы сможем вам помочь и поработать над ее исправлением.
+        Пожалуйста, уделите время, чтобы показать нам код и/или конфигурацию, необходимые другим для легкого воспроизведения проблемы.
+  - type: textarea
+    id: possible-solution
+    attributes:
+      label: Возможное решение
+      description: |
+        Необязательно: только если у вас есть предложения по исправлению/причине ошибки.
+        Не стесняйтесь создавать запрос на извлечение с Вашим решением, это поможет быстрее получить обратную связь.
