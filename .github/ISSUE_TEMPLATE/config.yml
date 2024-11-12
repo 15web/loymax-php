@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Вопрос поддержки
+    url: https://www.15web.ru/contacts
+    about: Мы используем GitHub Issues только для обсуждения ошибок SDK и нового функционала. Для других вопросов об использовании Loymax SDK или сторонних пакетов, пожалуйста, используйте любой из каналов связи, указанных на странице https://www.15web.ru/contacts

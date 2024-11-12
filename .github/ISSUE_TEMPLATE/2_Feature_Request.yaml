@@ -1,0 +1,23 @@
+name: Feature Request
+description: Новые методы и идеи для новых функций и улучшений
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Описание
+      description: Четкое и краткое описание новой функции
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Пример
+      description: |
+        Простой пример нового функционала в действии (включая код PHP, конфигурацию YAML и т.д.)
+        Если новый функционал изменяет существующий, включите простое сравнение «до/после».
+        Если необходимо добавить новые методы, укажите ссылку на документацию Loymax API.
+  - type: input
+    id: docs
+    attributes:
+      label: Ссылка на документацию Loymax API
+      description: Если необходимо добавить новые методы в SDK
