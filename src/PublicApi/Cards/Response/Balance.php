@@ -11,11 +11,13 @@ namespace Studio15\Loymax\PublicApi\Cards\Response;
 final readonly class Balance
 {
     /**
-     * @param float $amount Количество бонусов
-     * @param Currency $currencyInfo Подробная информация о валюте бонусов
+     * @param float $amount Сумма бонусов
+     * @param non-empty-string $currency Название валюты
+     * @param Currency $currencyInfo Информация о валюте
      */
     public function __construct(
         public float $amount,
+        public string $currency,
         public Currency $currencyInfo,
     ) {}
 }
