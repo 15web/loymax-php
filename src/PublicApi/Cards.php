@@ -6,18 +6,28 @@ namespace Studio15\Loymax\PublicApi;
 
 use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
+use Studio15\Loymax\PublicApi\Cards\EmitVirtual;
 use Studio15\Loymax\PublicApi\Cards\GetCards;
 use Studio15\Loymax\PublicApi\Cards\GetEmitVirtual;
 use Studio15\Loymax\PublicApi\Cards\GetQrCode;
 use Studio15\Loymax\PublicApi\Cards\Request\GetQrCodeRequest;
+use Studio15\Loymax\PublicApi\Cards\Request\SetCardRequest;
 use Studio15\Loymax\PublicApi\Cards\Response\Card;
+use Studio15\Loymax\PublicApi\Cards\Response\EmittedCard;
 use Studio15\Loymax\PublicApi\Cards\Response\GetEmitVirtualResponse;
 use Studio15\Loymax\PublicApi\Cards\Response\QrCode;
+use Studio15\Loymax\PublicApi\Cards\SetCard;
 
 /**
  * Cards. Методы для работы с картами
  *
  * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Cards/
+ *
+ * Конфигурирование процесса привязки физической и виртуальной карты
+ * @see https://docs.loymax.net/xwiki/bin/view/Main/Installation_and_configuration/System_configuration/Internal_settings/Card_issue_configuring/
+ *
+ * Конфигурирование выдачи виртуальной карты при регистрации
+ * @see https://docs.loymax.net/xwiki/bin/view/Main/Installation_and_configuration/System_configuration/Internal_settings/#EmitCards
  */
 final readonly class Cards
 {
@@ -57,6 +67,46 @@ final readonly class Cards
         );
 
         return ($getCards)();
+    }
+
+    /**
+     * Прикрепляет карту
+     *
+     * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Cards/#H41F44043843A44043543F43B44F43544243A430440442443
+     *
+     * @param non-empty-string $cardNumber Номер карты
+     * @param non-empty-string|null $cvcCode CVC-код
+     *
+     * @throws ApiClientException
+     */
+    public function setCard(string $cardNumber, ?string $cvcCode = null): EmittedCard
+    {
+        $request = new SetCardRequest(
+            cardNumber: $cardNumber,
+            cvcCode: $cvcCode,
+        );
+
+        $setCard = new SetCard(
+            apiClient: $this->apiClient,
+        );
+
+        return ($setCard)($request);
+    }
+
+    /**
+     * Выпускает виртуальную карту
+     *
+     * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Cards/#H41244B43F44344143A43043544243243844044244343043B44C43D44344EA043A430440442443
+     *
+     * @throws ApiClientException
+     */
+    public function emitVirtual(): EmittedCard
+    {
+        $emitVirtual = new EmitVirtual(
+            apiClient: $this->apiClient,
+        );
+
+        return ($emitVirtual)();
     }
 
     /**

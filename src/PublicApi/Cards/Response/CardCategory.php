@@ -6,18 +6,24 @@ namespace Studio15\Loymax\PublicApi\Cards\Response;
 
 /**
  * @api
- * Информация о категории карты
+ * Описание категории карты
  */
 final readonly class CardCategory
 {
     /**
-     * @param positive-int $id Идентификатор
-     * @param non-empty-string $title Название
-     * @param non-empty-string $logicalName Логическое имя (для отображения изображения типа карты в ЛК)
+     * @param positive-int $id Внутренний идентификатор категории карты в Системе
+     * @param non-empty-string $title Название категории карты
+     * @param non-empty-string $logicalName Логическое имя категории карты
+     * @param non-empty-string|null $description Описание категории карты
+     * @param non-negative-int $cardCount Количество карт в категории
+     * @param list<CardCategoryImage> $images Изображение карты соответствующей категории
      */
     public function __construct(
         public int $id,
         public string $title,
         public string $logicalName,
+        public ?string $description,
+        public int $cardCount,
+        public array $images,
     ) {}
 }
