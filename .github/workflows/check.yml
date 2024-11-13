@@ -129,3 +129,25 @@ jobs:
         run: composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
       - name: phpunit
         run: vendor/bin/phpunit --configuration=phpunit.xml --coverage-text
+
+  test-runtime-dependencies:
+    name: Check runtime dependencies on PHP ${{ matrix.php }}-${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        php:
+          - "8.2"
+          - "8.3"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
+          coverage: none
+      - name: Install dependencies
+        run: composer update --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
+      - name: run test
+        run: php test-runtime-dependencies.php
