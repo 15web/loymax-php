@@ -7,9 +7,11 @@ namespace Studio15\Loymax\PublicApi;
 use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Cards\GetCards;
+use Studio15\Loymax\PublicApi\Cards\GetEmitVirtual;
 use Studio15\Loymax\PublicApi\Cards\GetQrCode;
 use Studio15\Loymax\PublicApi\Cards\Request\GetQrCodeRequest;
 use Studio15\Loymax\PublicApi\Cards\Response\Card;
+use Studio15\Loymax\PublicApi\Cards\Response\GetEmitVirtualResponse;
 use Studio15\Loymax\PublicApi\Cards\Response\QrCode;
 
 /**
@@ -22,6 +24,22 @@ final readonly class Cards
     public function __construct(
         private ApiClient $apiClient,
     ) {}
+
+    /**
+     * Возвращает информацию о возможности выпуска виртуальной карты
+     *
+     * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Cards/#H41243E43743244043044943043544243843D44443E44043C43044643844E43E43243E43743C43E43643D43E44144243843244B43F44344143A43043243844044244343043B44C43D43E43943A43044044244B
+     *
+     * @throws ApiClientException
+     */
+    public function getEmitVirtual(): GetEmitVirtualResponse
+    {
+        $getEmitVirtual = new GetEmitVirtual(
+            apiClient: $this->apiClient,
+        );
+
+        return ($getEmitVirtual)();
+    }
 
     /**
      * Возвращает список карт текущего клиента и все операции по ним
