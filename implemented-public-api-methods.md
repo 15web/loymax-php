@@ -7,9 +7,15 @@
 * Возвращает список карт текущего клиента и все операции по ним
 * Генерирует QR-код для карты по ее внутреннему идентификатору
 
+[Coupons. Методы для работы с купонами](https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Coupons/)
+
+* Возвращает информацию о купоне по номеру
+* Возвращает список купонов
+
 [CustomerEmail. Методы для работы с email клиента](https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Email/)
 
 Методы, доступные через клиентскую авторизацию
+* Возвращает текущий статус email клиента
 * Запускает процесс изменения email. Указание нового email
 * Завершает процесс изменения email
 * Отменяет процесс изменения email
@@ -40,6 +46,9 @@
 [Password. Методы для работы с паролем](https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Password/)
 
 * Устанавливает пароль клиенту
+* Обновляет пароль клиента
+* Запускает восстановление пароля
+* Отправляет введенный код подтверждения для восстановления пароля
 
 [PushNotification. Методы для работы с push-уведомлениями](https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Pushes/)
 
