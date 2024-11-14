@@ -14,6 +14,6 @@ final class NotFound extends ApiClientException
 {
     public function __construct()
     {
-        parent::__construct('Resource not found.', HttpStatusCode::HTTP_NOT_FOUND->value);
+        parent::__construct('Resource not found.', HttpStatusCode::NOT_FOUND->value);
     }
 }
