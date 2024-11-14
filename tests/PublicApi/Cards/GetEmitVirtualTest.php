@@ -8,6 +8,7 @@ use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\TestDox;
 use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
 use Studio15\Loymax\ApiClient\Exception\Unauthorized;
+use Studio15\Loymax\PublicApi\Cards\MockResponse\GetEmitVirtualResponse;
 use Studio15\Loymax\Test\TestCase;
 
 /**
@@ -19,26 +20,7 @@ final class GetEmitVirtualTest extends TestCase
     #[TestDox('Успешный результат')]
     public function testSuccess(): void
     {
-        $mockResponse = new Response(
-            body: <<<'JSON'
-                {
-                  "data":  {
-                    "currentCountOfVirtualCards": 1,
-                    "isVirtualCardEmissionAllowed": false
-                  },
-                  "result": {
-                    "state": "Success",
-                    "httpCode": 200,
-                    "message": null,
-                    "messageCode": null,
-                    "exception": null,
-                    "validationErrors": null
-                  }
-                }
-                JSON
-        );
-
-        $loymax = $this->createLoymaxClient([$mockResponse]);
+        $loymax = $this->createLoymaxClient([GetEmitVirtualResponse::getResponse()]);
         $result = $loymax->publicApi()->cards()->getEmitVirtual();
 
         self::assertSame(1, $result->currentCountOfVirtualCards);

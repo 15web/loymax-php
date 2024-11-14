@@ -9,6 +9,7 @@ use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\TestDox;
 use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
 use Studio15\Loymax\ApiClient\Exception\Unauthorized;
+use Studio15\Loymax\PublicApi\Cards\MockResponse\EmitVirtualResponse;
 use Studio15\Loymax\Test\TestCase;
 
 /**
@@ -20,39 +21,7 @@ final class EmitVirtualTest extends TestCase
     #[TestDox('Успешный результат')]
     public function testSuccess(): void
     {
-        $mockResponse = new Response(
-            status: 201,
-            body: <<<'JSON'
-                {
-                  "data": {
-                    "id": 456,
-                    "state": "Activated",
-                    "number": "1011101100220011",
-                    "barCode": "1011101100220011",
-                    "block": false,
-                    "expiryDate": "2024-03-25T12:18:27Z",
-                    "cardCategory": {
-                      "$type": "Loymax.Common.Contract.Model.Cards.CardCategoryInfo, Loymax.Common.Contract",
-                      "description": null,
-                      "cardCount": 0,
-                      "id": 1,
-                      "title": "Виртуальная карта",
-                      "logicalName": "VirtualCard",
-                      "images": []
-                    }
-                  },
-                  "result": {
-                    "state": "Success",
-                    "message": null,
-                    "messageCode": null,
-                    "exception": null,
-                    "validationErrors": null
-                  }
-                }
-                JSON
-        );
-
-        $loymax = $this->createLoymaxClient([$mockResponse]);
+        $loymax = $this->createLoymaxClient([EmitVirtualResponse::getResponse()]);
         $result = $loymax->publicApi()->cards()->emitVirtual();
 
         /** @var DateTimeImmutable $expiryDate */

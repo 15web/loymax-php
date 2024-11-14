@@ -8,6 +8,7 @@ use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\TestDox;
 use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
 use Studio15\Loymax\ApiClient\Exception\Unauthorized;
+use Studio15\Loymax\PublicApi\Cards\MockResponse\QrCodeResponse;
 use Studio15\Loymax\Test\TestCase;
 
 /**
@@ -19,27 +20,7 @@ final class QrCodeTest extends TestCase
     #[TestDox('Успешный результат')]
     public function testSuccess(): void
     {
-        $mockResponse = new Response(
-            body: <<<'JSON'
-                {
-                  "data":  {
-                    "codeGeneratedDate": "2024-10-29T09:26:48Z",
-                    "code": "1001877399942540QR2058410873",
-                    "lifeTime": 86400
-                  },
-                  "result": {
-                    "state": "Success",
-                    "httpCode": 200,
-                    "message": null,
-                    "messageCode": null,
-                    "exception": null,
-                    "validationErrors": null
-                  }
-                }
-                JSON
-        );
-
-        $loymax = $this->createLoymaxClient([$mockResponse]);
+        $loymax = $this->createLoymaxClient([QrCodeResponse::getResponse()]);
         $result = $loymax->publicApi('validToken')->cards()->qrCode(123);
 
         self::assertSame('2024-10-29T09:26:48Z', $result->codeGeneratedDate->format('Y-m-d\TH:i:sp'));
