@@ -24,6 +24,7 @@ final class SetCardTest extends TestCase
     public function testSuccess(): void
     {
         $mockResponse = new Response(
+            status: 201,
             body: <<<'JSON'
                 {
                   "data": {

@@ -35,7 +35,7 @@ final class BadRequest extends ApiClientException
 
         parent::__construct(
             $this->errorDescription ?? $this->error,
-            HttpStatusCode::HTTP_BAD_REQUEST->value,
+            HttpStatusCode::BAD_REQUEST->value,
         );
     }
 }

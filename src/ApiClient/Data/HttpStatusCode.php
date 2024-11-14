@@ -9,15 +9,17 @@ namespace Studio15\Loymax\ApiClient\Data;
  */
 enum HttpStatusCode: int
 {
-    case HTTP_OK = 200;
+    case OK = 200;
 
-    case HTTP_BAD_REQUEST = 400;
+    case MULTIPLE_CHOICES = 300;
 
-    case HTTP_UNAUTHORIZED = 401;
+    case BAD_REQUEST = 400;
 
-    case HTTP_FORBIDDEN = 403;
+    case UNAUTHORIZED = 401;
 
-    case HTTP_NOT_FOUND = 404;
+    case FORBIDDEN = 403;
+
+    case NOT_FOUND = 404;
 
     case METHOD_NOT_ALLOWED = 405;
 }

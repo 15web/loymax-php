@@ -23,7 +23,7 @@ final class Unauthorized extends ApiClientException
 
         parent::__construct(
             message: $data['message'] ?? 'Unauthorized.',
-            code: HttpStatusCode::HTTP_UNAUTHORIZED->value,
+            code: HttpStatusCode::UNAUTHORIZED->value,
         );
     }
 }

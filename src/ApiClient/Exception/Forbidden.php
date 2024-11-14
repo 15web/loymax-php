@@ -14,6 +14,6 @@ final class Forbidden extends ApiClientException
 {
     public function __construct()
     {
-        parent::__construct('Forbidden.', HttpStatusCode::HTTP_FORBIDDEN->value);
+        parent::__construct('Forbidden.', HttpStatusCode::FORBIDDEN->value);
     }
 }
