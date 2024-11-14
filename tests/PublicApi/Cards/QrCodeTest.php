@@ -6,7 +6,6 @@ namespace Studio15\Loymax\Test\PublicApi\Cards;
 
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\TestDox;
-use Studio15\Loymax\ApiClient\Data\HttpStatusCode;
 use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
 use Studio15\Loymax\ApiClient\Exception\Unauthorized;
 use Studio15\Loymax\Test\TestCase;
@@ -79,7 +78,7 @@ final class QrCodeTest extends TestCase
         $this->expectException(Unauthorized::class);
 
         $mockResponse = new Response(
-            status: HttpStatusCode::HTTP_UNAUTHORIZED->value,
+            status: 401,
             body: <<<'JSON'
                 {
                   "message": "Запрещён анонимный доступ к методу."

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Studio15\Loymax\Test\PublicApi\User\Phone;
+namespace Studio15\Loymax\Test\PublicApi\User\Email;
 
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -13,24 +13,20 @@ use Studio15\Loymax\Test\TestCase;
 /**
  * @internal
  */
-#[TestDox('Запрос на получение информации о подтверждаемом номере телефона')]
-final class GetPhoneNumberTest extends TestCase
+#[TestDox('Повторная отправка кода подтверждения при изменении email')]
+final class SendConfirmCodeTest extends TestCase
 {
-    #[TestDox('Успешный результат, возвращается новый телефон')]
-    public function testSuccessNewPhone(): void
+    #[TestDox('Успешный результат')]
+    public function testSuccess(): void
     {
+        $this->expectNotToPerformAssertions();
+
         $mockResponse = new Response(
             body: <<<'JSON'
                 {
-                  "data": {
-                    "currentPhoneNumber": "",
-                    "newPhoneNumber": {
-                      "phoneNumber": "***9999"
-                    },
-                    "confirmCodeLength": 10
-                  },
                   "result": {
                     "state": "Success",
+                    "httpCode": 200,
                     "message": null,
                     "messageCode": null,
                     "exception": null,
@@ -41,28 +37,23 @@ final class GetPhoneNumberTest extends TestCase
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
-        $result = $loymax->publicApi('validAccessToken')->user()->getPhoneNumber();
-
-        self::assertSame('', $result->currentPhoneNumber);
-        self::assertSame('***9999', $result->newPhoneNumber?->phoneNumber);
-        self::assertSame(10, $result->confirmCodeLength);
+        $loymax->publicApi('validAccessToken')->user()->emailSendConfirmCode();
     }
 
-    #[TestDox('Успешный результат, возвращается старый(подтвержденный) телефон')]
-    public function testSuccessConfirmedPhone(): void
+    #[TestDox('Процесс по смене адреса электронной почты не начат')]
+    public function testChangeNotInitialized(): void
     {
+        $this->expectException(InvalidResponse::class);
+        $this->expectExceptionMessage('Процесс по смене адреса электронной почты не начат');
+
         $mockResponse = new Response(
             body: <<<'JSON'
                 {
-                  "data": {
-                    "currentPhoneNumber": "***9999",
-                    "newPhoneNumber": null,
-                    "confirmCodeLength": 0
-                  },
                   "result": {
-                    "state": "Success",
-                    "message": null,
-                    "messageCode": null,
+                    "state": "Error",
+                    "httpCode": 400,
+                    "message": "Процесс по смене адреса электронной почты не начат",
+                    "messageCode": "Business.Base",
                     "exception": null,
                     "validationErrors": null
                   }
@@ -71,11 +62,7 @@ final class GetPhoneNumberTest extends TestCase
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
-        $result = $loymax->publicApi('validAccessToken')->user()->getPhoneNumber();
-
-        self::assertSame('***9999', $result->currentPhoneNumber);
-        self::assertNull($result->newPhoneNumber);
-        self::assertSame(0, $result->confirmCodeLength);
+        $loymax->publicApi('validAccessToken')->user()->emailSendConfirmCode();
     }
 
     #[TestDox('Неавторизованный запрос')]
@@ -93,7 +80,7 @@ final class GetPhoneNumberTest extends TestCase
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
-        $loymax->publicApi('invalidAccessToken')->user()->getPhoneNumber();
+        $loymax->publicApi('invalidAccessToken')->user()->emailSendConfirmCode();
     }
 
     #[TestDox('Запрос завершился с ошибкой')]
@@ -118,6 +105,6 @@ final class GetPhoneNumberTest extends TestCase
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
-        $loymax->publicApi('invalidAccessToken')->user()->getPhoneNumber();
+        $loymax->publicApi('invalidAccessToken')->user()->emailSendConfirmCode();
     }
 }
