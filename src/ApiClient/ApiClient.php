@@ -80,7 +80,7 @@ final readonly class ApiClient
             'headers' => $apiResponse->getHeaders(),
         ];
 
-        if ($apiResponse->getStatusCode() !== HttpStatusCode::HTTP_OK->value) {
+        if (!$this->responseIsSuccessful($apiResponse)) {
             $exception = $this->resolveException($apiResponse);
 
             $this->logger->error('Loymax SDK Response', array_merge($loggerContext, [
@@ -112,15 +112,20 @@ final readonly class ApiClient
         return $deserializedResponse;
     }
 
+    private function responseIsSuccessful(ResponseInterface $apiResponse): bool
+    {
+        return $apiResponse->getStatusCode() >= HttpStatusCode::OK->value && $apiResponse->getStatusCode() < HttpStatusCode::MULTIPLE_CHOICES->value;
+    }
+
     private function resolveException(ResponseInterface $response): ApiClientException
     {
         $statusCode = HttpStatusCode::tryFrom($response->getStatusCode());
 
         return match ($statusCode) {
-            HttpStatusCode::HTTP_BAD_REQUEST => new BadRequest($response),
-            HttpStatusCode::HTTP_UNAUTHORIZED => new Unauthorized($response),
-            HttpStatusCode::HTTP_FORBIDDEN => new Forbidden(),
-            HttpStatusCode::HTTP_NOT_FOUND => new NotFound(),
+            HttpStatusCode::BAD_REQUEST => new BadRequest($response),
+            HttpStatusCode::UNAUTHORIZED => new Unauthorized($response),
+            HttpStatusCode::FORBIDDEN => new Forbidden(),
+            HttpStatusCode::NOT_FOUND => new NotFound(),
             HttpStatusCode::METHOD_NOT_ALLOWED => new MethodNotAllowed(),
             default => new UnknownErrorException((string) $response->getBody(), $response->getStatusCode()),
         };

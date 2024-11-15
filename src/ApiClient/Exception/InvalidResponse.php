@@ -38,7 +38,7 @@ final class InvalidResponse extends ApiClientException
 
         parent::__construct(
             message: $message,
-            code: HttpStatusCode::HTTP_BAD_REQUEST->value,
+            code: HttpStatusCode::BAD_REQUEST->value,
         );
     }
 }

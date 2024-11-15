@@ -20,7 +20,7 @@ final class InvalidRequest extends ApiClientException
     {
         parent::__construct(
             'Ошибка валидации',
-            HttpStatusCode::HTTP_BAD_REQUEST->value,
+            HttpStatusCode::BAD_REQUEST->value,
         );
     }
 
