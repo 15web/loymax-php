@@ -23,6 +23,7 @@ use Studio15\Loymax\ApiClient\Exception\UnknownErrorException;
 use Studio15\Loymax\ApiClient\Response\Response;
 use Studio15\Loymax\ApiClient\Response\ValidationError;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Uid\Uuid;
 use Throwable;
 
 /**
@@ -52,6 +53,8 @@ final readonly class ApiClient
      */
     public function sendRequest(RequestInterface $request, string $dataClass = Response::class): object
     {
+        $traceId = Uuid::v7();
+
         if ($this->token !== null) {
             $request = $request->withAddedHeader('authorization', "Bearer {$this->token}");
         }
@@ -60,6 +63,7 @@ final readonly class ApiClient
             'uri' => "{$request->getMethod()} {$request->getUri()}",
             'payload' => (string) $request->getBody(),
             'headers' => $request->getHeaders(),
+            'traceId' => (string) $traceId,
         ]);
 
         try {
@@ -69,6 +73,7 @@ final readonly class ApiClient
         } catch (ClientExceptionInterface $e) {
             $this->logger->error('Loymax SDK Request', [
                 'exception' => $e,
+                'traceId' => (string) $traceId,
             ]);
 
             throw new UnknownErrorException(previous: $e);
@@ -78,6 +83,7 @@ final readonly class ApiClient
             'status' => $apiResponse->getStatusCode(),
             'content' => (string) $apiResponse->getBody(),
             'headers' => $apiResponse->getHeaders(),
+            'traceId' => (string) $traceId,
         ];
 
         if (!$this->responseIsSuccessful($apiResponse)) {
