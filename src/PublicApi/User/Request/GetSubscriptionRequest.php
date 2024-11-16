@@ -10,6 +10,10 @@ use Studio15\Loymax\PublicApi\User\Response\SubscriptionExternalId;
 
 /**
  * Фильтр подписок
+ *
+ * @internal
+ *
+ * @api
  */
 final readonly class GetSubscriptionRequest
 {

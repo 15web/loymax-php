@@ -12,7 +12,6 @@ use Studio15\Loymax\PublicApi\Coupons\GetCoupons;
 use Studio15\Loymax\PublicApi\Coupons\Request\GetCouponsRequest;
 use Studio15\Loymax\PublicApi\Coupons\Response\Coupon;
 use Studio15\Loymax\PublicApi\Coupons\Response\CouponState;
-use Studio15\Loymax\PublicApi\Data\Pagination;
 
 /**
  * Coupons. Методы для работы с купонами
@@ -51,15 +50,12 @@ final readonly class Coupons
         int $from = 0,
         int $count = 10,
     ): array {
-        $request = new GetCouponsRequest(
+        $parameters = new GetCouponsRequest(
             emissionIds: $emissionIds,
             couponStates: $couponStates,
             changedStateDateFrom: $changedStateDateFrom,
             changedStateDateTo: $changedStateDateTo,
             couponNumber: $couponNumber,
-        );
-
-        $pagination = new Pagination(
             from: $from,
             count: $count,
         );
@@ -69,8 +65,7 @@ final readonly class Coupons
         );
 
         return ($getCoupons)(
-            request: $request,
-            pagination: $pagination,
+            parameters: $parameters,
         );
     }
 

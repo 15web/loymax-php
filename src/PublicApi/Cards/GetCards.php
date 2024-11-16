@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\Cards;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
@@ -29,12 +28,10 @@ final readonly class GetCards
      */
     public function __invoke(): array
     {
-        $apiRequest = (new CreateRequest())(
+        $apiResponse = $this->apiClient->sendRequest(
             method: Method::GET,
             uri: '/publicapi/v1.2/Cards',
         );
-
-        $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
         /** @var list<Card> $cardList */
         $cardList = (new CreateSerializer())()->denormalize(

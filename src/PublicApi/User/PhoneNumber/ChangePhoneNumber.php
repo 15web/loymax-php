@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\User\PhoneNumber;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
+use Studio15\Loymax\PublicApi\User\PhoneNumber\Request\ChangePhoneNumberRequest;
 use Studio15\Loymax\PublicApi\User\PhoneNumber\Response\PhoneNumberChanged;
-use Studio15\Loymax\PublicApi\User\ValueObject\Phone;
 
 /**
  * Начинает процесс привязки номера телефона
@@ -26,17 +25,13 @@ final readonly class ChangePhoneNumber
     /**
      * @throws ApiClientException
      */
-    public function __invoke(Phone $phone): PhoneNumberChanged
+    public function __invoke(ChangePhoneNumberRequest $request): PhoneNumberChanged
     {
-        $request = (new CreateRequest())(
+        $response = $this->apiClient->sendRequest(
             method: Method::POST,
             uri: '/publicapi/v1.2/User/PhoneNumber',
-            body: [
-                'phoneNumber' => $phone->value,
-            ],
+            body: $request,
         );
-
-        $response = $this->apiClient->sendRequest($request);
 
         /** @var PhoneNumberChanged $phoneChangedResponse */
         $phoneChangedResponse = (new CreateSerializer())()->denormalize(

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Studio15\Loymax\PublicApi\Data;
+namespace Studio15\Loymax\PublicApi\Notification\Request;
 
 use Webmozart\Assert\Assert;
 
 /**
- * Пагинация
+ * Запрос на получение списка оповещений
  *
  * @internal
  */
-final readonly class Pagination
+final readonly class GetNotificationRequest
 {
     /**
      * @param non-negative-int $from Порядковый номер начального элемента выборки

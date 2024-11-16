@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\User;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\User\Response\UpdatedSubscription;
@@ -28,12 +27,10 @@ final readonly class UpdateSubscriptions
      */
     public function __invoke(array $updatingSubscriptions): void
     {
-        $apiRequest = (new CreateRequest())(
+        $this->apiClient->sendRequest(
             method: Method::POST,
             uri: '/publicapi/v1.2/User/Subscriptions',
             body: $updatingSubscriptions,
         );
-
-        $this->apiClient->sendRequest($apiRequest);
     }
 }

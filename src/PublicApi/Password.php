@@ -35,7 +35,7 @@ final readonly class Password
      */
     public function startResetPassword(string $notifierIdentity): ResetPasswordStarted
     {
-        $request = new StartResetPasswordRequest(
+        $requestBody = new StartResetPasswordRequest(
             notifierIdentity: $notifierIdentity,
         );
 
@@ -43,7 +43,7 @@ final readonly class Password
             apiClient: $this->apiClient
         );
 
-        return ($startResetPassword)($request);
+        return ($startResetPassword)($requestBody);
     }
 
     /**
@@ -62,7 +62,7 @@ final readonly class Password
         string $confirmCode,
         string $newPassword,
     ): AccessTokenData {
-        $request = new ConfirmResetPasswordRequest(
+        $requestBody = new ConfirmResetPasswordRequest(
             notifierIdentity: $notifierIdentity,
             confirmCode: $confirmCode,
             newPassword: $newPassword,
@@ -72,6 +72,6 @@ final readonly class Password
             apiClient: $this->apiClient
         );
 
-        return ($confirmResetPassword)($request);
+        return ($confirmResetPassword)($requestBody);
     }
 }

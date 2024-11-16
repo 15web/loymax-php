@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\History;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
@@ -26,20 +25,13 @@ final readonly class GetAggregateWithdrawRewardPurchase
     /**
      * @throws ApiClientException
      */
-    public function __invoke(GetAggregateWithdrawRewardPurchaseRequest $request): AggregatedOperations
+    public function __invoke(GetAggregateWithdrawRewardPurchaseRequest $parameters): AggregatedOperations
     {
-        $parameters = [
-            'filter.fromDate' => $request->fromDate?->format('c'),
-            'filter.toDate' => $request->toDate?->format('c'),
-        ];
-
-        $apiRequest = (new CreateRequest())(
+        $apiResponse = $this->apiClient->sendRequest(
             method: Method::GET,
             uri: '/publicapi/v1.2/History/AggregateWithdrawRewardPurchase',
             parameters: $parameters,
         );
-
-        $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
         /** @var AggregatedOperations $aggregatedOperations */
         $aggregatedOperations = (new CreateSerializer())()->denormalize(

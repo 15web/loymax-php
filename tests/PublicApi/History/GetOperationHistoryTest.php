@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Studio15\Loymax\Test\PublicApi\History;
 
+use DateTimeImmutable;
 use GuzzleHttp\Psr7\Response;
+use InvalidArgumentException;
+use Iterator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
 use Studio15\Loymax\ApiClient\Exception\Unauthorized;
@@ -408,5 +412,37 @@ final class GetOperationHistoryTest extends TestCase
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
         $loymax->publicApi('validAccessToken')->history()->getHistory(count: 1);
+    }
+
+    /**
+     * @param array{
+     *     fromDate: non-empty-string,
+     *     toDate: non-empty-string,
+     *     from: non-negative-int,
+     *     count: positive-int,
+     * } $data
+     */
+    #[DataProvider('invalidRequestDataProvider')]
+    #[TestDox('Невалидные данные в запросе')]
+    public function testInvalidRequestData(array $data): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $loymax = $this->createLoymaxClient();
+        $loymax->publicApi('validAccessToken')->history()->getHistory(
+            fromDate: new DateTimeImmutable($data['fromDate']),
+            toDate: new DateTimeImmutable($data['toDate']),
+            from: $data['from'],
+            count: $data['count'],
+        );
+    }
+
+    public static function invalidRequestDataProvider(): Iterator
+    {
+        yield 'некорректная дата' => [['fromDate' => '2024-11-01T00:00:00+00:00', 'toDate' => '2024-10-01T00:00:00+00:00', 'from' => 0, 'count' => 10]];
+
+        yield 'некорректный порядковый номер' => [['fromDate' => '2024-10-01T00:00:00+00:00', 'toDate' => '2024-11-01T00:00:00+00:00', 'from' => -10, 'count' => 10]];
+
+        yield 'некорректное количество' => [['fromDate' => '2024-10-01T00:00:00+00:00', 'toDate' => '2024-11-01T00:00:00+00:00', 'from' => 0, 'count' => -10]];
     }
 }

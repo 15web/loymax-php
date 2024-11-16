@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Studio15\Loymax\Authorization;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\ContentType;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
@@ -31,35 +30,22 @@ final readonly class IssueAccessToken
     /**
      * @throws ApiClientException
      */
-    public function __invoke(IssueAccessTokenRequest $request): AccessTokenData|TwoFactorAuthenticationCodeRequired
+    public function __invoke(IssueAccessTokenRequest $requestBody): AccessTokenData|TwoFactorAuthenticationCodeRequired
     {
         $headers = [
             'Content-Type' => ContentType::URLENCODED->value,
         ];
 
-        if ($request->clientIp !== null) {
-            $headers['X-Forwarded-For'] = $request->clientIp;
+        if ($requestBody->clientIp !== null) {
+            $headers['X-Forwarded-For'] = $requestBody->clientIp;
         }
-
-        $body = [
-            'grant_type' => TwoFactorAuthenticationConfig::GRANT_TYPE,
-            'username' => $request->username,
-        ];
-
-        if ($request->password !== null) {
-            $body['password'] = $request->password;
-        }
-
-        $apiClientRequest = (new CreateRequest())(
-            method: Method::POST,
-            uri: '/authorizationService/token',
-            headers: $headers,
-            body: $body,
-        );
 
         try {
             $accessTokenData = $this->apiClient->sendRequest(
-                request: $apiClientRequest,
+                method: Method::POST,
+                uri: '/authorizationService/token',
+                body: $requestBody,
+                headers: $headers,
                 dataClass: AccessTokenData::class,
             );
         } catch (BadRequest $exception) {

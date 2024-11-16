@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Studio15\Loymax\Test\PublicApi\Merchants;
 
 use GuzzleHttp\Psr7\Response;
+use InvalidArgumentException;
+use Iterator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
 use Studio15\Loymax\PublicApi\Merchants\Response\AdditionalInfo;
@@ -588,5 +591,37 @@ final class GetByIdsTest extends TestCase
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
         $loymax->publicApi()->merchants()->getByIds();
+    }
+
+    /**
+     * @param array{
+     *     merchantsIds: list<positive-int>,
+     *     from: non-negative-int,
+     *     count: positive-int,
+     * } $data
+     */
+    #[DataProvider('invalidRequestDataProvider')]
+    #[TestDox('Невалидные данные в запросе')]
+    public function testInvalidRequestData(array $data): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $loymax = $this->createLoymaxClient();
+        $loymax->publicApi()->merchants()->getByIds(
+            merchantsIds: $data['merchantsIds'],
+            from: $data['from'],
+            count: $data['count'],
+        );
+    }
+
+    public static function invalidRequestDataProvider(): Iterator
+    {
+        yield 'отрицательные значения в списке Id' => [['merchantsIds' => [-10], 'from' => 0, 'count' => 10]];
+
+        yield 'строки в списке Id' => [['merchantsIds' => ['fake'], 'from' => 0, 'count' => 10]];
+
+        yield 'некорректный порядковый номер' => [['merchantsIds' => [1], 'from' => -10, 'count' => 10]];
+
+        yield 'некорректное количество' => [['merchantsIds' => [1], 'from' => 0, 'count' => -10]];
     }
 }

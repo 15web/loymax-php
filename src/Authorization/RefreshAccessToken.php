@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Studio15\Loymax\Authorization;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\ContentType;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
+use Studio15\Loymax\Authorization\Request\RefreshAccessTokenRequest;
 use Studio15\Loymax\Authorization\Response\AccessTokenData;
 
 /**
@@ -18,7 +18,7 @@ use Studio15\Loymax\Authorization\Response\AccessTokenData;
  */
 final readonly class RefreshAccessToken
 {
-    private const GRANT_TYPE = 'refresh_token';
+    public const GRANT_TYPE = 'refresh_token';
 
     public function __construct(
         private ApiClient $apiClient,
@@ -27,27 +27,18 @@ final readonly class RefreshAccessToken
     /**
      * @throws ApiClientException
      */
-    public function __invoke(AccessTokenData $expiredTokenData): AccessTokenData
+    public function __invoke(RefreshAccessTokenRequest $requestBody): AccessTokenData
     {
         $headers = [
             'Content-Type' => ContentType::URLENCODED->value,
-            'Authorization' => "Bearer {$expiredTokenData->accessToken}",
+            'Authorization' => "Bearer {$requestBody->accessToken}",
         ];
-
-        $body = [
-            'grant_type' => self::GRANT_TYPE,
-            'refresh_token' => $expiredTokenData->refreshToken,
-        ];
-
-        $apiClientRequest = (new CreateRequest())(
-            method: Method::POST,
-            uri: '/authorizationService/token',
-            headers: $headers,
-            body: $body,
-        );
 
         return $this->apiClient->sendRequest(
-            request: $apiClientRequest,
+            method: Method::POST,
+            uri: '/authorizationService/token',
+            body: $requestBody,
+            headers: $headers,
             dataClass: AccessTokenData::class,
         );
     }

@@ -41,7 +41,7 @@ final readonly class Pushes
         string $deviceId,
         string $platformVersion,
     ): void {
-        $request = new RegisterRequest(
+        $requestBody = new RegisterRequest(
             token: $token,
             platformType: $platformType,
             userAgent: $userAgent,
@@ -53,8 +53,6 @@ final readonly class Pushes
             apiClient: $this->apiClient,
         );
 
-        ($register)(
-            request: $request,
-        );
+        ($register)($requestBody);
     }
 }

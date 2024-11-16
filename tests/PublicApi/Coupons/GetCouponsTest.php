@@ -6,6 +6,9 @@ namespace Studio15\Loymax\Test\PublicApi\Coupons;
 
 use DateTimeImmutable;
 use GuzzleHttp\Psr7\Response;
+use InvalidArgumentException;
+use Iterator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
 use Studio15\Loymax\ApiClient\Exception\Unauthorized;
@@ -813,5 +816,37 @@ final class GetCouponsTest extends TestCase
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
         $loymax->publicApi('validAccessToken')->coupons()->getCoupons();
+    }
+
+    /**
+     * @param array{
+     *     changedStateDateFrom: non-empty-string,
+     *     changedStateDateTo: non-empty-string,
+     *     from: non-negative-int,
+     *     count: positive-int,
+     * } $data
+     */
+    #[DataProvider('invalidRequestDataProvider')]
+    #[TestDox('Невалидные данные в запросе')]
+    public function testInvalidRequestData(array $data): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $loymax = $this->createLoymaxClient();
+        $loymax->publicApi('validAccessToken')->coupons()->getCoupons(
+            changedStateDateFrom: new DateTimeImmutable($data['changedStateDateFrom']),
+            changedStateDateTo: new DateTimeImmutable($data['changedStateDateTo']),
+            from: $data['from'],
+            count: $data['count'],
+        );
+    }
+
+    public static function invalidRequestDataProvider(): Iterator
+    {
+        yield 'некорректные даты' => [['changedStateDateFrom' => '2024-11-01T00:00:00+00:00', 'changedStateDateTo' => '2024-10-01T00:00:00+00:00', 'from' => 0, 'count' => 10]];
+
+        yield 'некорректный порядковый номер' => [['changedStateDateFrom' => '2024-10-01T00:00:00+00:00', 'changedStateDateTo' => '2024-11-01T00:00:00+00:00', 'from' => -10, 'count' => 10]];
+
+        yield 'некорректное количество' => [['changedStateDateFrom' => '2024-10-01T00:00:00+00:00', 'changedStateDateTo' => '2024-11-01T00:00:00+00:00', 'from' => 0, 'count' => -10]];
     }
 }

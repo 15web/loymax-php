@@ -16,7 +16,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use Psr\Log\NullLogger;
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\BadRequest;
 use Studio15\Loymax\ApiClient\Exception\DeserializeResponseError;
@@ -54,12 +53,10 @@ final class ApiClientTest extends TestCase
             logger: new NullLogger(),
         );
 
-        $request = (new CreateRequest())(
+        $apiClient->sendRequest(
             method: Method::GET,
             uri: 'test',
         );
-
-        $apiClient->sendRequest($request);
     }
 
     #[TestDox('Пустой результат')]
@@ -85,12 +82,10 @@ final class ApiClientTest extends TestCase
             logger: new NullLogger(),
         );
 
-        $request = (new CreateRequest())(
+        $result = $apiClient->sendRequest(
             method: Method::GET,
             uri: 'test',
         );
-
-        $result = $apiClient->sendRequest($request);
 
         self::assertSame('test', $result->data);
     }
@@ -141,12 +136,10 @@ final class ApiClientTest extends TestCase
             logger: new NullLogger(),
         );
 
-        $request = (new CreateRequest())(
+        $apiClient->sendRequest(
             method: Method::GET,
             uri: 'test',
         );
-
-        $apiClient->sendRequest($request);
     }
 
     /**
@@ -170,12 +163,10 @@ final class ApiClientTest extends TestCase
             logger: new NullLogger(),
         );
 
-        $request = (new CreateRequest())(
+        $apiClient->sendRequest(
             method: Method::GET,
             uri: 'test',
         );
-
-        $apiClient->sendRequest($request);
     }
 
     public static function httpErrors(): Iterator

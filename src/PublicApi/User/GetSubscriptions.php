@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\User;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\User\Request\GetSubscriptionRequest;
 use Studio15\Loymax\PublicApi\User\Response\Subscription;
-use Studio15\Loymax\PublicApi\User\Response\SubscriptionExternalId;
 
 /**
  * Возвращает список подписок клиента
@@ -29,20 +27,13 @@ final readonly class GetSubscriptions
      *
      * @throws ApiClientException
      */
-    public function __invoke(GetSubscriptionRequest $request): array
+    public function __invoke(GetSubscriptionRequest $parameters): array
     {
-        $apiRequest = (new CreateRequest())(
+        $apiResponse = $this->apiClient->sendRequest(
             method: Method::GET,
             uri: '/publicapi/v1.2/User/Subscriptions',
-            parameters: [
-                'subscriptionExternalIds[]' => array_map(
-                    static fn (SubscriptionExternalId $externalId): string => $externalId->value,
-                    $request->subscriptionExternalIds,
-                ),
-            ],
+            parameters: $parameters,
         );
-
-        $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
         /** @var list<Subscription> $subscriptionList */
         $subscriptionList = (new CreateSerializer())()->denormalize(

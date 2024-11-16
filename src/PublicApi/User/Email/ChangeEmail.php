@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\User\Email;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
+use Studio15\Loymax\PublicApi\User\Email\Request\ChangeEmailRequest;
 use Studio15\Loymax\PublicApi\User\Email\Response\EmailChanged;
-use Studio15\Loymax\PublicApi\User\ValueObject\Email;
 
 /**
  * Запускает процесс изменения email. Указание нового email
@@ -26,17 +25,13 @@ final readonly class ChangeEmail
     /**
      * @throws ApiClientException
      */
-    public function __invoke(Email $email): EmailChanged
+    public function __invoke(ChangeEmailRequest $requestBody): EmailChanged
     {
-        $request = (new CreateRequest())(
+        $response = $this->apiClient->sendRequest(
             method: Method::POST,
             uri: '/publicapi/v1.2/User/Email',
-            body: [
-                'email' => $email->value,
-            ],
+            body: $requestBody,
         );
-
-        $response = $this->apiClient->sendRequest($request);
 
         /** @var EmailChanged $emailChangedResponse */
         $emailChangedResponse = (new CreateSerializer())()->denormalize(

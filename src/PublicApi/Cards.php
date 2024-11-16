@@ -10,7 +10,6 @@ use Studio15\Loymax\PublicApi\Cards\EmitVirtual;
 use Studio15\Loymax\PublicApi\Cards\GetCards;
 use Studio15\Loymax\PublicApi\Cards\GetEmitVirtual;
 use Studio15\Loymax\PublicApi\Cards\GetQrCode;
-use Studio15\Loymax\PublicApi\Cards\Request\GetQrCodeRequest;
 use Studio15\Loymax\PublicApi\Cards\Request\SetCardRequest;
 use Studio15\Loymax\PublicApi\Cards\Response\Card;
 use Studio15\Loymax\PublicApi\Cards\Response\EmittedCard;
@@ -81,7 +80,7 @@ final readonly class Cards
      */
     public function setCard(string $cardNumber, ?string $cvcCode = null): EmittedCard
     {
-        $request = new SetCardRequest(
+        $requestBody = new SetCardRequest(
             cardNumber: $cardNumber,
             cvcCode: $cvcCode,
         );
@@ -90,7 +89,7 @@ final readonly class Cards
             apiClient: $this->apiClient,
         );
 
-        return ($setCard)($request);
+        return ($setCard)($requestBody);
     }
 
     /**
@@ -120,14 +119,10 @@ final readonly class Cards
      */
     public function qrCode(int $cardId): QrCode
     {
-        $request = new GetQrCodeRequest(
-            cardId: $cardId,
-        );
-
         $qrCode = new GetQrCode(
             apiClient: $this->apiClient,
         );
 
-        return ($qrCode)($request);
+        return ($qrCode)($cardId);
     }
 }

@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\Notification;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
-use Studio15\Loymax\PublicApi\Notification\Request\ReadNotificationByIdRequest;
 use Studio15\Loymax\PublicApi\Notification\Response\Notification;
+use Webmozart\Assert\Assert;
 
 /**
  * Отмечает оповещение как прочитанное
@@ -24,16 +23,18 @@ final readonly class ReadNotificationById
     ) {}
 
     /**
+     * @param positive-int $notificationId Id оповещения
+     *
      * @throws ApiClientException
      */
-    public function __invoke(ReadNotificationByIdRequest $request): Notification
+    public function __invoke(int $notificationId): Notification
     {
-        $apiRequest = (new CreateRequest())(
-            method: Method::POST,
-            uri: "/publicapi/v1.2/Notification/{$request->notificationId}/Read",
-        );
+        Assert::positiveInteger($notificationId);
 
-        $apiResponse = $this->apiClient->sendRequest($apiRequest);
+        $apiResponse = $this->apiClient->sendRequest(
+            method: Method::POST,
+            uri: "/publicapi/v1.2/Notification/{$notificationId}/Read",
+        );
 
         /** @var Notification $notification */
         $notification = (new CreateSerializer())()->denormalize(

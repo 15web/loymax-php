@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\Pushes;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Pushes\Request\RegisterRequest;
@@ -24,20 +23,12 @@ final readonly class RegisterDevice
     /**
      * @throws ApiClientException
      */
-    public function __invoke(RegisterRequest $request): void
+    public function __invoke(RegisterRequest $requestBody): void
     {
-        $apiRequest = (new CreateRequest())(
+        $this->apiClient->sendRequest(
             method: Method::POST,
             uri: '/publicapi/v1.2/Pushes',
-            body: [
-                'token' => $request->token,
-                'platformType' => $request->platformType->value,
-                'userAgent' => $request->userAgent,
-                'deviceId' => $request->deviceId,
-                'platformVersion' => $request->platformVersion,
-            ],
+            body: $requestBody,
         );
-
-        $this->apiClient->sendRequest($apiRequest);
     }
 }

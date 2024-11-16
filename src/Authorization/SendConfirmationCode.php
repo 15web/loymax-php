@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Studio15\Loymax\Authorization;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\Authorization\Request\SendConfirmationCodeRequest;
@@ -34,12 +33,10 @@ final readonly class SendConfirmationCode
             $headers['X-Forwarded-For'] = $request->clientIp;
         }
 
-        $apiClientRequest = (new CreateRequest())(
+        $this->apiClient->sendRequest(
             method: Method::POST,
             uri: '/authorizationService/v1.2/auth/SendConfirmationCode',
             headers: $headers,
         );
-
-        $this->apiClient->sendRequest($apiClientRequest);
     }
 }

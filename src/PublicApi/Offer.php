@@ -6,7 +6,6 @@ namespace Studio15\Loymax\PublicApi;
 
 use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
-use Studio15\Loymax\PublicApi\Data\Pagination;
 use Studio15\Loymax\PublicApi\Merchants\Response\Merchant;
 use Studio15\Loymax\PublicApi\Offer\GetMerchantsByOfferId;
 use Studio15\Loymax\PublicApi\Offer\GetOffer;
@@ -44,19 +43,15 @@ final readonly class Offer
      */
     public function getOffer(
         OfferType $type = OfferType::All,
+        ?int $merchantId = null,
         int $from = 0,
         int $count = 10,
-        ?int $merchantId = null,
     ): array {
-        $pagination = new Pagination(
-            from: $from,
-            count: $count,
-        );
-
         $request = new GetOfferRequest(
             type: $type,
-            pagination: $pagination,
             merchantId: $merchantId,
+            from: $from,
+            count: $count,
         );
 
         $getOfferList = new GetOffer(
@@ -64,7 +59,7 @@ final readonly class Offer
         );
 
         return ($getOfferList)(
-            request: $request,
+            parameters: $request,
         );
     }
 
@@ -87,9 +82,7 @@ final readonly class Offer
             apiClient: $this->apiClient,
         );
 
-        return ($getOfferById)(
-            request: $request,
-        );
+        return ($getOfferById)($request);
     }
 
     /**
@@ -113,8 +106,6 @@ final readonly class Offer
             apiClient: $this->apiClient,
         );
 
-        return ($getMerchantList)(
-            request: $request,
-        );
+        return ($getMerchantList)($request);
     }
 }

@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\Merchants;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
-use Studio15\Loymax\PublicApi\Data\Pagination;
 use Studio15\Loymax\PublicApi\Merchants\Request\GetByIdsRequest;
 use Studio15\Loymax\PublicApi\Merchants\Response\Merchant;
 
@@ -29,21 +27,13 @@ final readonly class GetByIds
      *
      * @throws ApiClientException
      */
-    public function __invoke(GetByIdsRequest $request, Pagination $pagination): array
+    public function __invoke(GetByIdsRequest $parameters): array
     {
-        $parameters = [
-            'merchantsIds' => $request->merchantsIds,
-            'from' => $pagination->from,
-            'count' => $pagination->count,
-        ];
-
-        $apiRequest = (new CreateRequest())(
+        $apiResponse = $this->apiClient->sendRequest(
             method: Method::GET,
             uri: '/publicapi/v1.2/Merchants',
             parameters: $parameters,
         );
-
-        $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
         /** @var list<Merchant> $merchantList */
         $merchantList = (new CreateSerializer())()->denormalize(

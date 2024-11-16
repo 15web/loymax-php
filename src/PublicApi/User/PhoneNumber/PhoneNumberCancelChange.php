@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\User\PhoneNumber;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 
@@ -25,11 +24,9 @@ final readonly class PhoneNumberCancelChange
      */
     public function __invoke(): void
     {
-        $request = (new CreateRequest())(
+        $this->apiClient->sendRequest(
             method: Method::POST,
             uri: '/publicapi/v1.2/User/PhoneNumber/CancelChange',
         );
-
-        $this->apiClient->sendRequest($request);
     }
 }

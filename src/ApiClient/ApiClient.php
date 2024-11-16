@@ -6,10 +6,10 @@ namespace Studio15\Loymax\ApiClient;
 
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Studio15\Loymax\ApiClient\Data\HttpStatusCode;
+use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\ApiClient\Exception\BadRequest;
 use Studio15\Loymax\ApiClient\Exception\DeserializeResponseError;
@@ -23,6 +23,8 @@ use Studio15\Loymax\ApiClient\Exception\UnknownErrorException;
 use Studio15\Loymax\ApiClient\Response\Response;
 use Studio15\Loymax\ApiClient\Response\ValidationError;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Uid\Uuid;
 use Throwable;
 
@@ -33,6 +35,8 @@ use Throwable;
  */
 final readonly class ApiClient
 {
+    private Serializer $serializer;
+
     /**
      * @param non-empty-string|null $token
      */
@@ -40,30 +44,69 @@ final readonly class ApiClient
         private ClientInterface $httpClient,
         private LoggerInterface $logger,
         private ?string $token = null,
-    ) {}
+    ) {
+        $this->serializer = (new CreateSerializer())();
+    }
 
     /**
      * @template T of object
      *
+     * @param non-empty-string $uri
+     * @param list<object>|object|null $body
+     * @param array<array-key, array<array-key, string>|string> $headers
      * @param class-string<T> $dataClass Имя класса, в который будет десериализован ответ
      *
      * @return T
      *
      * @throws ApiClientException
      */
-    public function sendRequest(RequestInterface $request, string $dataClass = Response::class): object
-    {
-        $traceId = Uuid::v7();
+    public function sendRequest(
+        Method $method,
+        string $uri,
+        ?object $parameters = null,
+        null|array|object $body = null,
+        array $headers = [],
+        string $dataClass = Response::class,
+    ): object {
+        $traceId = (string) Uuid::v7();
+
+        $normalizedParameters = [];
+        if ($parameters !== null) {
+            /** @var array<array-key, mixed> $normalizedParameters */
+            $normalizedParameters = $this->serializer->normalize(
+                data: $parameters,
+                format: JsonEncoder::FORMAT,
+                context: [AbstractObjectNormalizer::SKIP_NULL_VALUES => true],
+            );
+        }
+
+        $normalizedBody = [];
+        if ($body !== null) {
+            /** @var array<array-key, mixed> $normalizedBody */
+            $normalizedBody = $this->serializer->normalize(
+                data: $body,
+                format: JsonEncoder::FORMAT,
+                context: [AbstractObjectNormalizer::SKIP_NULL_VALUES => true],
+            );
+        }
 
         if ($this->token !== null) {
-            $request = $request->withAddedHeader('authorization', "Bearer {$this->token}");
+            $headers['Authorization'] = "Bearer {$this->token}";
         }
+
+        $request = (new CreateRequest())(
+            method: $method,
+            uri: $uri,
+            parameters: $normalizedParameters,
+            body: $normalizedBody,
+            headers: $headers,
+        );
 
         $this->logger->info('Loymax SDK Request', [
             'uri' => "{$request->getMethod()} {$request->getUri()}",
             'payload' => (string) $request->getBody(),
             'headers' => $request->getHeaders(),
-            'traceId' => (string) $traceId,
+            'traceId' => $traceId,
         ]);
 
         try {
@@ -73,7 +116,7 @@ final readonly class ApiClient
         } catch (ClientExceptionInterface $e) {
             $this->logger->error('Loymax SDK Request', [
                 'exception' => $e,
-                'traceId' => (string) $traceId,
+                'traceId' => $traceId,
             ]);
 
             throw new UnknownErrorException(previous: $e);
@@ -83,7 +126,7 @@ final readonly class ApiClient
             'status' => $apiResponse->getStatusCode(),
             'content' => (string) $apiResponse->getBody(),
             'headers' => $apiResponse->getHeaders(),
-            'traceId' => (string) $traceId,
+            'traceId' => $traceId,
         ];
 
         if (!$this->responseIsSuccessful($apiResponse)) {
@@ -99,7 +142,7 @@ final readonly class ApiClient
         $this->logger->info('Loymax SDK Response', $loggerContext);
 
         try {
-            $deserializedResponse = (new CreateSerializer())()->deserialize(
+            $deserializedResponse = $this->serializer->deserialize(
                 data: (string) $apiResponse->getBody(),
                 type: $dataClass,
                 format: JsonEncoder::FORMAT,

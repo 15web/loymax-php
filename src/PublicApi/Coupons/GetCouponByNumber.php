@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\Coupons;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
@@ -32,12 +31,10 @@ final readonly class GetCouponByNumber
     {
         Assert::stringNotEmpty($couponNumber);
 
-        $apiRequest = (new CreateRequest())(
+        $apiResponse = $this->apiClient->sendRequest(
             method: Method::GET,
             uri: "/publicapi/v1.2/Coupons/number/{$couponNumber}",
         );
-
-        $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
         /** @var Coupon $coupon */
         $coupon = (new CreateSerializer())()->denormalize(
