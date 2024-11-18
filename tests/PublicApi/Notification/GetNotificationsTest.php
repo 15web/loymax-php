@@ -48,7 +48,7 @@ final class GetNotificationsTest extends TestCase
                             "id": 13663,
                             "title": "Оплата покупки",
                             "body": "Оплата на сумму 95.50. Карта ***5035. Баланс 4.50",
-                            "summary": "Оплата на сумму 95.50. Карта ***5035. Баланс 4.50",
+                            "summary": null,
                             "creationDate": "2024-04-13T09:44:27Z",
                             "isReaded": true,
                             "imageId": null,
@@ -95,7 +95,7 @@ final class GetNotificationsTest extends TestCase
         self::assertSame(13663, $result[2]->id);
         self::assertSame('Оплата покупки', $result[2]->title);
         self::assertSame('Оплата на сумму 95.50. Карта ***5035. Баланс 4.50', $result[2]->body);
-        self::assertSame('Оплата на сумму 95.50. Карта ***5035. Баланс 4.50', $result[2]->summary);
+        self::assertNull($result[2]->summary);
         self::assertSame(
             '2024-04-13T09:44:27Z',
             (new DateTimeImmutable($result[2]->creationDate))->format('Y-m-d\TH:i:sp')

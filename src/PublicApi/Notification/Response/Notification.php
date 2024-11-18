@@ -16,7 +16,7 @@ final readonly class Notification
      * @param positive-int $id Внутренний идентификатор оповещения
      * @param non-empty-string $title Заголовок оповещения
      * @param non-empty-string $body Содержимое оповещения
-     * @param non-empty-string $summary Краткое содержание оповещения
+     * @param non-empty-string|null $summary Краткое содержание оповещения
      * @param non-empty-string $creationDate Дата и время отправки оповещения
      * @param bool $isRead Прочитано ли оповещение
      */
@@ -24,7 +24,7 @@ final readonly class Notification
         public int $id,
         public string $title,
         public string $body,
-        public string $summary,
+        public ?string $summary,
         public string $creationDate,
         #[SerializedName('isReaded')]
         public bool $isRead,
