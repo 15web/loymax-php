@@ -14,6 +14,7 @@ use Studio15\Loymax\PublicApi\User\Email\ChangeEmail;
 use Studio15\Loymax\PublicApi\User\Email\ConfirmEmail;
 use Studio15\Loymax\PublicApi\User\Email\EmailCancelChange;
 use Studio15\Loymax\PublicApi\User\Email\GetEmail;
+use Studio15\Loymax\PublicApi\User\Email\Request\ChangeEmailRequest;
 use Studio15\Loymax\PublicApi\User\Email\Request\ConfirmEmailRequest;
 use Studio15\Loymax\PublicApi\User\Email\Response\Email as EmailStatus;
 use Studio15\Loymax\PublicApi\User\Email\Response\EmailChanged;
@@ -29,6 +30,7 @@ use Studio15\Loymax\PublicApi\User\PhoneNumber\ChangePhoneNumber;
 use Studio15\Loymax\PublicApi\User\PhoneNumber\ConfirmPhoneNumber;
 use Studio15\Loymax\PublicApi\User\PhoneNumber\GetPhoneNumber;
 use Studio15\Loymax\PublicApi\User\PhoneNumber\PhoneNumberCancelChange;
+use Studio15\Loymax\PublicApi\User\PhoneNumber\Request\ChangePhoneNumberRequest;
 use Studio15\Loymax\PublicApi\User\PhoneNumber\Request\ConfirmPhoneRequest;
 use Studio15\Loymax\PublicApi\User\PhoneNumber\Response\PhoneNumberChanged;
 use Studio15\Loymax\PublicApi\User\PhoneNumber\Response\PhoneNumberState;
@@ -38,6 +40,7 @@ use Studio15\Loymax\PublicApi\User\Request\Answer;
 use Studio15\Loymax\PublicApi\User\Request\ChangePasswordRequest;
 use Studio15\Loymax\PublicApi\User\Request\GetSubscriptionRequest;
 use Studio15\Loymax\PublicApi\User\Request\GetUserPayload;
+use Studio15\Loymax\PublicApi\User\Request\GetUserRequest;
 use Studio15\Loymax\PublicApi\User\Request\SetPasswordRequest;
 use Studio15\Loymax\PublicApi\User\Response\AnswerErrors;
 use Studio15\Loymax\PublicApi\User\Response\Balance;
@@ -52,8 +55,6 @@ use Studio15\Loymax\PublicApi\User\Response\User as UserResponse;
 use Studio15\Loymax\PublicApi\User\SendAnswers;
 use Studio15\Loymax\PublicApi\User\SetPassword;
 use Studio15\Loymax\PublicApi\User\UpdateSubscriptions;
-use Studio15\Loymax\PublicApi\User\ValueObject\Email;
-use Studio15\Loymax\PublicApi\User\ValueObject\Phone;
 
 /**
  * User. Методы для работы с клиентами
@@ -71,17 +72,21 @@ final readonly class User
      *
      * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/#01
      *
-     * @param list<GetUserPayload|non-empty-string> $payload
+     * @param list<GetUserPayload|non-empty-string> $payload Список логических имен атрибутов, информацию о которых необходимо получить
      *
      * @throws ApiClientException
      */
     public function getUser(array $payload = []): UserResponse
     {
+        $parameters = new GetUserRequest(
+            payload: $payload,
+        );
+
         $getUser = new GetUser(
             apiClient: $this->apiClient
         );
 
-        return ($getUser)($payload);
+        return ($getUser)($parameters);
     }
 
     /**
@@ -197,11 +202,15 @@ final readonly class User
      */
     public function changeEmail(string $email): EmailChanged
     {
+        $requestBody = new ChangeEmailRequest(
+            email: $email,
+        );
+
         $changeEmail = new ChangeEmail(
             apiClient: $this->apiClient
         );
 
-        return ($changeEmail)(new Email($email));
+        return ($changeEmail)($requestBody);
     }
 
     /**
@@ -289,13 +298,15 @@ final readonly class User
      */
     public function changePhoneNumber(string $phoneNumber): PhoneNumberChanged
     {
-        $phone = new Phone($phoneNumber);
+        $requestBody = new ChangePhoneNumberRequest(
+            phoneNumber: $phoneNumber,
+        );
 
         $changePhoneNumber = new ChangePhoneNumber(
             apiClient: $this->apiClient,
         );
 
-        return ($changePhoneNumber)($phone);
+        return ($changePhoneNumber)($requestBody);
     }
 
     /**
@@ -328,14 +339,14 @@ final readonly class User
         string $confirmCode,
         string $password
     ): AccessTokenData {
-        $request = new ConfirmPhoneRequest(
+        $requestBody = new ConfirmPhoneRequest(
             confirmCode: $confirmCode,
             password: $password,
         );
 
         $confirmPhoneNumber = new ConfirmPhoneNumber($this->apiClient);
 
-        return ($confirmPhoneNumber)($request);
+        return ($confirmPhoneNumber)($requestBody);
     }
 
     /**
@@ -384,7 +395,7 @@ final readonly class User
      */
     public function changePassword(string $oldPassword, string $newPassword): AccessTokenData
     {
-        $request = new ChangePasswordRequest(
+        $requestBody = new ChangePasswordRequest(
             oldPassword: $oldPassword,
             newPassword: $newPassword,
         );
@@ -393,7 +404,7 @@ final readonly class User
             apiClient: $this->apiClient
         );
 
-        return ($changePassword)($request);
+        return ($changePassword)($requestBody);
     }
 
     /**

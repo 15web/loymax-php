@@ -10,11 +10,13 @@ use Studio15\Loymax\Authorization\ConfirmTwoFactorAuthentication;
 use Studio15\Loymax\Authorization\IssueAccessToken;
 use Studio15\Loymax\Authorization\RefreshAccessToken;
 use Studio15\Loymax\Authorization\Request\IssueAccessTokenRequest;
+use Studio15\Loymax\Authorization\Request\RefreshAccessTokenRequest;
 use Studio15\Loymax\Authorization\Request\SendConfirmationCodeRequest;
 use Studio15\Loymax\Authorization\Request\TwoFactorAuthenticationRequest;
 use Studio15\Loymax\Authorization\Response\AccessTokenData;
 use Studio15\Loymax\Authorization\Response\TwoFactorAuthenticationCodeRequired;
 use Studio15\Loymax\Authorization\SendConfirmationCode;
+use Studio15\Loymax\Authorization\TwoFactorAuthenticationConfig;
 
 /**
  * @api
@@ -53,15 +55,14 @@ final readonly class AuthorizationService
             apiClient: $this->apiClient,
         );
 
-        $request = new IssueAccessTokenRequest(
+        $requestBody = new IssueAccessTokenRequest(
+            grantType: TwoFactorAuthenticationConfig::GRANT_TYPE,
             username: $username,
             password: $password,
             clientIp: $clientIp,
         );
 
-        return ($issueAccessToken)(
-            request: $request,
-        );
+        return ($issueAccessToken)($requestBody);
     }
 
     /**
@@ -85,9 +86,7 @@ final readonly class AuthorizationService
             clientIp: $clientIp,
         );
 
-        ($sendConfirmationCode)(
-            request: $request,
-        );
+        ($sendConfirmationCode)($request);
     }
 
     /**
@@ -106,14 +105,13 @@ final readonly class AuthorizationService
             apiClient: $this->apiClient,
         );
 
-        $request = new TwoFactorAuthenticationRequest(
+        $requestBody = new TwoFactorAuthenticationRequest(
+            grantType: TwoFactorAuthenticationConfig::GRANT_TYPE,
+            password: $code,
             twoFactorAuthToken: $twoFactorAuthToken,
-            code: $code,
         );
 
-        return ($confirmTwoFactorAuthentication)(
-            request: $request,
-        );
+        return ($confirmTwoFactorAuthentication)($requestBody);
     }
 
     /**
@@ -128,10 +126,9 @@ final readonly class AuthorizationService
      */
     public function refreshAccessToken(string $accessToken, string $refreshToken): AccessTokenData
     {
-        $expiredTokenData = new AccessTokenData(
+        $requestBody = new RefreshAccessTokenRequest(
+            grantType: RefreshAccessToken::GRANT_TYPE,
             accessToken: $accessToken,
-            tokenType: 'Bearer',
-            expiresIn: 1,
             refreshToken: $refreshToken,
         );
 
@@ -139,8 +136,6 @@ final readonly class AuthorizationService
             apiClient: $this->apiClient,
         );
 
-        return ($refreshAccessToken)(
-            expiredTokenData: $expiredTokenData,
-        );
+        return ($refreshAccessToken)($requestBody);
     }
 }

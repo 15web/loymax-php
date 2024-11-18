@@ -8,6 +8,8 @@ namespace Studio15\Loymax\PublicApi\Pushes\Request;
  * Запрос на регистрацию мобильного устройства
  *
  * @internal
+ *
+ * @api
  */
 final readonly class RegisterRequest
 {

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\Password;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
@@ -26,18 +25,12 @@ final readonly class StartResetPassword
     /**
      * @throws ApiClientException
      */
-    public function __invoke(StartResetPasswordRequest $request): ResetPasswordStarted
+    public function __invoke(StartResetPasswordRequest $requestBody): ResetPasswordStarted
     {
-        $apiRequest = (new CreateRequest())(
+        $apiResponse = $this->apiClient->sendRequest(
             method: Method::POST,
             uri: '/publicapi/v1.2/ResetPassword/Start',
-            body: [
-                'notifierIdentity' => $request->notifierIdentity,
-            ]
-        );
-
-        $apiResponse = $this->apiClient->sendRequest(
-            request: $apiRequest
+            body: $requestBody,
         );
 
         /** @var ResetPasswordStarted $resetPasswordStarted */

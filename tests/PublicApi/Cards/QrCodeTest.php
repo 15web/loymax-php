@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Studio15\Loymax\Test\PublicApi\Cards;
 
 use GuzzleHttp\Psr7\Response;
+use InvalidArgumentException;
+use Iterator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
 use Studio15\Loymax\ApiClient\Exception\Unauthorized;
@@ -112,5 +115,23 @@ final class QrCodeTest extends TestCase
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
         $loymax->publicApi('validToken')->cards()->qrCode(123);
+    }
+
+    /**
+     * @param positive-int $cardId
+     */
+    #[DataProvider('invalidRequestDataProvider')]
+    #[TestDox('Невалидные данные в запросе')]
+    public function testInvalidRequestData(int $cardId): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $loymax = $this->createLoymaxClient();
+        $loymax->publicApi('validAccessToken')->cards()->qrCode($cardId);
+    }
+
+    public static function invalidRequestDataProvider(): Iterator
+    {
+        yield 'некорректный Id карты' => [-1];
     }
 }

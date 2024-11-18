@@ -6,11 +6,15 @@ namespace Studio15\Loymax\PublicApi\Coupons\Request;
 
 use DateTimeImmutable;
 use Studio15\Loymax\PublicApi\Coupons\Response\CouponState;
+use Symfony\Component\Serializer\Attribute\SerializedName;
+use Webmozart\Assert\Assert;
 
 /**
  * Фильтр для получения списка купонов по заданным параметрам выборки
  *
  * @internal
+ *
+ * @api
  */
 final readonly class GetCouponsRequest
 {
@@ -20,27 +24,28 @@ final readonly class GetCouponsRequest
      * @param DateTimeImmutable|null $changedStateDateFrom Дата начала периода, в который последний раз был изменен статус купона
      * @param DateTimeImmutable|null $changedStateDateTo Дата окончания периода, в который последний раз был изменен статус купона
      * @param non-empty-string|null $couponNumber Номер купона
+     * @param non-negative-int $from Порядковый номер начального элемента выборки
+     * @param positive-int $count Количество возвращаемых элементов выборки
      */
     public function __construct(
+        #[SerializedName('couponListFilter.emissionIds')]
         public array $emissionIds,
+        #[SerializedName('couponListFilter.couponStates')]
         public array $couponStates,
+        #[SerializedName('couponListFilter.changedStateDateFrom')]
         public ?DateTimeImmutable $changedStateDateFrom,
+        #[SerializedName('couponListFilter.changedStateDateTo')]
         public ?DateTimeImmutable $changedStateDateTo,
+        #[SerializedName('couponListFilter.couponNumber')]
         public ?string $couponNumber,
-    ) {}
-
-    /**
-     * @return list<non-empty-string>
-     */
-    public function getCouponStatesValues(): array
-    {
-        if ($this->couponStates === []) {
-            return [];
+        public int $from,
+        public int $count,
+    ) {
+        if ($this->changedStateDateTo !== null && $this->changedStateDateFrom !== null) {
+            Assert::greaterThan($this->changedStateDateTo, $this->changedStateDateFrom);
         }
 
-        return array_map(
-            callback: static fn (CouponState $couponState): string => $couponState->value,
-            array: $this->couponStates,
-        );
+        Assert::natural($this->from);
+        Assert::positiveInteger($this->count);
     }
 }

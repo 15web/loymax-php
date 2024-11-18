@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\Password;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
@@ -26,20 +25,12 @@ final readonly class ConfirmResetPassword
     /**
      * @throws ApiClientException
      */
-    public function __invoke(ConfirmResetPasswordRequest $request): AccessTokenData
+    public function __invoke(ConfirmResetPasswordRequest $requestBody): AccessTokenData
     {
-        $apiRequest = (new CreateRequest())(
+        $apiResponse = $this->apiClient->sendRequest(
             method: Method::POST,
             uri: '/publicapi/v1.2/ResetPassword/Confirm',
-            body: [
-                'notifierIdentity' => $request->notifierIdentity,
-                'confirmCode' => $request->confirmCode,
-                'newPassword' => $request->newPassword,
-            ]
-        );
-
-        $apiResponse = $this->apiClient->sendRequest(
-            request: $apiRequest
+            body: $requestBody,
         );
 
         /** @var AccessTokenData $accessTokenData */

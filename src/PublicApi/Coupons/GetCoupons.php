@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace Studio15\Loymax\PublicApi\Coupons;
 
-use DateTimeImmutable;
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Coupons\Request\GetCouponsRequest;
 use Studio15\Loymax\PublicApi\Coupons\Response\Coupon;
-use Studio15\Loymax\PublicApi\Data\Pagination;
 
 /**
  * Возвращает список купонов
@@ -30,41 +27,13 @@ final readonly class GetCoupons
      *
      * @throws ApiClientException
      */
-    public function __invoke(GetCouponsRequest $request, Pagination $pagination): array
+    public function __invoke(GetCouponsRequest $parameters): array
     {
-        $parameters = [
-            'from' => $pagination->from,
-            'count' => $pagination->count,
-        ];
-
-        if ($request->emissionIds !== []) {
-            $parameters['couponListFilter.emissionIds'] = $request->emissionIds;
-        }
-
-        $couponStates = $request->getCouponStatesValues();
-        if ($couponStates !== []) {
-            $parameters['couponListFilter.couponStates'] = $couponStates;
-        }
-
-        if ($request->changedStateDateFrom !== null) {
-            $parameters['couponListFilter.changedStateDateFrom'] = $request->changedStateDateFrom->format(DateTimeImmutable::ATOM);
-        }
-
-        if ($request->changedStateDateTo !== null) {
-            $parameters['couponListFilter.changedStateDateTo'] = $request->changedStateDateTo->format(DateTimeImmutable::ATOM);
-        }
-
-        if ($request->couponNumber !== null) {
-            $parameters['couponListFilter.couponNumber'] = $request->couponNumber;
-        }
-
-        $apiRequest = (new CreateRequest())(
+        $apiResponse = $this->apiClient->sendRequest(
             method: Method::GET,
             uri: '/publicapi/v1.2/Coupons',
             parameters: $parameters,
         );
-
-        $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
         /** @var list<Coupon> $coupon */
         $coupon = (new CreateSerializer())()->denormalize(

@@ -6,6 +6,9 @@ namespace Studio15\Loymax\Test\PublicApi\Notification;
 
 use DateTimeImmutable;
 use GuzzleHttp\Psr7\Response;
+use InvalidArgumentException;
+use Iterator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
 use Studio15\Loymax\ApiClient\Exception\Unauthorized;
@@ -213,5 +216,31 @@ final class GetNotificationsTest extends TestCase
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
         $loymax->publicApi('validAccessToken')->notification()->getNotifications();
+    }
+
+    /**
+     * @param array{
+     *     from: non-negative-int,
+     *     count: positive-int,
+     * } $data
+     */
+    #[DataProvider('invalidRequestDataProvider')]
+    #[TestDox('Невалидные данные в запросе')]
+    public function testInvalidRequestData(array $data): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $loymax = $this->createLoymaxClient();
+        $loymax->publicApi('validAccessToken')->notification()->getNotifications(
+            from: $data['from'],
+            count: $data['count'],
+        );
+    }
+
+    public static function invalidRequestDataProvider(): Iterator
+    {
+        yield 'некорректный порядковый номер' => [['from' => -10, 'count' => 10]];
+
+        yield 'некорректное количество' => [['from' => 0, 'count' => -10]];
     }
 }

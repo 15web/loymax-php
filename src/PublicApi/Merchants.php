@@ -6,7 +6,6 @@ namespace Studio15\Loymax\PublicApi;
 
 use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
-use Studio15\Loymax\PublicApi\Data\Pagination;
 use Studio15\Loymax\PublicApi\Merchants\GetByIds;
 use Studio15\Loymax\PublicApi\Merchants\GetByUids;
 use Studio15\Loymax\PublicApi\Merchants\Request\GetByIdsRequest;
@@ -39,11 +38,8 @@ final readonly class Merchants
      */
     public function getByUids(array $merchantsUids = [], int $from = 0, int $count = 10): array
     {
-        $request = new GetByUidsRequest(
+        $parameters = new GetByUidsRequest(
             merchantsUids: $merchantsUids,
-        );
-
-        $pagination = new Pagination(
             from: $from,
             count: $count,
         );
@@ -53,8 +49,7 @@ final readonly class Merchants
         );
 
         return ($getByUids)(
-            request: $request,
-            pagination: $pagination,
+            parameters: $parameters,
         );
     }
 
@@ -73,11 +68,8 @@ final readonly class Merchants
      */
     public function getByIds(array $merchantsIds = [], int $from = 0, int $count = 10): array
     {
-        $request = new GetByIdsRequest(
+        $parameters = new GetByIdsRequest(
             merchantsIds: $merchantsIds,
-        );
-
-        $pagination = new Pagination(
             from: $from,
             count: $count,
         );
@@ -87,8 +79,7 @@ final readonly class Merchants
         );
 
         return ($getByIds)(
-            request: $request,
-            pagination: $pagination,
+            parameters: $parameters,
         );
     }
 }
