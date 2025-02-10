@@ -16,6 +16,6 @@ final readonly class OperationHistory
      */
     public function __construct(
         public int $allCount,
-        public array $rows
+        public array $rows,
     ) {}
 }

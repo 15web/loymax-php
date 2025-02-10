@@ -50,7 +50,7 @@ final class GetLoginsTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -88,13 +88,13 @@ final class GetLoginsTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
         $identifiers = $loymax->publicApi('validAccessToken')->user()->getLogins()->identifiers;
 
-        self::assertCount(0, $identifiers);
+        self::assertEmpty($identifiers);
     }
 
     #[TestDox('Неавторизованный запрос')]
@@ -108,7 +108,7 @@ final class GetLoginsTest extends TestCase
                 {
                   "message": "Запрещён анонимный доступ к методу."
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -132,7 +132,7 @@ final class GetLoginsTest extends TestCase
                     "validationErrors": []
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);

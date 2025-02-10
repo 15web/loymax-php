@@ -42,7 +42,7 @@ final readonly class History
         ?DateTimeImmutable $fromDate = null,
         ?DateTimeImmutable $toDate = null,
         int $from = 0,
-        int $count = 10
+        int $count = 10,
     ): OperationHistory {
         $request = new GetHistoryRequest(
             fromDate: $fromDate,
@@ -76,7 +76,7 @@ final readonly class History
      */
     public function getAggregateWithdrawRewardPurchase(
         ?DateTimeImmutable $fromDate = null,
-        ?DateTimeImmutable $toDate = null
+        ?DateTimeImmutable $toDate = null,
     ): AggregatedOperations {
         $request = new GetAggregateWithdrawRewardPurchaseRequest(
             fromDate: $fromDate,

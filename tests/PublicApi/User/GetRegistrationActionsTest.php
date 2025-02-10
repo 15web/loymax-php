@@ -45,7 +45,7 @@ final class GetRegistrationActionsTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -92,7 +92,7 @@ final class GetRegistrationActionsTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -118,13 +118,13 @@ final class GetRegistrationActionsTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
         $result = $loymax->publicApi('validAccessToken')->user()->getRegistrationActions();
 
-        self::assertCount(0, $result->actions);
+        self::assertEmpty($result->actions);
         self::assertFalse($result->isSubscriptionsConfirmed());
     }
 
@@ -139,7 +139,7 @@ final class GetRegistrationActionsTest extends TestCase
                 {
                   "message": "Запрещён анонимный доступ к методу."
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -163,7 +163,7 @@ final class GetRegistrationActionsTest extends TestCase
                     "validationErrors": []
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);

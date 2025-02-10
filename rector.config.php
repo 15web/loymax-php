@@ -15,7 +15,7 @@ return RectorConfig::configure()
         __DIR__.'/tests',
     ])
     ->withParallel()
-    ->withPhpSets(php82: true)
+    ->withPhpSets(php83: true)
     ->withImportNames(importShortClasses: false)
     ->withTypeCoverageLevel(100)
     ->withDeadCodeLevel(50)
@@ -27,6 +27,8 @@ return RectorConfig::configure()
         strictBooleans: true,
         rectorPreset: true,
         phpunitCodeQuality: true,
+    )
+    ->withComposerBased(
         phpunit: true,
     )
     ->withSkip([

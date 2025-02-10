@@ -92,7 +92,7 @@ final class GetSubscriptionsTest extends TestCase
                         "validationErrors": null
                     }
                 }
-                JSON
+                JSON,
         );
 
         $request = [
@@ -165,7 +165,7 @@ final class GetSubscriptionsTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $request = [
@@ -176,7 +176,7 @@ final class GetSubscriptionsTest extends TestCase
         $loymax = $this->createLoymaxClient([$mockResponse]);
         $result = $loymax->publicApi('validAccessToken')->user()->getSubscriptions($request);
 
-        self::assertCount(0, $result);
+        self::assertEmpty($result);
     }
 
     #[TestDox('Неавторизованный запрос')]
@@ -190,7 +190,7 @@ final class GetSubscriptionsTest extends TestCase
                 {
                   "message": "Запрещён анонимный доступ к методу."
                 }
-                JSON
+                JSON,
         );
 
         $request = [
@@ -220,7 +220,7 @@ final class GetSubscriptionsTest extends TestCase
                     "validationErrors": []
                   }
                 }
-                JSON
+                JSON,
         );
 
         $request = [

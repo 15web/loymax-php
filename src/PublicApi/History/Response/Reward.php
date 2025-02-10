@@ -14,6 +14,6 @@ final readonly class Reward
      * @param Amount $amount Сумма
      */
     public function __construct(
-        public Amount $amount
+        public Amount $amount,
     ) {}
 }

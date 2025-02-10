@@ -253,7 +253,7 @@ final class GetOperationHistoryTest extends TestCase
                       "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -276,7 +276,7 @@ final class GetOperationHistoryTest extends TestCase
         self::assertSame(4, $data->amount->currencyInfo->id);
         self::assertSame('Приветственные бонусы', $data->amount->currencyInfo->name);
         self::assertFalse($data->isRefund);
-        self::assertCount(0, $data->chequeItems);
+        self::assertEmpty($data->chequeItems);
 
         $operation = $result->rows[1];
         self::assertSame('583fa901-1403-4729-ac81-7c5de8611a3d', (string) $operation->id);
@@ -287,7 +287,7 @@ final class GetOperationHistoryTest extends TestCase
         self::assertSame(16, $operation->location?->id);
         self::assertSame(
             'г. Раменское, Привокзальная площадь, 1а',
-            $operation->location->description ?? null
+            $operation->location->description ?? null,
         );
         self::assertSame('b77a6015-ac3c-53a8-2d47-5cc7be21e3f2', (string) $operation->brand?->uid);
         self::assertSame('Супермаркет', $operation->brand?->name);
@@ -303,7 +303,7 @@ final class GetOperationHistoryTest extends TestCase
         self::assertSame(1, $chequeItem->positionId);
         self::assertSame(
             'ТМ Супермаркет Сыр полутвердый «Kilt Молодой/Килт Молодой» с массовой долей жира в сухом веществе 45% брус 3 кг (5шт) (4шт)',
-            $chequeItem->description
+            $chequeItem->description,
         );
         self::assertSame(273.26, $chequeItem->amount);
         self::assertSame(0.342, $chequeItem->count);
@@ -313,7 +313,7 @@ final class GetOperationHistoryTest extends TestCase
         self::assertSame(2, $chequeItem->positionId);
         self::assertSame(
             'ТМ ВЕЛИКИЕ ЛУКИ Сыр полутвердый «Maasdam/Маасдам» с массовой долей жира в сухом веществе 45% брус 1кг (4шт)',
-            $chequeItem->description
+            $chequeItem->description,
         );
         self::assertSame(452.67, $chequeItem->amount);
         self::assertSame(0.478, $chequeItem->count);
@@ -323,7 +323,7 @@ final class GetOperationHistoryTest extends TestCase
         self::assertSame(3, $chequeItem->positionId);
         self::assertSame(
             'ТМ Супермаркет Масло сливочное "Крестьянское" массовая доля жира 72,5% 180г (12шт)***',
-            $chequeItem->description
+            $chequeItem->description,
         );
         self::assertSame(159.0, $chequeItem->amount);
         self::assertSame(1.0, $chequeItem->count);
@@ -333,7 +333,7 @@ final class GetOperationHistoryTest extends TestCase
         self::assertSame(4, $chequeItem->positionId);
         self::assertSame(
             'ТМ Супермаркет Сыр твердый «Perla di Latte Intensiva» / «Перла ди Латте Интенсива» с массовой долей жира в сухом веществе 50% 1/8 головы (8шт)',
-            $chequeItem->description
+            $chequeItem->description,
         );
         self::assertSame(490.88, $chequeItem->amount);
         self::assertSame(0.357, $chequeItem->count);
@@ -358,7 +358,7 @@ final class GetOperationHistoryTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -379,7 +379,7 @@ final class GetOperationHistoryTest extends TestCase
                 {
                   "message": "Запрещён анонимный доступ к методу."
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -403,7 +403,7 @@ final class GetOperationHistoryTest extends TestCase
                     "validationErrors": []
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);

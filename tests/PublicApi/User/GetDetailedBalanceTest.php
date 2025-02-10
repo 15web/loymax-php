@@ -127,7 +127,7 @@ final class GetDetailedBalanceTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -142,17 +142,17 @@ final class GetDetailedBalanceTest extends TestCase
         self::assertSame(0.0, $result[0]->lifeTimesByTime[0]->amount);
         self::assertSame(
             (new DateTimeImmutable('2018-06-08 06:54:33.806 +00:00'))->format('c'),
-            $result[0]->lifeTimesByTime[0]->date->format('c')
+            $result[0]->lifeTimesByTime[0]->date->format('c'),
         );
         self::assertSame(-10.0, $result[0]->lifeTimesByTime[1]->amount);
         self::assertSame(
             (new DateTimeImmutable('2018-06-09 07:54:33.806 +00:00'))->format('c'),
-            $result[0]->lifeTimesByTime[1]->date->format('c')
+            $result[0]->lifeTimesByTime[1]->date->format('c'),
         );
         self::assertSame(20.0, $result[0]->lifeTimesByTime[2]->amount);
         self::assertSame(
             (new DateTimeImmutable('2018-06-10 08:54:33.806 +00:00'))->format('c'),
-            $result[0]->lifeTimesByTime[2]->date->format('c')
+            $result[0]->lifeTimesByTime[2]->date->format('c'),
         );
         self::assertCount(3, $result[0]->lifeTimesByPeriod);
         self::assertSame(0.0, $result[0]->lifeTimesByPeriod[0]->activationAmount);
@@ -170,7 +170,7 @@ final class GetDetailedBalanceTest extends TestCase
         self::assertSame(100.0, $result[1]->amount);
         self::assertSame(0.0, $result[1]->notActivatedAmount);
         self::assertFalse($result[1]->accountIsBlocked);
-        self::assertCount(0, $result[1]->lifeTimesByTime);
+        self::assertEmpty($result[1]->lifeTimesByTime);
         self::assertCount(3, $result[1]->lifeTimesByPeriod);
         self::assertSame(0.0, $result[1]->lifeTimesByPeriod[0]->activationAmount);
         self::assertSame(-100.0, $result[1]->lifeTimesByPeriod[0]->expirationAmount);
@@ -194,7 +194,7 @@ final class GetDetailedBalanceTest extends TestCase
                 {
                   "message": "Запрещён анонимный доступ к методу."
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -218,7 +218,7 @@ final class GetDetailedBalanceTest extends TestCase
                     "validationErrors": []
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);

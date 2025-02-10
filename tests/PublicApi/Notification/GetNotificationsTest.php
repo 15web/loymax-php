@@ -64,7 +64,7 @@ final class GetNotificationsTest extends TestCase
                         "validationErrors": null
                     }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -98,7 +98,7 @@ final class GetNotificationsTest extends TestCase
         self::assertNull($result[2]->summary);
         self::assertSame(
             '2024-04-13T09:44:27Z',
-            (new DateTimeImmutable($result[2]->creationDate))->format('Y-m-d\TH:i:sp')
+            (new DateTimeImmutable($result[2]->creationDate))->format('Y-m-d\TH:i:sp'),
         );
         self::assertTrue($result[2]->isRead);
     }
@@ -130,7 +130,7 @@ final class GetNotificationsTest extends TestCase
                         "validationErrors": null
                     }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -164,13 +164,13 @@ final class GetNotificationsTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
         $result = $loymax->publicApi('validAccessToken')->notification()->getNotifications();
 
-        self::assertCount(0, $result);
+        self::assertEmpty($result);
     }
 
     #[TestDox('Неавторизованный запрос')]
@@ -184,7 +184,7 @@ final class GetNotificationsTest extends TestCase
                 {
                   "message": "Запрещён анонимный доступ к методу."
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -208,7 +208,7 @@ final class GetNotificationsTest extends TestCase
                     "validationErrors": []
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);

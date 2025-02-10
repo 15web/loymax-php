@@ -106,7 +106,7 @@ final class GetCommunicationsTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -123,26 +123,26 @@ final class GetCommunicationsTest extends TestCase
         self::assertCount(2, $result->items[0]->value);
         self::assertSame(
             '2024-07-05T00:00:00Z',
-            $result->items[0]->value[0]->dateFrom->format('Y-m-d\TH:i:sp')
+            $result->items[0]->value[0]->dateFrom->format('Y-m-d\TH:i:sp'),
         );
         self::assertSame(
             '2024-09-05T23:59:00Z',
-            $result->items[0]->value[0]->dateTo->format('Y-m-d\TH:i:sp')
+            $result->items[0]->value[0]->dateTo->format('Y-m-d\TH:i:sp'),
         );
         self::assertSame('34235', $result->items[0]->value[0]->goodsId);
         self::assertSame(
             'ТМ ВЕЛИКИЕ ЛУКИ Сыр полутвердый«Великолукский» 45% брус 3кг (5шт) (41.02)',
-            $result->items[0]->value[0]->name
+            $result->items[0]->value[0]->name,
         );
         self::assertNull($result->items[0]->value[0]->categoryName);
         self::assertCount(1, $result->items[0]->value[0]->images);
         self::assertSame(
             'https://market.loymax.tech/systemapi/api/Files/78bdd181-b728-abce-a5b3-681f6bbc2624',
-            $result->items[0]->value[0]->images[0]->value
+            $result->items[0]->value[0]->images[0]->value,
         );
         self::assertSame(
             "БОНУСЫ за покупку товаров\n05.07.2024\nКешбэк действует по Вашей карте НазваниеКарты ***5357 в магазинах Магазин1 и Магазин2!",
-            $result->items[0]->value[0]->description
+            $result->items[0]->value[0]->description,
         );
         self::assertNull($result->items[0]->value[0]->regularPrice);
         self::assertNull($result->items[0]->value[0]->regularPriceDescription);
@@ -157,26 +157,26 @@ final class GetCommunicationsTest extends TestCase
 
         self::assertSame(
             '2024-07-05T00:00:00Z',
-            $result->items[0]->value[1]->dateFrom->format('Y-m-d\TH:i:sp')
+            $result->items[0]->value[1]->dateFrom->format('Y-m-d\TH:i:sp'),
         );
         self::assertSame(
             '2024-09-05T23:59:00Z',
-            $result->items[0]->value[1]->dateTo->format('Y-m-d\TH:i:sp')
+            $result->items[0]->value[1]->dateTo->format('Y-m-d\TH:i:sp'),
         );
         self::assertSame('34215', $result->items[0]->value[1]->goodsId);
         self::assertSame(
             'ТМ ВЕЛИКИЕ ЛУКИ Сыр полутвердый«Великолукский» с массовой долей жира в сухом веществе 45% брус 1кг (4шт)',
-            $result->items[0]->value[1]->name
+            $result->items[0]->value[1]->name,
         );
         self::assertNull($result->items[0]->value[1]->categoryName);
         self::assertCount(1, $result->items[0]->value[1]->images);
         self::assertSame(
             'https://market.loymax.tech/systemapi/api/Files/78bdd181-b728-abce-a5b3-681f6bbc2624',
-            $result->items[0]->value[1]->images[0]->value
+            $result->items[0]->value[1]->images[0]->value,
         );
         self::assertSame(
             "БОНУСЫ за покупку товаров\n05.07.2024\nКешбэк действует по Вашей карте НазваниеКарты ***5357 в магазинах Магазин1 и Магазин2!",
-            $result->items[0]->value[1]->description
+            $result->items[0]->value[1]->description,
         );
         self::assertSame(100, $result->items[0]->value[1]->regularPrice);
         self::assertNull($result->items[0]->value[1]->regularPriceDescription);
@@ -211,7 +211,7 @@ final class GetCommunicationsTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -242,7 +242,7 @@ final class GetCommunicationsTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -267,7 +267,7 @@ final class GetCommunicationsTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);

@@ -19,7 +19,7 @@ final readonly class Phone
      * @param non-empty-string $value
      */
     public function __construct(
-        public string $value
+        public string $value,
     ) {
         Assert::regex(
             value: $value,

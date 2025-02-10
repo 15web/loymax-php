@@ -39,7 +39,7 @@ final readonly class ConfirmResetPassword
         );
 
         $apiResponse = $this->apiClient->sendRequest(
-            request: $apiRequest
+            request: $apiRequest,
         );
 
         /** @var AccessTokenData $accessTokenData */

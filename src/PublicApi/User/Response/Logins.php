@@ -14,6 +14,6 @@ final readonly class Logins
      * @param list<Identifier> $identifiers Идентификаторы пользователя
      */
     public function __construct(
-        public array $identifiers
+        public array $identifiers,
     ) {}
 }

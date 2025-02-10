@@ -26,7 +26,7 @@ final class RefreshAccessTokenTest extends TestCase
                     "refresh_token": "newRefreshTokenValue",
                     "expires_in": 3600
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -54,7 +54,7 @@ final class RefreshAccessTokenTest extends TestCase
                 {
                     "error":"invalid_grant"
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);

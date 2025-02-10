@@ -37,7 +37,7 @@ final readonly class StartResetPassword
         );
 
         $apiResponse = $this->apiClient->sendRequest(
-            request: $apiRequest
+            request: $apiRequest,
         );
 
         /** @var ResetPasswordStarted $resetPasswordStarted */
