@@ -19,16 +19,16 @@ final readonly class CreateRequest
 {
     /**
      * @param non-empty-string $uri
-     * @param array<array<non-empty-string>|non-empty-string> $headers
      * @param array<array-key, mixed> $parameters
      * @param array<array-key, mixed> $body
+     * @param array<array-key, array<array-key, string>|string> $headers
      */
     public function __invoke(
         Method $method,
         string $uri,
-        array $headers = [],
         array $parameters = [],
         array $body = [],
+        array $headers = [],
     ): RequestInterface {
         $headers = array_change_key_case($headers);
 
@@ -53,7 +53,7 @@ final readonly class CreateRequest
     }
 
     /**
-     * @param array<array<non-empty-string>|non-empty-string> $headers
+     * @param array<array-key, mixed> $headers
      */
     private function getContentType(array $headers): ContentType
     {

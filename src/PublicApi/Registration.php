@@ -48,14 +48,16 @@ final readonly class Registration
         $request = new BeginRegistrationRequest(
             login: $login,
             password: $password,
-            clientIp: $clientIp,
         );
 
         $beginRegistration = new BeginRegistration(
             apiClient: $this->apiClient,
         );
 
-        return ($beginRegistration)($request);
+        return ($beginRegistration)(
+            requestBody: $request,
+            clientIp: $clientIp,
+        );
     }
 
     /**

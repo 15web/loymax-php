@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\User\Email;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
@@ -27,12 +26,10 @@ final readonly class GetEmail
      */
     public function __invoke(): Email
     {
-        $request = (new CreateRequest())(
+        $response = $this->apiClient->sendRequest(
             method: Method::GET,
             uri: '/publicapi/v1.2/User/Email',
         );
-
-        $response = $this->apiClient->sendRequest($request);
 
         /** @var Email $email */
         $email = (new CreateSerializer())()->denormalize(

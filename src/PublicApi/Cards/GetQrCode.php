@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\Cards;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
-use Studio15\Loymax\PublicApi\Cards\Request\GetQrCodeRequest;
 use Studio15\Loymax\PublicApi\Cards\Response\QrCode;
+use Webmozart\Assert\Assert;
 
 /**
  * Генерирует QR-код для карты по ее внутреннему идентификатору
@@ -24,16 +23,18 @@ final readonly class GetQrCode
     ) {}
 
     /**
+     * @param positive-int $cardId Внутренний идентификатор карты
+     *
      * @throws ApiClientException
      */
-    public function __invoke(GetQrCodeRequest $request): QrCode
+    public function __invoke(int $cardId): QrCode
     {
-        $apiRequest = (new CreateRequest())(
-            method: Method::GET,
-            uri: "/publicapi/v1.2/Cards/{$request->cardId}/QrCode",
-        );
+        Assert::positiveInteger($cardId);
 
-        $apiResponse = $this->apiClient->sendRequest($apiRequest);
+        $apiResponse = $this->apiClient->sendRequest(
+            method: Method::GET,
+            uri: "/publicapi/v1.2/Cards/{$cardId}/QrCode",
+        );
 
         /** @var QrCode $getQrCode */
         $getQrCode = (new CreateSerializer())()->denormalize(

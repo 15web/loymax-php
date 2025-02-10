@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\Registration;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
@@ -31,31 +30,28 @@ final readonly class BeginRegistration
     ) {}
 
     /**
+     * @param non-empty-string|null $clientIp IP адрес клиента
+     *
      * @throws RegistrationAlreadyCompleted
      * @throws RegistrationBlocked
      * @throws ApiClientException
      * @throws InvalidResponse
      */
-    public function __invoke(BeginRegistrationRequest $request): BeginRegistrationResponse
+    public function __invoke(BeginRegistrationRequest $requestBody, ?string $clientIp = null): BeginRegistrationResponse
     {
         $headers = [];
 
-        if ($request->clientIp !== null) {
-            $headers['X-Forwarded-For'] = $request->clientIp;
+        if ($clientIp !== null) {
+            $headers['X-Forwarded-For'] = $clientIp;
         }
 
-        $apiRequest = (new CreateRequest())(
-            method: Method::POST,
-            uri: '/publicapi/v1.2/Registration/BeginRegistration',
-            headers: $headers,
-            body: [
-                'login' => $request->login,
-                'password' => $request->password,
-            ],
-        );
-
         try {
-            $apiResponse = $this->apiClient->sendRequest($apiRequest);
+            $apiResponse = $this->apiClient->sendRequest(
+                method: Method::POST,
+                uri: '/publicapi/v1.2/Registration/BeginRegistration',
+                body: $requestBody,
+                headers: $headers,
+            );
         } catch (InvalidResponse $exception) {
             $this->validateBeginRegistrationState($exception);
         }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\User\Email;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\User\Email\Request\ConfirmEmailRequest;
@@ -24,17 +23,12 @@ final readonly class ConfirmEmail
     /**
      * @throws ApiClientException
      */
-    public function __invoke(ConfirmEmailRequest $request): void
+    public function __invoke(ConfirmEmailRequest $requestBody): void
     {
-        $apiRequest = (new CreateRequest())(
+        $this->apiClient->sendRequest(
             method: Method::POST,
             uri: '/publicapi/v1.2/User/Email/Confirm',
-            body: [
-                'confirmCode' => $request->confirmCode,
-                'password' => $request->password,
-            ],
+            body: $requestBody,
         );
-
-        $this->apiClient->sendRequest($apiRequest);
     }
 }

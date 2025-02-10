@@ -8,24 +8,25 @@ use Symfony\Component\Serializer\Attribute\Ignore;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 
 /**
- * Подтверждение запроса на двухфакторную аутентификацию
+ * Запрос на перевыпуск токена доступа
  *
  * @internal
  *
  * @api
  */
-final readonly class TwoFactorAuthenticationRequest
+final readonly class RefreshAccessTokenRequest
 {
     /**
      * @param non-empty-string $grantType Тип аутентификации
-     * @param numeric-string $password Код подтверждения
-     * @param non-empty-string $twoFactorAuthToken Разовый токен, полученный при запросе токена доступа
+     * @param non-empty-string $accessToken Устаревший токен доступа
+     * @param non-empty-string $refreshToken Токен обновления
      */
     public function __construct(
         #[SerializedName('grant_type')]
         public string $grantType,
-        public string $password,
         #[Ignore]
-        public string $twoFactorAuthToken,
+        public string $accessToken,
+        #[SerializedName('refresh_token')]
+        public string $refreshToken,
     ) {}
 }

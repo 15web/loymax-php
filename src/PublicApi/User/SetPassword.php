@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\User;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
@@ -26,18 +25,12 @@ final readonly class SetPassword
     /**
      * @throws ApiClientException
      */
-    public function __invoke(SetPasswordRequest $request): AccessTokenData
+    public function __invoke(SetPasswordRequest $requestBody): AccessTokenData
     {
-        $apiRequest = (new CreateRequest())(
+        $apiResponse = $this->apiClient->sendRequest(
             method: Method::POST,
             uri: '/publicapi/v1.2/User/Password/Set',
-            body: [
-                'password' => $request->password,
-            ]
-        );
-
-        $apiResponse = $this->apiClient->sendRequest(
-            request: $apiRequest
+            body: $requestBody,
         );
 
         /** @var AccessTokenData $accessTokenData */

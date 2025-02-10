@@ -7,7 +7,6 @@ namespace Studio15\Loymax\PublicApi;
 use DateTimeImmutable;
 use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
-use Studio15\Loymax\PublicApi\Data\Pagination;
 use Studio15\Loymax\PublicApi\History\GetAggregateWithdrawRewardPurchase;
 use Studio15\Loymax\PublicApi\History\GetHistory;
 use Studio15\Loymax\PublicApi\History\Request\GetAggregateWithdrawRewardPurchaseRequest;
@@ -44,12 +43,9 @@ final readonly class History
         int $from = 0,
         int $count = 10
     ): OperationHistory {
-        $request = new GetHistoryRequest(
+        $parameters = new GetHistoryRequest(
             fromDate: $fromDate,
             toDate: $toDate,
-        );
-
-        $pagination = new Pagination(
             from: $from,
             count: $count,
         );
@@ -59,8 +55,7 @@ final readonly class History
         );
 
         return ($getHistory)(
-            request: $request,
-            pagination: $pagination,
+            parameters: $parameters,
         );
     }
 
@@ -88,7 +83,7 @@ final readonly class History
         );
 
         return ($getHistory)(
-            request: $request,
+            parameters: $request,
         );
     }
 }

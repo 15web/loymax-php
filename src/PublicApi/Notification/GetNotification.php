@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\Notification;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
-use Studio15\Loymax\PublicApi\Data\Pagination;
+use Studio15\Loymax\PublicApi\Notification\Request\GetNotificationRequest;
 use Studio15\Loymax\PublicApi\Notification\Response\Notification;
 
 /**
@@ -28,20 +27,13 @@ final readonly class GetNotification
      *
      * @throws ApiClientException
      */
-    public function __invoke(Pagination $pagination): array
+    public function __invoke(GetNotificationRequest $parameters): array
     {
-        $parameters = [
-            'from' => $pagination->from,
-            'count' => $pagination->count,
-        ];
-
-        $apiRequest = (new CreateRequest())(
+        $apiResponse = $this->apiClient->sendRequest(
             method: Method::GET,
             uri: '/publicapi/v1.2/Notification',
             parameters: $parameters,
         );
-
-        $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
         /** @var list<Notification> $notificationList */
         $notificationList = (new CreateSerializer())()->denormalize(

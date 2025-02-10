@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Studio15\Loymax\Authorization;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\Data\ContentType;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
@@ -26,27 +25,18 @@ final readonly class ConfirmTwoFactorAuthentication
     /**
      * @throws ApiClientException
      */
-    public function __invoke(TwoFactorAuthenticationRequest $request): AccessTokenData
+    public function __invoke(TwoFactorAuthenticationRequest $requestBody): AccessTokenData
     {
         $headers = [
-            TwoFactorAuthenticationConfig::TWO_FACTOR_AUTH_TOKEN => $request->twoFactorAuthToken,
+            TwoFactorAuthenticationConfig::TWO_FACTOR_AUTH_TOKEN => $requestBody->twoFactorAuthToken,
             'Content-Type' => ContentType::URLENCODED->value,
         ];
 
-        $body = [
-            'grant_type' => TwoFactorAuthenticationConfig::GRANT_TYPE,
-            'password' => $request->code,
-        ];
-
-        $apiClientRequest = (new CreateRequest())(
+        return $this->apiClient->sendRequest(
             method: Method::POST,
             uri: '/authorizationService/token',
+            body: $requestBody,
             headers: $headers,
-            body: $body,
-        );
-
-        return $this->apiClient->sendRequest(
-            request: $apiClientRequest,
             dataClass: AccessTokenData::class,
         );
     }

@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Studio15\Loymax\PublicApi\User;
 
 use Studio15\Loymax\ApiClient\ApiClient;
-use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\User\Request\GetUserPayload;
+use Studio15\Loymax\PublicApi\User\Request\GetUserRequest;
 use Studio15\Loymax\PublicApi\User\Response\User;
 use Webmozart\Assert\Assert;
 
@@ -25,23 +25,17 @@ final readonly class GetUser
     ) {}
 
     /**
-     * @param list<GetUserPayload|non-empty-string> $payload
-     *
      * @throws ApiClientException
      */
-    public function __invoke(array $payload = []): User
+    public function __invoke(GetUserRequest $parameters): User
     {
-        $this->validatePayload($payload);
+        $this->validatePayload($parameters->payload);
 
-        $apiRequest = (new CreateRequest())(
+        $apiResponse = $this->apiClient->sendRequest(
             method: Method::GET,
             uri: '/publicapi/v1.2/User',
-            parameters: [
-                'payload' => $payload,
-            ],
+            parameters: $parameters,
         );
-
-        $apiResponse = $this->apiClient->sendRequest($apiRequest);
 
         /** @var User $user */
         $user = (new CreateSerializer())()->denormalize(
