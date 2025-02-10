@@ -28,7 +28,7 @@ final class IssueAccessTokenTest extends TestCase
                     "refresh_token": "refreshTokenValue",
                     "expires_in": 3600
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -58,7 +58,7 @@ final class IssueAccessTokenTest extends TestCase
                   "error": "IncorrectLoginOrPassword",
                   "error_description": "Неверное имя пользователя или пароль. Проверьте правильность введенных данных. Осталось 9 попыток."
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -107,7 +107,7 @@ final class IssueAccessTokenTest extends TestCase
                   "error": "IncorrectLoginOrPassword",
                   "error_description": "Требуется указать пароль."
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -129,7 +129,7 @@ final class IssueAccessTokenTest extends TestCase
                   "error": "Error",
                   "error_description": "Системная ошибка: f1b0ca7b122b48cd8799df04541115cd"
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);

@@ -78,7 +78,7 @@ final readonly class User
     public function getUser(array $payload = []): UserResponse
     {
         $getUser = new GetUser(
-            apiClient: $this->apiClient
+            apiClient: $this->apiClient,
         );
 
         return ($getUser)($payload);
@@ -94,7 +94,7 @@ final readonly class User
     public function getLogins(): Logins
     {
         $getLogins = new GetLogins(
-            apiClient: $this->apiClient
+            apiClient: $this->apiClient,
         );
 
         return ($getLogins)();
@@ -130,7 +130,7 @@ final readonly class User
     public function getDetailedBalance(): array
     {
         $getDetailedBalance = new GetDetailedBalance(
-            apiClient: $this->apiClient
+            apiClient: $this->apiClient,
         );
 
         return ($getDetailedBalance)();
@@ -164,7 +164,7 @@ final readonly class User
     public function getStatus(): array
     {
         $getStatus = new GetStatus(
-            apiClient: $this->apiClient
+            apiClient: $this->apiClient,
         );
 
         return ($getStatus)();
@@ -180,7 +180,7 @@ final readonly class User
     public function getEmail(): EmailStatus
     {
         $getEmail = new GetEmail(
-            apiClient: $this->apiClient
+            apiClient: $this->apiClient,
         );
 
         return ($getEmail)();
@@ -198,7 +198,7 @@ final readonly class User
     public function changeEmail(string $email): EmailChanged
     {
         $changeEmail = new ChangeEmail(
-            apiClient: $this->apiClient
+            apiClient: $this->apiClient,
         );
 
         return ($changeEmail)(new Email($email));
@@ -214,7 +214,7 @@ final readonly class User
     public function emailSendConfirmCode(): void
     {
         $sendConfirmCode = new EmailSendConfirmCode(
-            apiClient: $this->apiClient
+            apiClient: $this->apiClient,
         );
 
         ($sendConfirmCode)();
@@ -235,7 +235,7 @@ final readonly class User
         string $password,
     ): void {
         $confirmEmail = new ConfirmEmail(
-            apiClient: $this->apiClient
+            apiClient: $this->apiClient,
         );
 
         ($confirmEmail)(
@@ -256,7 +256,7 @@ final readonly class User
     public function emailCancelChange(): void
     {
         $emailCancelChange = new EmailCancelChange(
-            apiClient: $this->apiClient
+            apiClient: $this->apiClient,
         );
 
         ($emailCancelChange)();
@@ -326,7 +326,7 @@ final readonly class User
      */
     public function confirmPhoneNumber(
         string $confirmCode,
-        string $password
+        string $password,
     ): AccessTokenData {
         $request = new ConfirmPhoneRequest(
             confirmCode: $confirmCode,
@@ -390,7 +390,7 @@ final readonly class User
         );
 
         $changePassword = new ChangePassword(
-            apiClient: $this->apiClient
+            apiClient: $this->apiClient,
         );
 
         return ($changePassword)($request);
@@ -406,7 +406,7 @@ final readonly class User
     public function confirmSubscriptions(): void
     {
         $confirmSubscriptions = new ConfirmSubscriptions(
-            apiClient: $this->apiClient
+            apiClient: $this->apiClient,
         );
 
         ($confirmSubscriptions)();
@@ -430,7 +430,7 @@ final readonly class User
         );
 
         $getSubscriptions = new GetSubscriptions(
-            apiClient: $this->apiClient
+            apiClient: $this->apiClient,
         );
 
         return ($getSubscriptions)($getSubscriptionsRequest);
@@ -448,7 +448,7 @@ final readonly class User
     public function updateSubscriptions(array $updatingSubscriptions): void
     {
         $updateSubscriptions = new UpdateSubscriptions(
-            apiClient: $this->apiClient
+            apiClient: $this->apiClient,
         );
 
         ($updateSubscriptions)($updatingSubscriptions);
@@ -464,7 +464,7 @@ final readonly class User
     public function rejectSubscriptions(): void
     {
         $rejectSubscriptions = new RejectSubscriptions(
-            apiClient: $this->apiClient
+            apiClient: $this->apiClient,
         );
 
         ($rejectSubscriptions)();
@@ -480,7 +480,7 @@ final readonly class User
     public function getRegistrationActions(): RegistrationActionList
     {
         $getRegistrationActions = new GetRegistrationActions(
-            apiClient: $this->apiClient
+            apiClient: $this->apiClient,
         );
 
         return ($getRegistrationActions)();

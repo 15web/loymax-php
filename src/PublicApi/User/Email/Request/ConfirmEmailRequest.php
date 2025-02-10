@@ -19,7 +19,7 @@ final readonly class ConfirmEmailRequest
      */
     public function __construct(
         public string $confirmCode,
-        public string $password
+        public string $password,
     ) {
         Assert::stringNotEmpty($this->confirmCode);
         Assert::stringNotEmpty($this->password);

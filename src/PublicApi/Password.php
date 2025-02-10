@@ -40,7 +40,7 @@ final readonly class Password
         );
 
         $startResetPassword = new StartResetPassword(
-            apiClient: $this->apiClient
+            apiClient: $this->apiClient,
         );
 
         return ($startResetPassword)($request);
@@ -69,7 +69,7 @@ final readonly class Password
         );
 
         $confirmResetPassword = new ConfirmResetPassword(
-            apiClient: $this->apiClient
+            apiClient: $this->apiClient,
         );
 
         return ($confirmResetPassword)($request);

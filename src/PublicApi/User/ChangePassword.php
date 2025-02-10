@@ -38,7 +38,7 @@ final readonly class ChangePassword
         );
 
         $apiResponse = $this->apiClient->sendRequest(
-            request: $apiRequest
+            request: $apiRequest,
         );
 
         /** @var AccessTokenData $accessTokenData */

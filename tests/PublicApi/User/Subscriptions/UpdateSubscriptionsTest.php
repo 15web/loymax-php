@@ -35,17 +35,17 @@ final class UpdateSubscriptionsTest extends TestCase
                         "validationErrors": null
                     }
                 }
-                JSON
+                JSON,
         );
 
         $request = [
             new UpdatedSubscription(
                 typeId: 6,
                 smsNotification: new UpdatedSubscriptionChannel(
-                    selected: true
+                    selected: true,
                 ),
                 emailNotification: new UpdatedSubscriptionChannel(
-                    selected: false
+                    selected: false,
                 ),
             ),
         ];
@@ -65,17 +65,17 @@ final class UpdateSubscriptionsTest extends TestCase
                 {
                   "message": "Запрещён анонимный доступ к методу."
                 }
-                JSON
+                JSON,
         );
 
         $request = [
             new UpdatedSubscription(
                 typeId: 6,
                 smsNotification: new UpdatedSubscriptionChannel(
-                    selected: true
+                    selected: true,
                 ),
                 emailNotification: new UpdatedSubscriptionChannel(
-                    selected: false
+                    selected: false,
                 ),
             ),
         ];
@@ -101,17 +101,17 @@ final class UpdateSubscriptionsTest extends TestCase
                     "validationErrors": []
                   }
                 }
-                JSON
+                JSON,
         );
 
         $request = [
             new UpdatedSubscription(
                 typeId: 6,
                 smsNotification: new UpdatedSubscriptionChannel(
-                    selected: true
+                    selected: true,
                 ),
                 emailNotification: new UpdatedSubscriptionChannel(
-                    selected: false
+                    selected: false,
                 ),
             ),
         ];

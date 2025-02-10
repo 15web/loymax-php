@@ -26,7 +26,7 @@ final class ConfirmTwoFactorAuthenticationTest extends TestCase
                     "refresh_token": "refreshTokenValue",
                     "expires_in": 3600
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -53,7 +53,7 @@ final class ConfirmTwoFactorAuthenticationTest extends TestCase
                 {
                   "error": "Приложение не найдено"
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -76,7 +76,7 @@ final class ConfirmTwoFactorAuthenticationTest extends TestCase
                   "error": "AuthenticationWithConfirmCodeExpired",
                   "error_description": "Время ввода кода истекло Осталось 9 попыток."
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);

@@ -131,7 +131,7 @@ final class AggregateWithdrawRewardPurchaseTest extends TestCase
                         "validationErrors": null
                     }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -184,15 +184,15 @@ final class AggregateWithdrawRewardPurchaseTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
         $result = $loymax->publicApi('validAccessToken')->history()->getAggregateWithdrawRewardPurchase();
 
-        self::assertCount(0, $result->purchaseAmount);
-        self::assertCount(0, $result->withdraws);
-        self::assertCount(0, $result->rewards);
+        self::assertEmpty($result->purchaseAmount);
+        self::assertEmpty($result->withdraws);
+        self::assertEmpty($result->rewards);
     }
 
     #[TestDox('Неавторизованный запрос')]
@@ -206,7 +206,7 @@ final class AggregateWithdrawRewardPurchaseTest extends TestCase
                 {
                   "message": "Запрещён анонимный доступ к методу."
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -230,7 +230,7 @@ final class AggregateWithdrawRewardPurchaseTest extends TestCase
                     "validationErrors": []
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);

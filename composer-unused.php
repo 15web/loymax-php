@@ -8,9 +8,7 @@ use ComposerUnused\ComposerUnused\Configuration\NamedFilter;
 return static function (Configuration $config): Configuration {
     $config
         ->addNamedFilter(NamedFilter::fromString('phpdocumentor/reflection-docblock'))
-        ->addNamedFilter(NamedFilter::fromString('phpstan/phpdoc-parser'))
-        ->addNamedFilter(NamedFilter::fromString('symfony/property-access'))
-    ;
+        ->addNamedFilter(NamedFilter::fromString('symfony/property-access'));
 
     return $config;
 };

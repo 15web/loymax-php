@@ -37,7 +37,7 @@ final readonly class SetPassword
         );
 
         $apiResponse = $this->apiClient->sendRequest(
-            request: $apiRequest
+            request: $apiRequest,
         );
 
         /** @var AccessTokenData $accessTokenData */

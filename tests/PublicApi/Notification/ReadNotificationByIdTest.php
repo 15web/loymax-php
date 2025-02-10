@@ -42,7 +42,7 @@ final class ReadNotificationByIdTest extends TestCase
                         "validationErrors": null
                     }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -52,15 +52,15 @@ final class ReadNotificationByIdTest extends TestCase
         self::assertSame('Принимай участие в розыгрыше🎉', $result->title);
         self::assertSame(
             'Успей принять участие в розыгрыше 1000 баллов на карту лояльности Супермаркет, подробнее по ссылке https://example.com/',
-            $result->body
+            $result->body,
         );
         self::assertSame(
             'Успей принять участие в розыгрыше 1000 баллов на карту лояльности Супермаркет, подробнее по ссылке https://example.com/',
-            $result->summary
+            $result->summary,
         );
         self::assertSame(
             '2024-05-06T13:01:09Z',
-            (new DateTimeImmutable($result->creationDate))->format('Y-m-d\TH:i:sp')
+            (new DateTimeImmutable($result->creationDate))->format('Y-m-d\TH:i:sp'),
         );
         self::assertTrue($result->isRead);
     }
@@ -83,7 +83,7 @@ final class ReadNotificationByIdTest extends TestCase
                         "validationErrors": null
                     }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -101,7 +101,7 @@ final class ReadNotificationByIdTest extends TestCase
                 {
                   "message": "Запрещён анонимный доступ к методу."
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -126,7 +126,7 @@ final class ReadNotificationByIdTest extends TestCase
                     "validationErrors": []
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);

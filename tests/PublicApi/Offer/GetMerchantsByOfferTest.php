@@ -151,7 +151,7 @@ final class GetMerchantsByOfferTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -381,7 +381,7 @@ final class GetMerchantsByOfferTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -496,7 +496,7 @@ final class GetMerchantsByOfferTest extends TestCase
                         "validationErrors": null
                     }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -521,7 +521,7 @@ final class GetMerchantsByOfferTest extends TestCase
                         "validationErrors": null
                     }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -545,7 +545,7 @@ final class GetMerchantsByOfferTest extends TestCase
                     "validationErrors": []
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);

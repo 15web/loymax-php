@@ -104,7 +104,7 @@ final class ApiClientTest extends TestCase
                     field: 'validatedField',
                     errorMessages: ['validationError1', 'validationError2'],
                 ),
-            ])
+            ]),
         );
 
         $this->expectExceptionMessage('Ошибка валидации');

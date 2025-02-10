@@ -58,7 +58,7 @@ final class GetCouponByNumberTest extends TestCase
                         "validationErrors": null
                       }
                     }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -133,7 +133,7 @@ final class GetCouponByNumberTest extends TestCase
                         "validationErrors": null
                       }
                     }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -181,7 +181,7 @@ final class GetCouponByNumberTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -199,7 +199,7 @@ final class GetCouponByNumberTest extends TestCase
                 {
                   "message": "Запрещён анонимный доступ к методу."
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -224,7 +224,7 @@ final class GetCouponByNumberTest extends TestCase
                     "validationErrors": []
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);

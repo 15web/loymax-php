@@ -16,6 +16,6 @@ final readonly class Amount
      */
     public function __construct(
         public float $amount,
-        public Currency $currencyInfo
+        public Currency $currencyInfo,
     ) {}
 }

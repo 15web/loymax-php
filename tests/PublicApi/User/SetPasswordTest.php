@@ -39,7 +39,7 @@ final class SetPasswordTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -66,14 +66,14 @@ final class SetPasswordTest extends TestCase
                 {
                   "message": "Запрещён анонимный доступ к методу."
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
         $loymax->publicApi()
             ->user()
             ->setPassword(
-                newPassword: 'password'
+                newPassword: 'password',
             );
     }
 
@@ -94,14 +94,14 @@ final class SetPasswordTest extends TestCase
                     "validationErrors": []
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
         $loymax->publicApi('validAccessToken')
             ->user()
             ->setPassword(
-                newPassword: 'password'
+                newPassword: 'password',
             );
     }
 

@@ -33,7 +33,7 @@ final class AcceptTenderOfferTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -51,7 +51,7 @@ final class AcceptTenderOfferTest extends TestCase
                 {
                   "message": "Запрещён анонимный доступ к методу."
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -75,7 +75,7 @@ final class AcceptTenderOfferTest extends TestCase
                     "validationErrors": []
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);

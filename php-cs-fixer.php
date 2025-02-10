@@ -21,7 +21,7 @@ return (new Config())
         '@PER-CS' => true,
         '@PER-CS:risky' => true,
         '@PHP80Migration:risky' => true,
-        '@PHP82Migration' => true,
+        '@PHP83Migration' => true,
         '@PhpCsFixer' => true,
         '@PhpCsFixer:risky' => true,
         '@PHPUnit100Migration:risky' => true,
@@ -50,5 +50,6 @@ return (new Config())
         'phpdoc_summary' => false,
         'phpdoc_types_order' => ['null_adjustment' => 'always_last'],
         'php_unit_test_class_requires_covers' => false,
+        'trailing_comma_in_multiline' => ['after_heredoc' => true, 'elements' => ['arguments', 'array_destructuring', 'arrays', 'match', 'parameters']],
     ])
     ->setFinder($finder);

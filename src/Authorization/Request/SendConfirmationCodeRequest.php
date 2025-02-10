@@ -15,6 +15,6 @@ final readonly class SendConfirmationCodeRequest
      */
     public function __construct(
         public string $twoFactorAuthToken,
-        public ?string $clientIp = null
+        public ?string $clientIp = null,
     ) {}
 }

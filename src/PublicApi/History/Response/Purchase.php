@@ -14,6 +14,6 @@ final readonly class Purchase
      * @param Amount $amount Сумма
      */
     public function __construct(
-        public Amount $amount
+        public Amount $amount,
     ) {}
 }

@@ -151,7 +151,7 @@ final class GetByIdsTest extends TestCase
                         "validationErrors": null
                       }
                     }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -323,7 +323,7 @@ final class GetByIdsTest extends TestCase
                         "validationErrors": null
                       }
                     }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -457,7 +457,7 @@ final class GetByIdsTest extends TestCase
                         "validationErrors": null
                       }
                     }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -533,7 +533,7 @@ final class GetByIdsTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -557,7 +557,7 @@ final class GetByIdsTest extends TestCase
                     "validationErrors": null
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
@@ -583,7 +583,7 @@ final class GetByIdsTest extends TestCase
                     "validationErrors": []
                   }
                 }
-                JSON
+                JSON,
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);

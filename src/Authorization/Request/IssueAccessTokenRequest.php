@@ -19,6 +19,6 @@ final readonly class IssueAccessTokenRequest
     public function __construct(
         public string $username,
         public ?string $password = null,
-        public ?string $clientIp = null
+        public ?string $clientIp = null,
     ) {}
 }

@@ -2,3 +2,4 @@
 cache
 vendor
 composer.lock
+composer-unused.phar
