@@ -283,7 +283,7 @@ final readonly class User
      *
      * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/PhoneNumber/#H41D43044743843D43043544243F44043E44643544144143F44043843244F43743A43843D43E43C43544043044243543B43544443E43D430
      *
-     * @param non-empty-string $phoneNumber Новый номер телефона
+     * @param numeric-string $phoneNumber Новый номер телефона
      *
      * @throws ApiClientException
      */

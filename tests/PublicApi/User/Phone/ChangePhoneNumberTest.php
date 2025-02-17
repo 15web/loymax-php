@@ -92,7 +92,7 @@ final class ChangePhoneNumberTest extends TestCase
     }
 
     /**
-     * @param non-empty-string $invalidPhoneNumber
+     * @param numeric-string $invalidPhoneNumber
      */
     #[TestDox('Невалидный номер телефона')]
     #[DataProvider('invalidChangePhoneNumberRequestProvider')]
@@ -112,6 +112,6 @@ final class ChangePhoneNumberTest extends TestCase
 
         yield 'текст' => ['любая строка'];
 
-        yield 'невалидный номер' => ['7989321'];
+        yield 'невалидный номер' => ['+7999-000-11111'];
     }
 }
