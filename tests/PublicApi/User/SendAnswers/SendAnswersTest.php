@@ -81,7 +81,7 @@ final class SendAnswersTest extends TestCase
                     ]
                   },
                   "result": {
-                    "state": "Success",
+                    "state": "Error",
                     "message": null,
                     "messageCode": null,
                     "exception": null,
