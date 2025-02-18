@@ -9,6 +9,7 @@ use Studio15\Loymax\ApiClient\CreateRequest;
 use Studio15\Loymax\ApiClient\CreateSerializer;
 use Studio15\Loymax\ApiClient\Data\Method;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
+use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
 use Studio15\Loymax\PublicApi\User\Request\Answer;
 use Studio15\Loymax\PublicApi\User\Response\AnswerErrors;
 use Webmozart\Assert\Assert;
@@ -44,11 +45,26 @@ final readonly class SendAnswers
             body: $answerList,
         );
 
-        $apiResponse = $this->apiClient->sendRequest($apiRequest);
+        try {
+            $apiResponse = $this->apiClient->sendRequest($apiRequest);
+
+            /** @var array<array-key, mixed>|null $responseData */
+            $responseData = $apiResponse->data;
+        } catch (InvalidResponse $exception) {
+            /** @var array{errors?: mixed}|null $responseData */
+            $responseData = $exception->data;
+
+            /*
+             * Если в теле ответа есть свойство errors,
+             * значит есть ошибки валидации ответов анкеты.
+             * Иначе запрос завершился с иной ошибкой.
+             */
+            $responseData['errors'] ?? throw $exception;
+        }
 
         /** @var AnswerErrors $answersResult */
         $answersResult = (new CreateSerializer())()->denormalize(
-            data: $apiResponse->data ?? [],
+            data: $responseData ?? [],
             type: AnswerErrors::class,
         );
 
