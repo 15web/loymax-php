@@ -13,17 +13,11 @@ use Webmozart\Assert\Assert;
  */
 final readonly class Phone
 {
-    private const PHONE_NUMBER_REGEX = '/^7\d{10}$/';
-
     /**
-     * @param non-empty-string $value
+     * @param numeric-string $value
      */
-    public function __construct(
-        public string $value,
-    ) {
-        Assert::regex(
-            value: $value,
-            pattern: self::PHONE_NUMBER_REGEX,
-        );
+    public function __construct(public string $value)
+    {
+        Assert::numeric($value);
     }
 }
