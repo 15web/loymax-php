@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Studio15\Loymax\PublicApi\User\PhoneNumber\Request;
 
+use SensitiveParameter;
 use Webmozart\Assert\Assert;
 
 /**
@@ -19,6 +20,7 @@ final readonly class ConfirmPhoneRequest
      */
     public function __construct(
         public string $confirmCode,
+        #[SensitiveParameter]
         public string $password,
     ) {
         Assert::stringNotEmpty($this->confirmCode);

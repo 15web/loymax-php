@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Studio15\Loymax\Authorization\Request;
 
+use SensitiveParameter;
+
 /**
  * Подтверждение запроса на двухфакторную аутентификацию
  *
@@ -16,6 +18,7 @@ final readonly class TwoFactorAuthenticationRequest
      * @param numeric-string $code Код подтверждения
      */
     public function __construct(
+        #[SensitiveParameter]
         public string $twoFactorAuthToken,
         public string $code,
     ) {}

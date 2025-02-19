@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Studio15\Loymax\PublicApi\Registration\Response;
 
+use SensitiveParameter;
 use Studio15\Loymax\Authorization\Response\AccessTokenData;
 
 /**
@@ -23,6 +24,7 @@ final readonly class BeginRegistrationResponse
     public function __construct(
         public string $state,
         public ?string $errorMessage,
+        #[SensitiveParameter]
         public ?string $authToken,
         public ?AccessTokenData $authResult,
         public ?int $personId,

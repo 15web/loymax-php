@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Studio15\Loymax\Authorization\Request;
 
+use SensitiveParameter;
+
 /**
  * Запрос для получения токена доступа
  *
@@ -18,6 +20,7 @@ final readonly class IssueAccessTokenRequest
      */
     public function __construct(
         public string $username,
+        #[SensitiveParameter]
         public ?string $password = null,
         public ?string $clientIp = null,
     ) {}

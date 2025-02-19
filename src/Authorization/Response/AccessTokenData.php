@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Studio15\Loymax\Authorization\Response;
 
+use SensitiveParameter;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 
 /**
@@ -26,13 +27,13 @@ final readonly class AccessTokenData
      * @param non-empty-string $refreshToken Токен обновления
      */
     public function __construct(
-        #[SerializedName('access_token')]
+        #[SerializedName('access_token'), SensitiveParameter]
         public string $accessToken,
         #[SerializedName('token_type')]
         public string $tokenType,
         #[SerializedName('expires_in')]
         public int $expiresIn,
-        #[SerializedName('refresh_token')]
+        #[SerializedName('refresh_token'), SensitiveParameter]
         public string $refreshToken,
     ) {}
 }

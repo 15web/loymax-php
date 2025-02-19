@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Studio15\Loymax\PublicApi\Registration\Request;
 
+use SensitiveParameter;
+
 /**
  * Запрос на регистрацию клиента
  *
@@ -18,6 +20,7 @@ final readonly class BeginRegistrationRequest
      */
     public function __construct(
         public string $login,
+        #[SensitiveParameter]
         public ?string $password = null,
         public ?string $clientIp = null,
     ) {}

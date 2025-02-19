@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Studio15\Loymax\PublicApi\Password\Request;
 
+use SensitiveParameter;
 use Webmozart\Assert\Assert;
 
 /**
@@ -21,6 +22,7 @@ final readonly class ConfirmResetPasswordRequest
     public function __construct(
         public string $notifierIdentity,
         public string $confirmCode,
+        #[SensitiveParameter]
         public string $newPassword,
     ) {
         Assert::stringNotEmpty($this->notifierIdentity);

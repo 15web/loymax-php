@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Studio15\Loymax\PublicApi\Cards\Request;
 
+use SensitiveParameter;
 use Webmozart\Assert\Assert;
 
 /**
@@ -19,6 +20,7 @@ final readonly class SetCardRequest
      */
     public function __construct(
         public string $cardNumber,
+        #[SensitiveParameter]
         public ?string $cvcCode,
     ) {
         Assert::stringNotEmpty($this->cardNumber);
