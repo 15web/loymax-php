@@ -2,25 +2,28 @@
 
 declare(strict_types=1);
 
-use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
 use Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
-use Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector;
 use Rector\Config\RectorConfig;
+use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitSelfCallRector;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 
 return RectorConfig::configure()
-    ->withCache(__DIR__.'/cache/rector')
     ->withPaths([
         __DIR__.'/src',
         __DIR__.'/tests',
     ])
+    ->withCache(__DIR__.'/cache/rector')
     ->withParallel()
-    ->withPhpSets(php83: true)
     ->withImportNames(importShortClasses: false)
-    ->withTypeCoverageLevel(100)
-    ->withDeadCodeLevel(50)
+    ->withPhpSets()
+    ->withAttributesSets()
+    ->withComposerBased(
+        phpunit: true,
+    )
     ->withPreparedSets(
+        deadCode: true,
         codeQuality: true,
+        typeDeclarations: true,
         privatization: true,
         instanceOf: true,
         earlyReturn: true,
@@ -28,9 +31,9 @@ return RectorConfig::configure()
         rectorPreset: true,
         phpunitCodeQuality: true,
     )
-    ->withComposerBased(
-        phpunit: true,
-    )
+    ->withRules([
+        PreferPHPUnitSelfCallRector::class,
+    ])
     ->withSkip([
         FlipTypeControlToUseExclusiveTypeRector::class,
         PreferPHPUnitThisCallRector::class,
