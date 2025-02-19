@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Studio15\Loymax\PublicApi\Registration\Response;
 
+use SensitiveParameter;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 
 /**
@@ -25,9 +26,9 @@ final readonly class TryFinishRegistrationResponse
     public function __construct(
         #[SerializedName('token_type')]
         public string $tokenType,
-        #[SerializedName('access_token')]
+        #[SerializedName('access_token'), SensitiveParameter]
         public ?string $accessToken,
-        #[SerializedName('refresh_token')]
+        #[SerializedName('refresh_token'), SensitiveParameter]
         public ?string $refreshToken,
         #[SerializedName('expires_in')]
         public ?int $expiresIn,
