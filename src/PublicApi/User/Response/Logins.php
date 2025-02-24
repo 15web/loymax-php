@@ -12,8 +12,10 @@ final readonly class Logins
 {
     /**
      * @param list<Identifier> $identifiers Идентификаторы пользователя
+     * @param list<SocialIdentifier> $socialIdentifiers OAuth аккаунты
      */
     public function __construct(
         public array $identifiers,
+        public array $socialIdentifiers,
     ) {}
 }

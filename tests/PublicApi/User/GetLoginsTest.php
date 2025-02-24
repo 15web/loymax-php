@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Studio15\Loymax\Test\PublicApi\User;
 
+use DateTimeInterface;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\TestDox;
 use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
@@ -40,6 +41,13 @@ final class GetLoginsTest extends TestCase
                         "identifierType": "Login",
                         "value": "example@example.ru"
                       }
+                    ],
+                    "socialIdentifiers": [
+                      {
+                        "provider": "VKontakte",
+                        "userId": "123456789",
+                        "creationDate": "2018-06-08T06:54:33.780Z"
+                      }
                     ]
                   },
                   "result": {
@@ -54,21 +62,27 @@ final class GetLoginsTest extends TestCase
         );
 
         $loymax = $this->createLoymaxClient([$mockResponse]);
-        $identifiers = $loymax->publicApi('validAccessToken')->user()->getLogins()->identifiers;
+        $result = $loymax->publicApi('validAccessToken')->user()->getLogins();
 
-        self::assertCount(4, $identifiers);
+        self::assertCount(4, $result->identifiers);
 
-        self::assertSame('Login', $identifiers[0]->identifierType);
-        self::assertSame('9c00590c-c106-4054-afb5-24ef395dd822', $identifiers[0]->value);
+        self::assertSame('Login', $result->identifiers[0]->identifierType);
+        self::assertSame('9c00590c-c106-4054-afb5-24ef395dd822', $result->identifiers[0]->value);
 
-        self::assertSame('Login', $identifiers[1]->identifierType);
-        self::assertSame('7077901100136482', $identifiers[1]->value);
+        self::assertSame('Login', $result->identifiers[1]->identifierType);
+        self::assertSame('7077901100136482', $result->identifiers[1]->value);
 
-        self::assertSame('Login', $identifiers[2]->identifierType);
-        self::assertSame('79538051369', $identifiers[2]->value);
+        self::assertSame('Login', $result->identifiers[2]->identifierType);
+        self::assertSame('79538051369', $result->identifiers[2]->value);
 
-        self::assertSame('Login', $identifiers[3]->identifierType);
-        self::assertSame('example@example.ru', $identifiers[3]->value);
+        self::assertSame('Login', $result->identifiers[3]->identifierType);
+        self::assertSame('example@example.ru', $result->identifiers[3]->value);
+
+        self::assertCount(1, $result->socialIdentifiers);
+
+        self::assertSame('VKontakte', $result->socialIdentifiers[0]->provider);
+        self::assertSame('123456789', $result->socialIdentifiers[0]->userId);
+        self::assertSame('2018-06-08T06:54:33+00:00', $result->socialIdentifiers[0]->creationDate->format(DateTimeInterface::ATOM));
     }
 
     #[TestDox('Пустой список')]
@@ -78,7 +92,8 @@ final class GetLoginsTest extends TestCase
             body: <<<'JSON'
                 {
                   "data": {
-                    "identifiers": []
+                    "identifiers": [],
+                    "socialIdentifiers": []
                   },
                   "result": {
                     "state": "Success",
