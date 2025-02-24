@@ -17,7 +17,7 @@ final class PhoneNumberCancelChangeTest extends TestCase
     #[TestDox('Успешный результат')]
     public function testSucceed(): void
     {
-        self::expectNotToPerformAssertions();
+        $this->expectNotToPerformAssertions();
 
         $mockResponse = new Response(
             body: <<<'JSON'
