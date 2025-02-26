@@ -12,6 +12,7 @@ use Studio15\Loymax\PublicApi\History\GetAggregateWithdrawRewardPurchase;
 use Studio15\Loymax\PublicApi\History\GetHistory;
 use Studio15\Loymax\PublicApi\History\Request\GetAggregateWithdrawRewardPurchaseRequest;
 use Studio15\Loymax\PublicApi\History\Request\GetHistoryRequest;
+use Studio15\Loymax\PublicApi\History\Request\HistoryItemType;
 use Studio15\Loymax\PublicApi\History\Response\AggregatedOperations;
 use Studio15\Loymax\PublicApi\History\Response\OperationHistory;
 
@@ -33,6 +34,7 @@ final readonly class History
      *
      * @param DateTimeImmutable|null $fromDate Начальная дата периода выборки
      * @param DateTimeImmutable|null $toDate Конечная дата периода выборки
+     * @param HistoryItemType|null $historyItemType Тип события в истории
      * @param non-negative-int $from Порядковый номер начального элемента выборки
      * @param positive-int $count Количество возвращаемых элементов выборки
      *
@@ -41,12 +43,14 @@ final readonly class History
     public function getHistory(
         ?DateTimeImmutable $fromDate = null,
         ?DateTimeImmutable $toDate = null,
+        ?HistoryItemType $historyItemType = null,
         int $from = 0,
         int $count = 10,
     ): OperationHistory {
         $request = new GetHistoryRequest(
             fromDate: $fromDate,
             toDate: $toDate,
+            historyItemType: $historyItemType,
         );
 
         $pagination = new Pagination(
@@ -71,16 +75,19 @@ final readonly class History
      *
      * @param DateTimeImmutable|null $fromDate Начальная дата периода выборки
      * @param DateTimeImmutable|null $toDate Конечная дата периода выборки
+     * @param HistoryItemType|null $historyItemType Тип события в истории
      *
      * @throws ApiClientException
      */
     public function getAggregateWithdrawRewardPurchase(
         ?DateTimeImmutable $fromDate = null,
         ?DateTimeImmutable $toDate = null,
+        ?HistoryItemType $historyItemType = null,
     ): AggregatedOperations {
         $request = new GetAggregateWithdrawRewardPurchaseRequest(
             fromDate: $fromDate,
             toDate: $toDate,
+            historyItemType: $historyItemType,
         );
 
         $getHistory = new GetAggregateWithdrawRewardPurchase(
