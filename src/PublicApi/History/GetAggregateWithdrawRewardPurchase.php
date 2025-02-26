@@ -31,6 +31,7 @@ final readonly class GetAggregateWithdrawRewardPurchase
         $parameters = [
             'filter.fromDate' => $request->fromDate?->format('c'),
             'filter.toDate' => $request->toDate?->format('c'),
+            'filter.historyItemType' => $request->historyItemType?->value,
         ];
 
         $apiRequest = (new CreateRequest())(

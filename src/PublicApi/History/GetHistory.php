@@ -32,6 +32,7 @@ final readonly class GetHistory
         $parameters = [
             'filter.fromDate' => $request->fromDate?->format('c'),
             'filter.toDate' => $request->toDate?->format('c'),
+            'filter.historyItemType' => $request->historyItemType?->value,
             'filter.from' => $pagination->from,
             'filter.count' => $pagination->count,
         ];
