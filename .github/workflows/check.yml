@@ -10,6 +10,18 @@ permissions:
 
 jobs:
 
+  lf:
+    name: Check LF on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate LF
+        run: 	git ls-files --eol | grep --color=always -i '^i/[^lf|none]' && exit 1 || echo 'LF Ok'
+
   composer:
     name: Check composer on PHP ${{ matrix.php }}-${{ matrix.os }}
     runs-on: ${{ matrix.os }}
