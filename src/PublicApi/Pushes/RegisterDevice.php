@@ -29,12 +29,16 @@ final readonly class RegisterDevice
         $apiRequest = (new CreateRequest())(
             method: Method::POST,
             uri: '/publicapi/v1.2/Pushes',
+            headers: [
+                'X-DeviceId' => $request->deviceId,
+                'X-PlatformType' => $request->platformType->value,
+                'X-PlatformVersion' => $request->platformVersion,
+                'User-Agent' => $request->userAgent,
+            ],
             body: [
                 'token' => $request->token,
                 'platformType' => $request->platformType->value,
-                'userAgent' => $request->userAgent,
-                'deviceId' => $request->deviceId,
-                'platformVersion' => $request->platformVersion,
+                'pushServiceType' => $request->pushServiceType?->value,
             ],
         );
 

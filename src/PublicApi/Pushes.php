@@ -8,6 +8,7 @@ use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\PublicApi\Pushes\RegisterDevice;
 use Studio15\Loymax\PublicApi\Pushes\Request\PlatformType;
+use Studio15\Loymax\PublicApi\Pushes\Request\PushServiceType;
 use Studio15\Loymax\PublicApi\Pushes\Request\RegisterRequest;
 
 /**
@@ -31,6 +32,7 @@ final readonly class Pushes
      * @param non-empty-string $userAgent Идентификационная строка клиентского приложения
      * @param non-empty-string $deviceId Уникальный идентификатор устройства
      * @param non-empty-string $platformVersion Версия операционной системы устройства
+     * @param PushServiceType|null $pushServiceType Сервис уведомлений. Необязательный параметр. Если не будет указано его значение, то будет установлено в соответствии с указанной платформой: Android — Fcm, Ios — Apns, Harmony — HMS
      *
      * @throws ApiClientException
      */
@@ -40,6 +42,7 @@ final readonly class Pushes
         string $userAgent,
         string $deviceId,
         string $platformVersion,
+        ?PushServiceType $pushServiceType = null,
     ): void {
         $request = new RegisterRequest(
             token: $token,
@@ -47,6 +50,7 @@ final readonly class Pushes
             userAgent: $userAgent,
             deviceId: $deviceId,
             platformVersion: $platformVersion,
+            pushServiceType: $pushServiceType,
         );
 
         $register = new RegisterDevice(
