@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\TestDox;
 use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
 use Studio15\Loymax\ApiClient\Exception\Unauthorized;
 use Studio15\Loymax\PublicApi\Pushes\Request\PlatformType;
+use Studio15\Loymax\PublicApi\Pushes\Request\PushServiceType;
 use Studio15\Loymax\Test\TestCase;
 
 /**
@@ -19,6 +20,36 @@ final class RegisterDeviceTest extends TestCase
 {
     #[TestDox('Успешный результат')]
     public function testSuccess(): void
+    {
+        $this->expectNotToPerformAssertions();
+
+        $mockResponse = new Response(
+            body: <<<'JSON'
+                {
+                  "result": {
+                    "state": "Success",
+                    "message": null,
+                    "messageCode": null,
+                    "exception": null,
+                    "validationErrors": null
+                  }
+                }
+                JSON,
+        );
+
+        $loymax = $this->createLoymaxClient([$mockResponse]);
+        $loymax->publicApi('validAccessToken')->pushes()->registerDevice(
+            token: 'fkBQTHxKKhs:AP91bHuEedxM4xFAUn0z',
+            platformType: PlatformType::Android,
+            userAgent: 'Loymax-Mobile-dev.test.playground/1.1.5959 (Android/28; ANE-LX1)',
+            deviceId: '80937947-2C04-4BB0-8E33-7CF6031A2333',
+            platformVersion: '14',
+            pushServiceType: PushServiceType::FCM,
+        );
+    }
+
+    #[TestDox('Только необходимые параметры')]
+    public function testOnlyRequired(): void
     {
         $this->expectNotToPerformAssertions();
 
