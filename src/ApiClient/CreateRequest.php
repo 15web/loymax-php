@@ -33,7 +33,7 @@ final readonly class CreateRequest
         $headers = array_change_key_case($headers);
 
         $contentType = $this->getContentType($headers);
-        $headers['Content-Type'] = $contentType->value;
+        $headers['content-type'] = $contentType->value;
 
         $encodedBody = $this->encodeBody(
             contentType: $contentType,
