@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Studio15\Loymax\PublicApi;
 
+use DateTimeImmutable;
 use Studio15\Loymax\ApiClient\ApiClient;
 use Studio15\Loymax\ApiClient\Exception\ApiClientException;
 use Studio15\Loymax\Authorization\Response\AccessTokenData;
+use Studio15\Loymax\PublicApi\Data\Pagination;
 use Studio15\Loymax\PublicApi\User\AcceptTenderOffer;
 use Studio15\Loymax\PublicApi\User\ChangePassword;
 use Studio15\Loymax\PublicApi\User\ConfirmSubscriptions;
@@ -20,6 +22,7 @@ use Studio15\Loymax\PublicApi\User\Email\Response\EmailChanged;
 use Studio15\Loymax\PublicApi\User\Email\SendConfirmCode as EmailSendConfirmCode;
 use Studio15\Loymax\PublicApi\User\GetBalance;
 use Studio15\Loymax\PublicApi\User\GetDetailedBalance;
+use Studio15\Loymax\PublicApi\User\GetDetailedBalanceOperations;
 use Studio15\Loymax\PublicApi\User\GetLogins;
 use Studio15\Loymax\PublicApi\User\GetRegistrationActions;
 use Studio15\Loymax\PublicApi\User\GetStatus;
@@ -36,12 +39,15 @@ use Studio15\Loymax\PublicApi\User\PhoneNumber\SendConfirmCode as PhoneNumberSen
 use Studio15\Loymax\PublicApi\User\RejectSubscriptions;
 use Studio15\Loymax\PublicApi\User\Request\Answer;
 use Studio15\Loymax\PublicApi\User\Request\ChangePasswordRequest;
+use Studio15\Loymax\PublicApi\User\Request\DetailedBalanceOperationType;
+use Studio15\Loymax\PublicApi\User\Request\GetDetailedBalanceOperationsRequest;
 use Studio15\Loymax\PublicApi\User\Request\GetSubscriptionRequest;
 use Studio15\Loymax\PublicApi\User\Request\GetUserPayload;
 use Studio15\Loymax\PublicApi\User\Request\SetPasswordRequest;
 use Studio15\Loymax\PublicApi\User\Response\AnswerErrors;
 use Studio15\Loymax\PublicApi\User\Response\Balance;
 use Studio15\Loymax\PublicApi\User\Response\DetailedBalance;
+use Studio15\Loymax\PublicApi\User\Response\LifeTimesByTime;
 use Studio15\Loymax\PublicApi\User\Response\Logins;
 use Studio15\Loymax\PublicApi\User\Response\RegistrationActionList;
 use Studio15\Loymax\PublicApi\User\Response\StatusSystem;
@@ -134,6 +140,51 @@ final readonly class User
         );
 
         return ($getDetailedBalance)();
+    }
+
+    /**
+     * Возвращает информацию обо всех операциях активации и сгораниях по конкретному счету клиента
+     *
+     * @see https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/#12
+     *
+     * @param positive-int $currencyId
+     * @param non-negative-int $from
+     * @param positive-int $count
+     *
+     * @return list<LifeTimesByTime>
+     *
+     * @throws ApiClientException
+     */
+    public function getDetailedBalanceOperations(
+        int $currencyId,
+        ?bool $orderByDateAscending = null,
+        ?DateTimeImmutable $fromDate = null,
+        ?DateTimeImmutable $toDate = null,
+        ?DetailedBalanceOperationType $changeTypes = null,
+        int $from = 0,
+        int $count = 10,
+    ): array {
+        $getDetailedBalanceOperations = new GetDetailedBalanceOperations(
+            apiClient: $this->apiClient,
+        );
+
+        $request = new GetDetailedBalanceOperationsRequest(
+            orderByDateAscending: $orderByDateAscending,
+            fromDate: $fromDate,
+            toDate: $toDate,
+            changeTypes: $changeTypes,
+        );
+
+        $pagination = new Pagination(
+            from: $from,
+            count: $count,
+        );
+
+        return ($getDetailedBalanceOperations)(
+            currencyId: $currencyId,
+            request: $request,
+            pagination: $pagination,
+        );
     }
 
     /**
