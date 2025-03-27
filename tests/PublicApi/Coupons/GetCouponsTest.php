@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\Test\PublicApi\Coupons;
 
 use DateTimeImmutable;
+use DateTimeInterface;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\TestDox;
 use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
@@ -106,23 +107,23 @@ final class GetCouponsTest extends TestCase
         self::assertSame(1, $result[0]->id);
         self::assertSame('couponCode1', $result[0]->code);
         self::assertSame(
-            (new DateTimeImmutable('2024-11-05T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->createDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-05T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->createDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-08T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->updateDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-08T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->updateDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-08T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->activationDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-08T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->activationDate->format(DateTimeInterface::ATOM),
         );
 
         /** @var DateTimeImmutable $expiryDate */
         $expiryDate = $result[0]->expiryDate;
         self::assertSame(
-            (new DateTimeImmutable('2025-11-08T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $expiryDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2025-11-08T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $expiryDate->format(DateTimeInterface::ATOM),
         );
 
         self::assertSame('Issued', $result[0]->couponState->value);
@@ -143,16 +144,16 @@ final class GetCouponsTest extends TestCase
         self::assertSame(2, $result[1]->id);
         self::assertSame('couponCode2', $result[1]->code);
         self::assertSame(
-            (new DateTimeImmutable('2024-11-06T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[1]->createDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-06T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[1]->createDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-09T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $result[1]->updateDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-09T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $result[1]->updateDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-12-08T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $result[1]->activationDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-12-08T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $result[1]->activationDate->format(DateTimeInterface::ATOM),
         );
 
         self::assertNull($result[1]->expiryDate);
@@ -175,16 +176,16 @@ final class GetCouponsTest extends TestCase
         self::assertSame(3, $result[2]->id);
         self::assertSame('couponCode3', $result[2]->code);
         self::assertSame(
-            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[2]->createDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[2]->createDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-10T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $result[2]->updateDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-10T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $result[2]->updateDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2025-01-08T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $result[2]->activationDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2025-01-08T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $result[2]->activationDate->format(DateTimeInterface::ATOM),
         );
 
         self::assertNull($result[2]->expiryDate);
@@ -270,23 +271,23 @@ final class GetCouponsTest extends TestCase
         self::assertSame(1, $result[0]->id);
         self::assertSame('couponCode1', $result[0]->code);
         self::assertSame(
-            (new DateTimeImmutable('2024-11-05T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->createDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-05T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->createDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-08T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->updateDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-08T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->updateDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-08T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->activationDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-08T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->activationDate->format(DateTimeInterface::ATOM),
         );
 
         /** @var DateTimeImmutable $expiryDate */
         $expiryDate = $result[0]->expiryDate;
         self::assertSame(
-            (new DateTimeImmutable('2025-11-08T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $expiryDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2025-11-08T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $expiryDate->format(DateTimeInterface::ATOM),
         );
 
         self::assertSame('Issued', $result[0]->couponState->value);
@@ -307,16 +308,16 @@ final class GetCouponsTest extends TestCase
         self::assertSame(2, $result[1]->id);
         self::assertSame('couponCode2', $result[1]->code);
         self::assertSame(
-            (new DateTimeImmutable('2024-11-06T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[1]->createDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-06T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[1]->createDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-09T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $result[1]->updateDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-09T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $result[1]->updateDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-12-08T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $result[1]->activationDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-12-08T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $result[1]->activationDate->format(DateTimeInterface::ATOM),
         );
 
         self::assertNull($result[1]->expiryDate);
@@ -380,16 +381,16 @@ final class GetCouponsTest extends TestCase
         self::assertSame(3, $result[0]->id);
         self::assertSame('couponCode3', $result[0]->code);
         self::assertSame(
-            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->createDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->createDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-10T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->updateDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-10T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->updateDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2025-01-08T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->activationDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2025-01-08T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->activationDate->format(DateTimeInterface::ATOM),
         );
 
         self::assertNull($result[0]->expiryDate);
@@ -449,16 +450,16 @@ final class GetCouponsTest extends TestCase
         self::assertSame(11, $result[0]->id);
         self::assertSame('couponCode11', $result[0]->code);
         self::assertSame(
-            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->createDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->createDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->updateDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->updateDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->activationDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->activationDate->format(DateTimeInterface::ATOM),
         );
 
         self::assertNull($result[0]->expiryDate);
@@ -518,16 +519,16 @@ final class GetCouponsTest extends TestCase
         self::assertSame(12, $result[0]->id);
         self::assertSame('couponCode12', $result[0]->code);
         self::assertSame(
-            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->createDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->createDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->updateDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->updateDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->activationDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->activationDate->format(DateTimeInterface::ATOM),
         );
 
         self::assertNull($result[0]->expiryDate);
@@ -587,16 +588,16 @@ final class GetCouponsTest extends TestCase
         self::assertSame(13, $result[0]->id);
         self::assertSame('couponCode13', $result[0]->code);
         self::assertSame(
-            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->createDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->createDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->updateDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->updateDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->activationDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->activationDate->format(DateTimeInterface::ATOM),
         );
 
         self::assertNull($result[0]->expiryDate);
@@ -656,16 +657,16 @@ final class GetCouponsTest extends TestCase
         self::assertSame(14, $result[0]->id);
         self::assertSame('couponCode14', $result[0]->code);
         self::assertSame(
-            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->createDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->createDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->updateDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->updateDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->activationDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->activationDate->format(DateTimeInterface::ATOM),
         );
 
         self::assertNull($result[0]->expiryDate);
@@ -725,16 +726,16 @@ final class GetCouponsTest extends TestCase
         self::assertSame(15, $result[0]->id);
         self::assertSame('couponCode15', $result[0]->code);
         self::assertSame(
-            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->createDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->createDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->updateDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->updateDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result[0]->activationDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-07T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result[0]->activationDate->format(DateTimeInterface::ATOM),
         );
 
         self::assertNull($result[0]->expiryDate);
