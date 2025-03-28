@@ -39,8 +39,8 @@ final readonly class GetDetailedBalanceOperations
             'filter.fromDate' => $request->fromDate?->format(DateTimeInterface::ATOM),
             'filter.toDate' => $request->toDate?->format(DateTimeInterface::ATOM),
             'filter.changeTypes' => $request->changeTypes?->value,
-            'from' => $pagination->from,
-            'count' => $pagination->count,
+            'filter.from' => $pagination->from,
+            'filter.count' => $pagination->count,
         ];
 
         $apiRequest = (new CreateRequest())(
