@@ -6,6 +6,8 @@
 
 * Возвращает список карт текущего клиента и все операции по ним
 * Генерирует QR-код для карты по ее внутреннему идентификатору
+* Прикрепляет карту
+* Выпускает виртуальную карту
 
 [Coupons. Методы для работы с купонами](https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/Coupons/)
 
@@ -69,6 +71,7 @@
 * Возвращает информацию о детализированном балансе клиента
 * Обновляет ответы на вопросы анкеты
 * Оформляет принятие оферты
+* Возвращает информацию обо всех операциях активации и сгораниях по конкретному счету клиента
 
 [UserPhone. Методы для работы с номером телефона](https://docs.loymax.net/xwiki/bin/view/Main/Integration/Ways_to_use_API/API_methods/Methods_of_public_api/User/PhoneNumber/)
 

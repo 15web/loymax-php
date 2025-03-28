@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\Test\PublicApi\Coupons;
 
 use DateTimeImmutable;
+use DateTimeInterface;
 use GuzzleHttp\Psr7\Response;
 use InvalidArgumentException;
 use Iterator;
@@ -67,23 +68,23 @@ final class GetCouponByNumberTest extends TestCase
         self::assertSame(1, $result->id);
         self::assertSame('couponCode', $result->code);
         self::assertSame(
-            (new DateTimeImmutable('2024-11-05T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result->createDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-05T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result->createDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-08T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $result->updateDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-08T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $result->updateDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-08T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $result->activationDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-08T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $result->activationDate->format(DateTimeInterface::ATOM),
         );
 
         /** @var DateTimeImmutable $expiryDate */
         $expiryDate = $result->expiryDate;
         self::assertSame(
-            (new DateTimeImmutable('2025-11-08T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $expiryDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2025-11-08T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $expiryDate->format(DateTimeInterface::ATOM),
         );
 
         self::assertSame('Issued', $result->couponState->value);
@@ -142,16 +143,16 @@ final class GetCouponByNumberTest extends TestCase
         self::assertSame(1, $result->id);
         self::assertSame('couponCode', $result->code);
         self::assertSame(
-            (new DateTimeImmutable('2024-11-05T12:46:29Z'))->format(DateTimeImmutable::ATOM),
-            $result->createDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-05T12:46:29Z'))->format(DateTimeInterface::ATOM),
+            $result->createDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-08T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $result->updateDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-08T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $result->updateDate->format(DateTimeInterface::ATOM),
         );
         self::assertSame(
-            (new DateTimeImmutable('2024-11-08T07:21:52Z'))->format(DateTimeImmutable::ATOM),
-            $result->activationDate->format(DateTimeImmutable::ATOM),
+            (new DateTimeImmutable('2024-11-08T07:21:52Z'))->format(DateTimeInterface::ATOM),
+            $result->activationDate->format(DateTimeInterface::ATOM),
         );
         self::assertNull($result->expiryDate);
         self::assertSame('Issued', $result->couponState->value);

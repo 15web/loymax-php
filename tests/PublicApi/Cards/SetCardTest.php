@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\Test\PublicApi\Cards;
 
 use DateTimeImmutable;
+use DateTimeInterface;
 use GuzzleHttp\Psr7\Response;
 use Iterator;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -168,7 +169,7 @@ final class SetCardTest extends TestCase
         self::assertSame('1011101100220011', $result->number);
         self::assertSame('1011101100220011', $result->barCode);
         self::assertFalse($result->block);
-        self::assertSame('2024-03-25T12:18:27+00:00', $expiryDate->format(DateTimeImmutable::ATOM));
+        self::assertSame('2024-03-25T12:18:27+00:00', $expiryDate->format(DateTimeInterface::ATOM));
         self::assertSame(1, $result->cardCategory->id);
         self::assertSame('Виртуальная карта', $result->cardCategory->title);
         self::assertNull($result->cardCategory->description);

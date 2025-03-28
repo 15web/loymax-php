@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Studio15\Loymax\Test\PublicApi\User;
 
 use DateTimeImmutable;
+use DateTimeInterface;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\TestDox;
 use Studio15\Loymax\ApiClient\Exception\InvalidResponse;
@@ -141,18 +142,18 @@ final class GetDetailedBalanceTest extends TestCase
         self::assertCount(3, $result[0]->lifeTimesByTime);
         self::assertSame(0.0, $result[0]->lifeTimesByTime[0]->amount);
         self::assertSame(
-            (new DateTimeImmutable('2018-06-08 06:54:33.806 +00:00'))->format('c'),
-            $result[0]->lifeTimesByTime[0]->date->format('c'),
+            (new DateTimeImmutable('2018-06-08 06:54:33.806 +00:00'))->format(DateTimeInterface::ATOM),
+            $result[0]->lifeTimesByTime[0]->date->format(DateTimeInterface::ATOM),
         );
         self::assertSame(-10.0, $result[0]->lifeTimesByTime[1]->amount);
         self::assertSame(
-            (new DateTimeImmutable('2018-06-09 07:54:33.806 +00:00'))->format('c'),
-            $result[0]->lifeTimesByTime[1]->date->format('c'),
+            (new DateTimeImmutable('2018-06-09 07:54:33.806 +00:00'))->format(DateTimeInterface::ATOM),
+            $result[0]->lifeTimesByTime[1]->date->format(DateTimeInterface::ATOM),
         );
         self::assertSame(20.0, $result[0]->lifeTimesByTime[2]->amount);
         self::assertSame(
-            (new DateTimeImmutable('2018-06-10 08:54:33.806 +00:00'))->format('c'),
-            $result[0]->lifeTimesByTime[2]->date->format('c'),
+            (new DateTimeImmutable('2018-06-10 08:54:33.806 +00:00'))->format(DateTimeInterface::ATOM),
+            $result[0]->lifeTimesByTime[2]->date->format(DateTimeInterface::ATOM),
         );
         self::assertCount(3, $result[0]->lifeTimesByPeriod);
         self::assertSame(0.0, $result[0]->lifeTimesByPeriod[0]->activationAmount);
